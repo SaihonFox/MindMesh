@@ -39,18 +39,7 @@ jobs:
         run: dotnet build MindMesh.slnx --configuration Release --no-restore
 
       - name: Test
-        run: >
-          dotnet test MindMesh.slnx --configuration Release --no-build
-          --logger "trx;LogFileName=results.trx"
-          --logger "console;verbosity=normal"
-
-      - name: Upload test results
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-results-${{ matrix.rid }}
-          path: "**/TestResults/*.trx"
-          if-no-files-found: ignore
+        run: dotnet test --solution MindMesh.slnx --configuration Release --no-build
 
       - name: Publish desktop
         run: >
