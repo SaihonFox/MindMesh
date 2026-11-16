@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Nodes;
 using Microsoft.Extensions.Logging;
 using MindMesh.Application.Paths;
 using MindMesh.Application.Settings;
@@ -43,11 +44,25 @@ public sealed class JsonAppSettingsStore : IAppSettingsStore
 				bufferSize: 4096,
 				useAsync: true);
 
-			var settings = await JsonSerializer
-				.DeserializeAsync(stream, SettingsJsonContext.Default.AppSettings, cancellationToken)
+			var node = await JsonNode
+				.ParseAsync(stream, documentOptions: ReadOptions, cancellationToken: cancellationToken)
 				.ConfigureAwait(false);
 
-			return settings ?? new AppSettings();
+			if (node is null)
+			{
+				return new AppSettings();
+			}
+
+			if (node is not JsonObject loaded)
+			{
+				throw new JsonException("The settings file does not contain a JSON object.");
+			}
+
+			// Values missing from the file keep their defaults, so a file written by an older version stays valid.
+			var merged = JsonSerializer.SerializeToNode(new AppSettings(), SettingsJsonContext.Default.AppSettings)!.AsObject();
+			Merge(merged, loaded);
+
+			return merged.Deserialize(SettingsJsonContext.Default.AppSettings) ?? new AppSettings();
 		}
 		catch (JsonException exception)
 		{
@@ -64,6 +79,27 @@ public sealed class JsonAppSettingsStore : IAppSettingsStore
 		{
 			_logger.LogWarning(exception, "No access to settings file {Path}; using defaults.", path);
 			return new AppSettings();
+		}
+	}
+
+	private static readonly JsonDocumentOptions ReadOptions = new()
+	{
+		CommentHandling = JsonCommentHandling.Skip,
+		AllowTrailingCommas = true,
+	};
+
+	private static void Merge(JsonObject target, JsonObject source)
+	{
+		foreach (var (name, value) in source)
+		{
+			if (value is JsonObject nested && target[name] is JsonObject existing)
+			{
+				Merge(existing, nested);
+			}
+			else
+			{
+				target[name] = value?.DeepClone();
+			}
 		}
 	}
 
