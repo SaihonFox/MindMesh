@@ -312,10 +312,10 @@ public class CanvasTests
 	public void ReconnectingAnOccupiedInput_AndDroppingOnEmptySpace_DeletesTheConnection()
 	{
 		using var fixture = new EditorFixture();
-		var trigger = fixture.Add("trigger.manual", 100, 100);
-		var delay = fixture.Add("logic.delay", 500, 100);
-		var from = EditorFixture.Output(trigger, PortType.Execution);
-		var to = EditorFixture.Input(delay, PortType.Execution);
+		var trigger = fixture.Add("ai.prompt-template", 100, 100);
+		var delay = fixture.Add("ai.llm", 500, 100);
+		var from = EditorFixture.Output(trigger, PortType.String);
+		var to = EditorFixture.Input(delay, PortType.String);
 		fixture.Drag(from, to);
 
 		fixture.Editor.BeginConnection(to, to.Anchor);
@@ -336,10 +336,10 @@ public class CanvasTests
 	public void ReconnectingAndDroppingBackOnTheSameInput_ChangesNothing()
 	{
 		using var fixture = new EditorFixture();
-		var trigger = fixture.Add("trigger.manual", 100, 100);
-		var delay = fixture.Add("logic.delay", 500, 100);
-		var to = EditorFixture.Input(delay, PortType.Execution);
-		fixture.Drag(EditorFixture.Output(trigger, PortType.Execution), to);
+		var trigger = fixture.Add("ai.prompt-template", 100, 100);
+		var delay = fixture.Add("ai.llm", 500, 100);
+		var to = EditorFixture.Input(delay, PortType.String);
+		fixture.Drag(EditorFixture.Output(trigger, PortType.String), to);
 		fixture.Editor.Document.ClearHistory();
 
 		fixture.Editor.BeginConnection(to, to.Anchor);

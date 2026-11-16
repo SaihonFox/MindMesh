@@ -1,3 +1,4 @@
+using System.Text.Json.Serialization;
 using MindMesh.Application.Localization;
 
 namespace MindMesh.Application.Settings;
@@ -9,6 +10,11 @@ public sealed record AppSettings
 {
 	/// <summary>Version of the settings file format. Increase when the format changes.</summary>
 	public const int CurrentSchemaVersion = 1;
+
+	[JsonConstructor]
+	public AppSettings()
+	{
+	}
 
 	public int SchemaVersion { get; init; } = CurrentSchemaVersion;
 

@@ -1,5 +1,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Logging.Abstractions;
 using MindMesh.Application.AppInfo;
 using MindMesh.Application.DependencyInjection;
 using MindMesh.Application.Paths;
@@ -16,6 +18,7 @@ public class ServiceRegistrationTests
 	private static ServiceProvider BuildProvider(string dataDirectory)
 	{
 		var services = new ServiceCollection();
+		services.AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
 		services.AddMindMeshInfrastructure(new AppPaths(dataDirectory));
 		services.AddMindMeshApplication();
 

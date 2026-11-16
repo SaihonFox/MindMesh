@@ -26,9 +26,22 @@ internal sealed class EditorFixture : IDisposable
 	public INodeDefinition Definition(string id) =>
 		Catalog.FindNode(new NodeDefinitionId(id)) ?? throw new InvalidOperationException($"No node '{id}'.");
 
-	/// <summary>Adds a node whose top-left corner is at the given grid-aligned position.</summary>
-	public NodeViewModel Add(string id, double x, double y) =>
-		Editor.AddNode(Definition(id), new Point2D(x + (NodeMetrics.Width / 2), y + (NodeMetrics.HeaderHeight / 2)));
+	/// <summary>Adds a node whose top-left corner is at exactly the given position.</summary>
+	public NodeViewModel Add(string id, double x, double y)
+	{
+		// The position is exact: snapping applies to user gestures, and a test position is not always on the grid.
+		var snap = Editor.SnapToGrid;
+		Editor.SnapToGrid = false;
+
+		try
+		{
+			return Editor.AddNode(Definition(id), new Point2D(x + (NodeMetrics.Width / 2), y + (NodeMetrics.HeaderHeight / 2)));
+		}
+		finally
+		{
+			Editor.SnapToGrid = snap;
+		}
+	}
 
 	public static PortViewModel Output(NodeViewModel node, PortType type) =>
 		node.Outputs.First(port => port.Type == type);
