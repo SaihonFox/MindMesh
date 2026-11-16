@@ -1,12 +1,12 @@
-using MindMesh.Application.Settings;
 using MindMesh.Application.Extensions;
+using MindMesh.Application.Settings;
 using MindMesh.Graph.Identifiers;
 using MindMesh.Nodes.BuiltIn;
 using MindMesh.Plugins.Abstractions;
+using MindMesh.Plugins.Abstractions.Projects;
 using MindMesh.Presentation.Geometry;
 using MindMesh.Presentation.Pages.Editor;
 using MindMesh.Presentation.Pages.Editor.Canvas;
-using MindMesh.Plugins.Abstractions.Projects;
 using MindMesh.Presentation.Tests.Support;
 
 namespace MindMesh.Presentation.Tests.Pages;

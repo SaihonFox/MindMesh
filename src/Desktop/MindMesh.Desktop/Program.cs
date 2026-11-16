@@ -5,9 +5,9 @@ using Microsoft.Extensions.Logging;
 using MindMesh.Application.DependencyInjection;
 using MindMesh.Infrastructure.DependencyInjection;
 using MindMesh.Nodes;
+using MindMesh.Presentation.DependencyInjection;
 using MindMesh.Presentation.Platform;
 using MindMesh.UI.Platform;
-using MindMesh.Presentation.DependencyInjection;
 
 namespace MindMesh.Desktop;
 

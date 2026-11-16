@@ -1,8 +1,8 @@
 using MindMesh.Presentation.Localization;
+using MindMesh.Presentation.Navigation;
 using MindMesh.Presentation.Pages.Editor.Canvas;
 using MindMesh.Presentation.Pages.Editor.Inspector;
 using MindMesh.Presentation.Pages.Editor.Library;
-using MindMesh.Presentation.Navigation;
 
 namespace MindMesh.Presentation.Pages.Editor;
 
