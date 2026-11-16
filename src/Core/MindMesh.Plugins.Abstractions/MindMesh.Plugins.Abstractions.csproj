@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <RootNamespace>MindMesh.Plugins.Abstractions</RootNamespace>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\MindMesh.Graph\MindMesh.Graph.csproj" />
+    </ItemGroup>
+
+</Project>

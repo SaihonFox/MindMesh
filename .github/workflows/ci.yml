@@ -1,0 +1,83 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  DOTNET_NOLOGO: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+jobs:
+  build-and-test:
+    name: ${{ matrix.name }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { name: Windows x64, os: windows-latest, rid: win-x64 }
+          - { name: Linux x64, os: ubuntu-latest, rid: linux-x64 }
+          - { name: macOS arm64, os: macos-latest, rid: osx-arm64 }
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore MindMesh.slnx
+
+      - name: Build
+        run: dotnet build MindMesh.slnx --configuration Release --no-restore
+
+      - name: Test
+        run: >
+          dotnet test MindMesh.slnx --configuration Release --no-build
+          --logger "trx;LogFileName=results.trx"
+          --logger "console;verbosity=normal"
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results-${{ matrix.rid }}
+          path: "**/TestResults/*.trx"
+          if-no-files-found: ignore
+
+      - name: Publish desktop
+        run: >
+          dotnet publish src/Desktop/MindMesh.Desktop/MindMesh.Desktop.csproj
+          --configuration Release --runtime ${{ matrix.rid }} --no-self-contained
+          --output artifacts/desktop
+
+      - name: Upload desktop build
+        uses: actions/upload-artifact@v4
+        with:
+          name: mindmesh-${{ matrix.rid }}
+          path: artifacts/desktop
+
+  # Style check is informational: it never blocks the build.
+  format:
+    name: Format check
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+
+      - name: Restore
+        run: dotnet restore MindMesh.slnx
+
+      - name: Verify formatting
+        run: dotnet format MindMesh.slnx --verify-no-changes --no-restore

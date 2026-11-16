@@ -1,0 +1,343 @@
+<Styles xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:ctl="using:MindMesh.UI.Controls">
+
+	<!-- Base -->
+	<Style Selector="Window">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Body}" />
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Background}" />
+	</Style>
+
+	<!-- Text -->
+	<Style Selector="TextBlock.h1">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Display}" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+	<Style Selector="TextBlock.h2">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Headline}" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+	<Style Selector="TextBlock.h3">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Title}" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+	</Style>
+	<Style Selector="TextBlock.caption">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Caption}" />
+	</Style>
+	<Style Selector="TextBlock.secondary">
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+	</Style>
+	<Style Selector="TextBlock.muted">
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextMuted}" />
+	</Style>
+	<Style Selector="TextBlock.panel-title">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Small}" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+	</Style>
+
+	<!-- Surfaces -->
+	<Style Selector="Border.topbar">
+		<Setter Property="Height" Value="{DynamicResource MM.Size.TopBarHeight}" />
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="0,0,0,1" />
+	</Style>
+	<Style Selector="Border.sidebar">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="0,0,1,0" />
+		<Setter Property="ClipToBounds" Value="True" />
+	</Style>
+	<Style Selector="Border.panel">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="1" />
+	</Style>
+	<Style Selector="Border.panel-header">
+		<Setter Property="Height" Value="{DynamicResource MM.Size.PanelHeaderHeight}" />
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.PanelAlt}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="0,0,0,1" />
+		<Setter Property="Padding" Value="12,0,6,0" />
+	</Style>
+	<Style Selector="Border.canvas">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Background}" />
+	</Style>
+	<Style Selector="Border.card">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Large}" />
+		<Setter Property="Padding" Value="20" />
+	</Style>
+	<Style Selector="Border.separator-vertical">
+		<Setter Property="Width" Value="1" />
+		<Setter Property="Height" Value="18" />
+		<Setter Property="Margin" Value="6,0" />
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Border}" />
+	</Style>
+	<Style Selector="Border.category-row">
+		<Setter Property="Padding" Value="10,7" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="Border.category-row:pointerover">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+	</Style>
+
+	<!-- Panel resize handle -->
+	<Style Selector="ctl|PanelResizer.resizer:pointerover">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
+	</Style>
+
+	<!-- Canvas grid and empty states -->
+	<Style Selector="ctl|CanvasGridBackground">
+		<Setter Property="MinorBrush" Value="{DynamicResource MM.Brush.GridMinor}" />
+		<Setter Property="MajorBrush" Value="{DynamicResource MM.Brush.GridMajor}" />
+	</Style>
+	<Style Selector="Border.canvas">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Canvas}" />
+	</Style>
+	<Style Selector="ctl|Icon.empty-icon">
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextMuted}" />
+	</Style>
+
+	<!-- Icon button -->
+	<Style Selector="Button.icon, ToggleButton.icon">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+		<Setter Property="Padding" Value="6" />
+		<Setter Property="MinWidth" Value="30" />
+		<Setter Property="MinHeight" Value="30" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+	</Style>
+	<Style Selector="Button.icon:pointerover /template/ ContentPresenter#PART_ContentPresenter, ToggleButton.icon:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
+	</Style>
+	<Style Selector="Button.icon:pressed /template/ ContentPresenter#PART_ContentPresenter, ToggleButton.icon:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Pressed}" />
+	</Style>
+	<Style Selector="ToggleButton.icon:checked /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.Accent}" />
+	</Style>
+	<Style Selector="ToggleButton.icon:checked:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtleHover}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.AccentHover}" />
+	</Style>
+	<Style Selector="Button.icon:disabled /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextMuted}" />
+	</Style>
+
+	<!-- Primary button (Run) -->
+	<Style Selector="Button.primary">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Accent}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.OnAccent}" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Padding" Value="14,6" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+	</Style>
+	<Style Selector="Button.primary:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentHover}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.OnAccent}" />
+	</Style>
+	<Style Selector="Button.primary:disabled /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentMuted}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextMuted}" />
+	</Style>
+
+	<!-- Logo button -->
+	<Style Selector="Button.logo">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Padding" Value="8,4" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+	<Style Selector="Button.logo:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+	</Style>
+
+	<!-- Sidebar navigation button -->
+	<Style Selector="Button.nav">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+		<Setter Property="Margin" Value="8,2" />
+		<Setter Property="Padding" Value="11,0" />
+		<Setter Property="Height" Value="40" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="VerticalContentAlignment" Value="Center" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+	<Style Selector="Button.nav:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
+	</Style>
+	<Style Selector="Button.nav.selected /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.Accent}" />
+	</Style>
+
+	<!-- Card button (welcome screen) -->
+	<Style Selector="Button.card">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="Padding" Value="18" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="VerticalContentAlignment" Value="Top" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Large}" />
+	</Style>
+	<Style Selector="Button.card:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.PanelAlt}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Accent}" />
+	</Style>
+
+	<!-- Menu -->
+	<Style Selector="Menu.user">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+
+	<!-- Console tabs -->
+	<Style Selector="TabControl.console">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="Padding" Value="0" />
+	</Style>
+	<Style Selector="TabControl.console TabItem">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Small}" />
+		<Setter Property="MinHeight" Value="32" />
+		<Setter Property="Padding" Value="12,0" />
+	</Style>
+	<Style Selector="TabControl.console TabItem /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+	</Style>
+	<Style Selector="TabControl.console TabItem:selected /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
+	</Style>
+
+	<!-- Text input -->
+	<Style Selector="TextBox">
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+
+	<!-- Floating panels on the canvas (toolbar, minimap, search) -->
+	<Style Selector="Border.floating">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="CornerRadius" Value="12" />
+		<Setter Property="BoxShadow" Value="{DynamicResource MM.Shadow.Node}" />
+	</Style>
+
+	<!-- Node card -->
+	<Style Selector="ctl|NodeCard.node-card">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Node}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="1.5" />
+		<Setter Property="CornerRadius" Value="14" />
+		<Setter Property="BoxShadow" Value="{DynamicResource MM.Shadow.Node}" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:found">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Info}" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:running">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Info}" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:completed">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Success}" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:warning">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Warning}" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:failed">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Error}" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:disabled-node">
+		<Setter Property="Opacity" Value="0.55" />
+	</Style>
+	<Style Selector="ctl|NodeCard.node-card:selected">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Accent}" />
+		<Setter Property="BoxShadow" Value="{DynamicResource MM.Shadow.NodeSelected}" />
+	</Style>
+	<Style Selector="TextBlock.port-label">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Small}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+		<Setter Property="VerticalAlignment" Value="Center" />
+		<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+	</Style>
+
+	<!-- Node library -->
+	<Style Selector="Border.tile">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="CornerRadius" Value="10" />
+		<Setter Property="Padding" Value="10" />
+		<Setter Property="Margin" Value="3" />
+		<Setter Property="Cursor" Value="Hand" />
+	</Style>
+	<Style Selector="Border.tile:pointerover">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Accent}" />
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.PanelAlt}" />
+	</Style>
+	<Style Selector="ToggleButton.section">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Padding" Value="6,8" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
+		<Setter Property="CornerRadius" Value="8" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
+	</Style>
+	<Style Selector="ToggleButton.section:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+	</Style>
+	<Style Selector="ToggleButton.section:checked /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="ToggleButton.section:checked:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+	</Style>
+
+	<!-- Inspector -->
+	<Style Selector="StackPanel.field">
+		<Setter Property="Spacing" Value="4" />
+		<Setter Property="Margin" Value="0,0,0,14" />
+	</Style>
+	<Style Selector="TextBlock.field-label">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Small}" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
+	</Style>
+	<Style Selector="TextBlock.field-error">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Caption}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.Error}" />
+		<Setter Property="TextWrapping" Value="Wrap" />
+	</Style>
+	<Style Selector="TextBlock.field-hint">
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Caption}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextMuted}" />
+		<Setter Property="TextWrapping" Value="Wrap" />
+	</Style>
+	<Style Selector="TextBox.invalid">
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Error}" />
+	</Style>
+
+	<!-- Search result row -->
+	<Style Selector="ListBoxItem.result">
+		<Setter Property="Padding" Value="8,6" />
+		<Setter Property="CornerRadius" Value="8" />
+	</Style>
+
+</Styles>

@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>MindMesh.Presentation</RootNamespace>
+		<NeutralLanguage>en</NeutralLanguage>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\..\Core\MindMesh.Domain\MindMesh.Domain.csproj" />
+		<ProjectReference Include="..\..\Core\MindMesh.Application\MindMesh.Application.csproj" />
+		<ProjectReference Include="..\..\Core\MindMesh.Graph\MindMesh.Graph.csproj" />
+		<ProjectReference Include="..\..\Core\MindMesh.Plugins.Abstractions\MindMesh.Plugins.Abstractions.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Mvvm" />
+		<PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Abstractions" />
+	</ItemGroup>
+
+</Project>

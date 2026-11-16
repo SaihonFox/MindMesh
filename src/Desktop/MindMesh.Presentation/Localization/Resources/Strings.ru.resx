@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Workspace_UntitledProject" xml:space="preserve">
+    <value>Проект без названия</value>
+  </data>
+  <data name="Workspace_UntitledWorkflow" xml:space="preserve">
+    <value>Workflow без названия</value>
+  </data>
+  <data name="SaveStatus_Saved" xml:space="preserve">
+    <value>Все изменения сохранены</value>
+  </data>
+  <data name="SaveStatus_Unsaved" xml:space="preserve">
+    <value>Есть несохранённые изменения</value>
+  </data>
+  <data name="SaveStatus_Saving" xml:space="preserve">
+    <value>Сохранение…</value>
+  </data>
+  <data name="TopBar_Home" xml:space="preserve">
+    <value>Экран приветствия</value>
+  </data>
+  <data name="Toolbar_Undo" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Toolbar_Redo" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="Toolbar_AutoLayout" xml:space="preserve">
+    <value>Авторасстановка</value>
+  </data>
+  <data name="Toolbar_Validate" xml:space="preserve">
+    <value>Проверить</value>
+  </data>
+  <data name="Toolbar_Run" xml:space="preserve">
+    <value>Запустить</value>
+  </data>
+  <data name="Toolbar_Debug" xml:space="preserve">
+    <value>Отладка</value>
+  </data>
+  <data name="Toolbar_Assistant" xml:space="preserve">
+    <value>AI-ассистент</value>
+  </data>
+  <data name="Toolbar_Mode" xml:space="preserve">
+    <value>Режим редактора</value>
+  </data>
+  <data name="Toolbar_ToggleLibrary" xml:space="preserve">
+    <value>Показать или скрыть библиотеку узлов</value>
+  </data>
+  <data name="Toolbar_ToggleInspector" xml:space="preserve">
+    <value>Показать или скрыть инспектор</value>
+  </data>
+  <data name="Toolbar_ToggleConsole" xml:space="preserve">
+    <value>Показать или скрыть консоль</value>
+  </data>
+  <data name="Tip_Undo" xml:space="preserve">
+    <value>Отменить (Ctrl+Z)</value>
+  </data>
+  <data name="Tip_Redo" xml:space="preserve">
+    <value>Повторить (Ctrl+Y)</value>
+  </data>
+  <data name="Tip_AutoLayout" xml:space="preserve">
+    <value>Авторасстановка — появится позже</value>
+  </data>
+  <data name="Tip_Validate" xml:space="preserve">
+    <value>Проверка графа — появится вместе с ядром workflow (Phase 3)</value>
+  </data>
+  <data name="Tip_Run" xml:space="preserve">
+    <value>Запуск workflow — появится вместе с рантаймом (Phase 4)</value>
+  </data>
+  <data name="Tip_Debug" xml:space="preserve">
+    <value>Отладка workflow — появится вместе с отладчиком (Phase 5)</value>
+  </data>
+  <data name="UserMenu_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="UserMenu_About" xml:space="preserve">
+    <value>О программе MindMesh</value>
+  </data>
+  <data name="Mode_Workflow" xml:space="preserve">
+    <value>Workflow</value>
+  </data>
+  <data name="Mode_AiAgent" xml:space="preserve">
+    <value>AI-агент</value>
+  </data>
+  <data name="Mode_DataFlow" xml:space="preserve">
+    <value>Поток данных</value>
+  </data>
+  <data name="Mode_Logic" xml:space="preserve">
+    <value>Логика</value>
+  </data>
+  <data name="Sidebar_Projects" xml:space="preserve">
+    <value>Проекты</value>
+  </data>
+  <data name="Sidebar_Workflows" xml:space="preserve">
+    <value>Workflows</value>
+  </data>
+  <data name="Sidebar_Templates" xml:space="preserve">
+    <value>Шаблоны</value>
+  </data>
+  <data name="Sidebar_Marketplace" xml:space="preserve">
+    <value>Маркетплейс</value>
+  </data>
+  <data name="Sidebar_Executions" xml:space="preserve">
+    <value>Запуски</value>
+  </data>
+  <data name="Sidebar_Plugins" xml:space="preserve">
+    <value>Плагины</value>
+  </data>
+  <data name="Sidebar_Settings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Sidebar_Toggle" xml:space="preserve">
+    <value>Свернуть или развернуть боковую панель</value>
+  </data>
+  <data name="Panel_NodeLibrary" xml:space="preserve">
+    <value>Библиотека узлов</value>
+  </data>
+  <data name="Panel_Inspector" xml:space="preserve">
+    <value>Инспектор</value>
+  </data>
+  <data name="Panel_Console" xml:space="preserve">
+    <value>Консоль выполнения</value>
+  </data>
+  <data name="Panel_Assistant" xml:space="preserve">
+    <value>AI-ассистент</value>
+  </data>
+  <data name="Panel_Hide" xml:space="preserve">
+    <value>Скрыть панель</value>
+  </data>
+  <data name="Library_Search" xml:space="preserve">
+    <value>Поиск узлов…</value>
+  </data>
+  <data name="Inspector_EmptyTitle" xml:space="preserve">
+    <value>Ничего не выбрано</value>
+  </data>
+  <data name="Inspector_EmptyDescription" xml:space="preserve">
+    <value>Выберите узел на холсте, чтобы изменить его настройки.</value>
+  </data>
+  <data name="Canvas_EmptyTitle" xml:space="preserve">
+    <value>Холст пуст</value>
+  </data>
+  <data name="Canvas_EmptyDescription" xml:space="preserve">
+    <value>Перетащите узел из библиотеки, дважды щёлкните по нему или нажмите Пробел, чтобы найти узел.</value>
+  </data>
+  <data name="Assistant_EmptyTitle" xml:space="preserve">
+    <value>Ассистент пока недоступен</value>
+  </data>
+  <data name="Assistant_EmptyDescription" xml:space="preserve">
+    <value>Подключите AI-провайдера, чтобы создавать и объяснять workflow на обычном языке (Phase 6).</value>
+  </data>
+  <data name="Assistant_InputPlaceholder" xml:space="preserve">
+    <value>Спросите ассистента…</value>
+  </data>
+  <data name="Console_Output" xml:space="preserve">
+    <value>Вывод</value>
+  </data>
+  <data name="Console_Logs" xml:space="preserve">
+    <value>Логи</value>
+  </data>
+  <data name="Console_Errors" xml:space="preserve">
+    <value>Ошибки</value>
+  </data>
+  <data name="Console_Variables" xml:space="preserve">
+    <value>Переменные</value>
+  </data>
+  <data name="Console_ExecutionData" xml:space="preserve">
+    <value>Данные выполнения</value>
+  </data>
+  <data name="Console_Debugger" xml:space="preserve">
+    <value>Отладчик</value>
+  </data>
+  <data name="ConsoleEmpty_Output" xml:space="preserve">
+    <value>Здесь появится вывод запуска.</value>
+  </data>
+  <data name="ConsoleEmpty_Logs" xml:space="preserve">
+    <value>Здесь в реальном времени появятся события выполнения.</value>
+  </data>
+  <data name="ConsoleEmpty_Errors" xml:space="preserve">
+    <value>Ошибок нет.</value>
+  </data>
+  <data name="ConsoleEmpty_Variables" xml:space="preserve">
+    <value>Переменные workflow появятся здесь во время выполнения.</value>
+  </data>
+  <data name="ConsoleEmpty_ExecutionData" xml:space="preserve">
+    <value>Здесь появятся входные и выходные данные каждого узла.</value>
+  </data>
+  <data name="ConsoleEmpty_Debugger" xml:space="preserve">
+    <value>Здесь появятся точки останова и пошаговое выполнение (Phase 5).</value>
+  </data>
+  <data name="Category_Triggers" xml:space="preserve">
+    <value>Триггеры</value>
+  </data>
+  <data name="Category_Logic" xml:space="preserve">
+    <value>Логика</value>
+  </data>
+  <data name="Category_Http" xml:space="preserve">
+    <value>HTTP</value>
+  </data>
+  <data name="Category_Database" xml:space="preserve">
+    <value>Базы данных</value>
+  </data>
+  <data name="Category_Files" xml:space="preserve">
+    <value>Файлы</value>
+  </data>
+  <data name="Category_Integrations" xml:space="preserve">
+    <value>Интеграции</value>
+  </data>
+  <data name="Category_DataTransformation" xml:space="preserve">
+    <value>Преобразование данных</value>
+  </data>
+  <data name="Category_Llm" xml:space="preserve">
+    <value>LLM</value>
+  </data>
+  <data name="Category_Agent" xml:space="preserve">
+    <value>Агент</value>
+  </data>
+  <data name="Category_Memory" xml:space="preserve">
+    <value>Память</value>
+  </data>
+  <data name="Category_Tools" xml:space="preserve">
+    <value>Инструменты</value>
+  </data>
+  <data name="Category_Rag" xml:space="preserve">
+    <value>RAG</value>
+  </data>
+  <data name="Category_Embeddings" xml:space="preserve">
+    <value>Эмбеддинги</value>
+  </data>
+  <data name="Category_VectorSearch" xml:space="preserve">
+    <value>Векторный поиск</value>
+  </data>
+  <data name="Category_AiContext" xml:space="preserve">
+    <value>AI-контекст</value>
+  </data>
+  <data name="Category_Input" xml:space="preserve">
+    <value>Ввод</value>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Вывод</value>
+  </data>
+  <data name="Category_Mapping" xml:space="preserve">
+    <value>Маппинг</value>
+  </data>
+  <data name="Category_Filtering" xml:space="preserve">
+    <value>Фильтрация</value>
+  </data>
+  <data name="Category_Aggregation" xml:space="preserve">
+    <value>Агрегация</value>
+  </data>
+  <data name="Category_Json" xml:space="preserve">
+    <value>JSON</value>
+  </data>
+  <data name="Category_Csv" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="Category_Xml" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="Category_DataValidation" xml:space="preserve">
+    <value>Валидация данных</value>
+  </data>
+  <data name="Category_Variables" xml:space="preserve">
+    <value>Переменные</value>
+  </data>
+  <data name="Category_Conditions" xml:space="preserve">
+    <value>Условия</value>
+  </data>
+  <data name="Category_Loops" xml:space="preserve">
+    <value>Циклы</value>
+  </data>
+  <data name="Category_Functions" xml:space="preserve">
+    <value>Функции</value>
+  </data>
+  <data name="Category_Switch" xml:space="preserve">
+    <value>Переключатель</value>
+  </data>
+  <data name="Category_Merge" xml:space="preserve">
+    <value>Слияние</value>
+  </data>
+  <data name="Category_Expressions" xml:space="preserve">
+    <value>Выражения</value>
+  </data>
+  <data name="Category_ErrorHandling" xml:space="preserve">
+    <value>Обработка ошибок</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>Добро пожаловать в MindMesh</value>
+  </data>
+  <data name="Welcome_Subtitle" xml:space="preserve">
+    <value>Создавайте автоматизации, AI-агентов и потоки данных визуально.</value>
+  </data>
+  <data name="Welcome_OpenEditor" xml:space="preserve">
+    <value>Открыть редактор</value>
+  </data>
+  <data name="Welcome_OpenEditorHint" xml:space="preserve">
+    <value>Начните с пустого холста workflow</value>
+  </data>
+  <data name="Welcome_OpenSettings" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Welcome_OpenSettingsHint" xml:space="preserve">
+    <value>Язык, раскладка и хранилище</value>
+  </data>
+  <data name="Welcome_OpenAbout" xml:space="preserve">
+    <value>О программе MindMesh</value>
+  </data>
+  <data name="Welcome_OpenAboutHint" xml:space="preserve">
+    <value>Версия и диагностика</value>
+  </data>
+  <data name="Welcome_ShowOnStartup" xml:space="preserve">
+    <value>Показывать этот экран при запуске</value>
+  </data>
+  <data name="Welcome_Version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Настройки</value>
+  </data>
+  <data name="Settings_General" xml:space="preserve">
+    <value>Общие</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Язык</value>
+  </data>
+  <data name="Settings_LanguageHint" xml:space="preserve">
+    <value>Применяется сразу.</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Тема</value>
+  </data>
+  <data name="Settings_ThemeHint" xml:space="preserve">
+    <value>По умолчанию светлая. «Системная» следует теме операционной системы.</value>
+  </data>
+  <data name="Settings_Layout" xml:space="preserve">
+    <value>Раскладка</value>
+  </data>
+  <data name="Settings_CompactSidebar" xml:space="preserve">
+    <value>Компактная боковая панель</value>
+  </data>
+  <data name="Settings_ResetLayout" xml:space="preserve">
+    <value>Сбросить раскладку панелей</value>
+  </data>
+  <data name="Settings_ResetLayoutHint" xml:space="preserve">
+    <value>Возвращает размеры и видимость панелей по умолчанию.</value>
+  </data>
+  <data name="Settings_Storage" xml:space="preserve">
+    <value>Хранилище</value>
+  </data>
+  <data name="Settings_DataDirectory" xml:space="preserve">
+    <value>Папка данных</value>
+  </data>
+  <data name="Settings_LogsDirectory" xml:space="preserve">
+    <value>Папка логов</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>О программе MindMesh</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Версия</value>
+  </data>
+  <data name="About_Runtime" xml:space="preserve">
+    <value>Среда выполнения</value>
+  </data>
+  <data name="About_OS" xml:space="preserve">
+    <value>Операционная система</value>
+  </data>
+  <data name="About_DataDirectory" xml:space="preserve">
+    <value>Папка данных</value>
+  </data>
+  <data name="Placeholder_Description" xml:space="preserve">
+    <value>Этот раздел ещё не реализован.</value>
+  </data>
+  <data name="Placeholder_Phase" xml:space="preserve">
+    <value>Запланировано в фазе</value>
+  </data>
+  <data name="Node_ai_llm_Name" xml:space="preserve">
+    <value>LLM</value>
+  </data>
+  <data name="Node_ai_llm_Description" xml:space="preserve">
+    <value>Отправляет запрос языковой модели и возвращает её ответ.</value>
+  </data>
+  <data name="Node_ai_agent_Name" xml:space="preserve">
+    <value>AI-агент</value>
+  </data>
+  <data name="Node_ai_agent_Description" xml:space="preserve">
+    <value>Агент, который сам планирует, вызывает инструменты и решает задачу.</value>
+  </data>
+  <data name="Node_ai_prompt_template_Name" xml:space="preserve">
+    <value>Шаблон промпта</value>
+  </data>
+  <data name="Node_ai_prompt_template_Description" xml:space="preserve">
+    <value>Подставляет значения в шаблон промпта.</value>
+  </data>
+  <data name="Node_ai_memory_Name" xml:space="preserve">
+    <value>Память чата</value>
+  </data>
+  <data name="Node_ai_memory_Description" xml:space="preserve">
+    <value>Хранит историю диалога между запусками.</value>
+  </data>
+  <data name="Node_ai_embedding_Name" xml:space="preserve">
+    <value>Эмбеддинг</value>
+  </data>
+  <data name="Node_ai_embedding_Description" xml:space="preserve">
+    <value>Превращает текст в вектор для поиска по смыслу.</value>
+  </data>
+  <data name="Node_ai_vector_search_Name" xml:space="preserve">
+    <value>Векторный поиск</value>
+  </data>
+  <data name="Node_ai_vector_search_Description" xml:space="preserve">
+    <value>Находит сохранённые документы, ближайшие по смыслу к вектору.</value>
+  </data>
+  <data name="Node_ai_rag_Name" xml:space="preserve">
+    <value>RAG</value>
+  </data>
+  <data name="Node_ai_rag_Description" xml:space="preserve">
+    <value>Отвечает на вопрос по документам из вашей базы знаний.</value>
+  </data>
+  <data name="Node_ai_tool_Name" xml:space="preserve">
+    <value>AI-инструмент</value>
+  </data>
+  <data name="Node_ai_tool_Description" xml:space="preserve">
+    <value>Открывает часть workflow агенту как инструмент, который он может вызвать.</value>
+  </data>
+  <data name="Node_flow_input_Name" xml:space="preserve">
+    <value>Вход workflow</value>
+  </data>
+  <data name="Node_flow_input_Description" xml:space="preserve">
+    <value>Объявляет значение, которое workflow получает от вызывающей стороны.</value>
+  </data>
+  <data name="Node_flow_output_Name" xml:space="preserve">
+    <value>Выход workflow</value>
+  </data>
+  <data name="Node_flow_output_Description" xml:space="preserve">
+    <value>Объявляет значение, которое workflow возвращает вызывающей стороне.</value>
+  </data>
+  <data name="Node_flow_aggregate_Name" xml:space="preserve">
+    <value>Агрегация</value>
+  </data>
+  <data name="Node_flow_aggregate_Description" xml:space="preserve">
+    <value>Подводит итог по массиву: количество, сумма, среднее, минимум или максимум.</value>
+  </data>
+  <data name="Node_flow_validate_Name" xml:space="preserve">
+    <value>Проверка данных</value>
+  </data>
+  <data name="Node_flow_validate_Description" xml:space="preserve">
+    <value>Проверяет данные по JSON-схеме и разводит корректные и некорректные данные по разным веткам.</value>
+  </data>
+  <data name="Node_data_set_variable_Name" xml:space="preserve">
+    <value>Записать переменную</value>
+  </data>
+  <data name="Node_data_set_variable_Description" xml:space="preserve">
+    <value>Сохраняет значение в переменной workflow.</value>
+  </data>
+  <data name="Node_data_get_variable_Name" xml:space="preserve">
+    <value>Прочитать переменную</value>
+  </data>
+  <data name="Node_data_get_variable_Description" xml:space="preserve">
+    <value>Читает значение переменной workflow.</value>
+  </data>
+  <data name="Node_data_json_parse_Name" xml:space="preserve">
+    <value>Разбор JSON</value>
+  </data>
+  <data name="Node_data_json_parse_Description" xml:space="preserve">
+    <value>Превращает JSON-текст в структурированные данные.</value>
+  </data>
+  <data name="Node_data_json_serialize_Name" xml:space="preserve">
+    <value>Сериализация JSON</value>
+  </data>
+  <data name="Node_data_json_serialize_Description" xml:space="preserve">
+    <value>Превращает структурированные данные в JSON-текст.</value>
+  </data>
+  <data name="Node_data_mapping_Name" xml:space="preserve">
+    <value>Маппинг данных</value>
+  </data>
+  <data name="Node_data_mapping_Description" xml:space="preserve">
+    <value>Собирает новый объект из полей входа с помощью выражений.</value>
+  </data>
+  <data name="Node_data_filter_Name" xml:space="preserve">
+    <value>Фильтр</value>
+  </data>
+  <data name="Node_data_filter_Description" xml:space="preserve">
+    <value>Оставляет только те элементы массива, которые подходят под условие.</value>
+  </data>
+  <data name="Node_data_transform_Name" xml:space="preserve">
+    <value>Преобразование</value>
+  </data>
+  <data name="Node_data_transform_Description" xml:space="preserve">
+    <value>Меняет форму данных с помощью скрипта.</value>
+  </data>
+  <data name="Node_data_expression_Name" xml:space="preserve">
+    <value>Выражение</value>
+  </data>
+  <data name="Node_data_expression_Description" xml:space="preserve">
+    <value>Вычисляет значение по выражению.</value>
+  </data>
+  <data name="Node_data_merge_objects_Name" xml:space="preserve">
+    <value>Слияние объектов</value>
+  </data>
+  <data name="Node_data_merge_objects_Description" xml:space="preserve">
+    <value>Объединяет несколько объектов в один.</value>
+  </data>
+  <data name="Node_db_postgres_Name" xml:space="preserve">
+    <value>Запрос PostgreSQL</value>
+  </data>
+  <data name="Node_db_postgres_Description" xml:space="preserve">
+    <value>Выполняет SQL-запрос в базе PostgreSQL.</value>
+  </data>
+  <data name="Node_db_sqlite_Name" xml:space="preserve">
+    <value>Запрос SQLite</value>
+  </data>
+  <data name="Node_db_sqlite_Description" xml:space="preserve">
+    <value>Выполняет SQL-запрос в файле базы SQLite.</value>
+  </data>
+  <data name="Node_db_redis_Name" xml:space="preserve">
+    <value>Команда Redis</value>
+  </data>
+  <data name="Node_db_redis_Description" xml:space="preserve">
+    <value>Выполняет команду на сервере Redis.</value>
+  </data>
+  <data name="Node_file_read_Name" xml:space="preserve">
+    <value>Чтение файла</value>
+  </data>
+  <data name="Node_file_read_Description" xml:space="preserve">
+    <value>Читает файл с диска.</value>
+  </data>
+  <data name="Node_file_write_Name" xml:space="preserve">
+    <value>Запись файла</value>
+  </data>
+  <data name="Node_file_write_Description" xml:space="preserve">
+    <value>Записывает данные в файл.</value>
+  </data>
+  <data name="Node_file_parse_csv_Name" xml:space="preserve">
+    <value>Разбор CSV</value>
+  </data>
+  <data name="Node_file_parse_csv_Description" xml:space="preserve">
+    <value>Превращает CSV-текст в массив строк.</value>
+  </data>
+  <data name="Node_file_parse_json_Name" xml:space="preserve">
+    <value>Разбор JSON-файла</value>
+  </data>
+  <data name="Node_file_parse_json_Description" xml:space="preserve">
+    <value>Читает JSON-файл или текст в структурированные данные.</value>
+  </data>
+  <data name="Node_file_parse_xml_Name" xml:space="preserve">
+    <value>Разбор XML</value>
+  </data>
+  <data name="Node_file_parse_xml_Description" xml:space="preserve">
+    <value>Превращает XML-текст в структурированные данные.</value>
+  </data>
+  <data name="Node_http_request_Name" xml:space="preserve">
+    <value>HTTP-запрос</value>
+  </data>
+  <data name="Node_http_request_Description" xml:space="preserve">
+    <value>Отправляет HTTP-запрос и возвращает ответ.</value>
+  </data>
+  <data name="Node_http_response_Name" xml:space="preserve">
+    <value>HTTP-ответ</value>
+  </data>
+  <data name="Node_http_response_Description" xml:space="preserve">
+    <value>Отправляет ответ на запрос, с которого начался workflow.</value>
+  </data>
+  <data name="Node_http_rest_client_Name" xml:space="preserve">
+    <value>REST-клиент</value>
+  </data>
+  <data name="Node_http_rest_client_Description" xml:space="preserve">
+    <value>Обращается к REST-ресурсу базового адреса, с повторами.</value>
+  </data>
+  <data name="Node_http_graphql_Name" xml:space="preserve">
+    <value>GraphQL-запрос</value>
+  </data>
+  <data name="Node_http_graphql_Description" xml:space="preserve">
+    <value>Выполняет запрос или мутацию GraphQL.</value>
+  </data>
+  <data name="Node_integration_telegram_Name" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
+  <data name="Node_integration_telegram_Description" xml:space="preserve">
+    <value>Отправляет сообщение через Telegram-бота.</value>
+  </data>
+  <data name="Node_integration_discord_Name" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="Node_integration_discord_Description" xml:space="preserve">
+    <value>Публикует сообщение в канале Discord.</value>
+  </data>
+  <data name="Node_integration_github_Name" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="Node_integration_github_Description" xml:space="preserve">
+    <value>Работает с задачами, pull request и репозиториями на GitHub.</value>
+  </data>
+  <data name="Node_integration_email_Name" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Node_integration_email_Description" xml:space="preserve">
+    <value>Отправляет письмо через SMTP-сервер.</value>
+  </data>
+  <data name="Node_integration_generic_webhook_Name" xml:space="preserve">
+    <value>Универсальный webhook</value>
+  </data>
+  <data name="Node_integration_generic_webhook_Description" xml:space="preserve">
+    <value>Отправляет JSON на любой адрес webhook.</value>
+  </data>
+  <data name="Node_logic_if_Name" xml:space="preserve">
+    <value>Если</value>
+  </data>
+  <data name="Node_logic_if_Description" xml:space="preserve">
+    <value>Продолжает по ветке «Да» или «Нет» в зависимости от условия.</value>
+  </data>
+  <data name="Node_logic_switch_Name" xml:space="preserve">
+    <value>Переключатель</value>
+  </data>
+  <data name="Node_logic_switch_Description" xml:space="preserve">
+    <value>Направляет выполнение в одну из веток по значению выражения.</value>
+  </data>
+  <data name="Node_logic_loop_Name" xml:space="preserve">
+    <value>Цикл</value>
+  </data>
+  <data name="Node_logic_loop_Description" xml:space="preserve">
+    <value>Повторяет ветку заданное число раз, затем продолжает.</value>
+  </data>
+  <data name="Node_logic_foreach_Name" xml:space="preserve">
+    <value>Для каждого</value>
+  </data>
+  <data name="Node_logic_foreach_Description" xml:space="preserve">
+    <value>Выполняет ветку по одному разу для каждого элемента массива.</value>
+  </data>
+  <data name="Node_logic_merge_Name" xml:space="preserve">
+    <value>Слияние веток</value>
+  </data>
+  <data name="Node_logic_merge_Description" xml:space="preserve">
+    <value>Собирает несколько веток обратно в одну.</value>
+  </data>
+  <data name="Node_logic_delay_Name" xml:space="preserve">
+    <value>Задержка</value>
+  </data>
+  <data name="Node_logic_delay_Description" xml:space="preserve">
+    <value>Ждёт некоторое время перед продолжением.</value>
+  </data>
+  <data name="Node_logic_try_catch_Name" xml:space="preserve">
+    <value>Try / Catch</value>
+  </data>
+  <data name="Node_logic_try_catch_Description" xml:space="preserve">
+    <value>Выполняет ветку и обрабатывает её ошибки в другой.</value>
+  </data>
+  <data name="Node_logic_stop_Name" xml:space="preserve">
+    <value>Остановить workflow</value>
+  </data>
+  <data name="Node_logic_stop_Description" xml:space="preserve">
+    <value>Завершает workflow со статусом и сообщением.</value>
+  </data>
+  <data name="Node_trigger_manual_Name" xml:space="preserve">
+    <value>Ручной запуск</value>
+  </data>
+  <data name="Node_trigger_manual_Description" xml:space="preserve">
+    <value>Запускает workflow по нажатию «Запустить».</value>
+  </data>
+  <data name="Node_trigger_webhook_Name" xml:space="preserve">
+    <value>Webhook-триггер</value>
+  </data>
+  <data name="Node_trigger_webhook_Description" xml:space="preserve">
+    <value>Запускает workflow, когда приходит HTTP-запрос.</value>
+  </data>
+  <data name="Node_trigger_schedule_Name" xml:space="preserve">
+    <value>Запуск по расписанию</value>
+  </data>
+  <data name="Node_trigger_schedule_Description" xml:space="preserve">
+    <value>Запускает workflow по таймеру или расписанию cron.</value>
+  </data>
+  <data name="Node_trigger_event_Name" xml:space="preserve">
+    <value>Событие</value>
+  </data>
+  <data name="Node_trigger_event_Description" xml:space="preserve">
+    <value>Запускает workflow, когда приложение или плагин вызывает событие.</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>Светлая</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>Тёмная</value>
+  </data>
+  <data name="Theme_System" xml:space="preserve">
+    <value>Системная</value>
+  </data>
+  <data name="Canvas_ZoomIn" xml:space="preserve">
+    <value>Приблизить</value>
+  </data>
+  <data name="Canvas_ZoomOut" xml:space="preserve">
+    <value>Отдалить</value>
+  </data>
+  <data name="Canvas_ResetZoom" xml:space="preserve">
+    <value>Сбросить масштаб до 100%</value>
+  </data>
+  <data name="Canvas_Fit" xml:space="preserve">
+    <value>Показать весь граф</value>
+  </data>
+  <data name="Canvas_Snap" xml:space="preserve">
+    <value>Привязка к сетке</value>
+  </data>
+  <data name="Canvas_Minimap" xml:space="preserve">
+    <value>Показать или скрыть миникарту</value>
+  </data>
+  <data name="Find_Placeholder" xml:space="preserve">
+    <value>Найти узел…</value>
+  </data>
+  <data name="Find_Previous" xml:space="preserve">
+    <value>Предыдущее совпадение</value>
+  </data>
+  <data name="Find_Next" xml:space="preserve">
+    <value>Следующее совпадение</value>
+  </data>
+  <data name="QuickAdd_Placeholder" xml:space="preserve">
+    <value>Введите название узла…</value>
+  </data>
+  <data name="QuickAdd_NoResults" xml:space="preserve">
+    <value>Подходящих узлов нет.</value>
+  </data>
+  <data name="Library_NoResults" xml:space="preserve">
+    <value>Нет узлов, подходящих под запрос.</value>
+  </data>
+  <data name="Menu_AddNode" xml:space="preserve">
+    <value>Добавить узел…</value>
+  </data>
+  <data name="Menu_Paste" xml:space="preserve">
+    <value>Вставить</value>
+  </data>
+  <data name="Menu_SelectAll" xml:space="preserve">
+    <value>Выделить всё</value>
+  </data>
+  <data name="Menu_FitView" xml:space="preserve">
+    <value>Показать весь граф</value>
+  </data>
+  <data name="Menu_Copy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Menu_Duplicate" xml:space="preserve">
+    <value>Дублировать</value>
+  </data>
+  <data name="Menu_Enable" xml:space="preserve">
+    <value>Включить</value>
+  </data>
+  <data name="Menu_Disable" xml:space="preserve">
+    <value>Отключить</value>
+  </data>
+  <data name="Menu_Collapse" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="Menu_Expand" xml:space="preserve">
+    <value>Развернуть</value>
+  </data>
+  <data name="Menu_Delete" xml:space="preserve">
+    <value>Удалить</value>
+  </data>
+  <data name="Menu_DeleteConnection" xml:space="preserve">
+    <value>Удалить связь</value>
+  </data>
+  <data name="Inspector_MultipleSelected" xml:space="preserve">
+    <value>Выбрано узлов: {0}. Выберите один узел, чтобы изменить его настройки.</value>
+  </data>
+  <data name="Inspector_NodeTitle" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Inspector_Disabled" xml:space="preserve">
+    <value>Отключён</value>
+  </data>
+  <data name="Inspector_NoParameters" xml:space="preserve">
+    <value>У этого узла нет настроек.</value>
+  </data>
+  <data name="Inspector_AddRow" xml:space="preserve">
+    <value>Добавить</value>
+  </data>
+  <data name="Validation_RequiredParameterMissing" xml:space="preserve">
+    <value>Поле «{0}» обязательно.</value>
+  </data>
+  <data name="Validation_InvalidNumber" xml:space="preserve">
+    <value>В поле «{0}» нужно число.</value>
+  </data>
+  <data name="Validation_NumberTooSmall" xml:space="preserve">
+    <value>Значение поля «{0}» не может быть меньше {1}.</value>
+  </data>
+  <data name="Validation_NumberTooLarge" xml:space="preserve">
+    <value>Значение поля «{0}» не может быть больше {1}.</value>
+  </data>
+  <data name="Validation_InvalidJson" xml:space="preserve">
+    <value>Поле «{0}» содержит некорректный JSON.</value>
+  </data>
+  <data name="Validation_UnknownOption" xml:space="preserve">
+    <value>Значение поля «{0}» отсутствует в списке.</value>
+  </data>
+  <data name="Validation_RequiredInputNotConnected" xml:space="preserve">
+    <value>Вход «{0}» не подключён.</value>
+  </data>
+</root>

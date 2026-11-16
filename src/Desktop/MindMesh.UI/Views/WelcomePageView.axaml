@@ -1,0 +1,86 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:welcome="using:MindMesh.Presentation.Pages.Welcome"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.WelcomePageView"
+			 x:DataType="welcome:WelcomePageViewModel">
+
+	<ScrollViewer>
+		<StackPanel MaxWidth="780"
+					Margin="40,64"
+					Spacing="32"
+					HorizontalAlignment="Center">
+
+			<StackPanel Spacing="10">
+				<ctl:Icon Key="logo"
+						  Width="48"
+						  Height="48"
+						  StrokeThickness="1.5"
+						  HorizontalAlignment="Left"
+						  Foreground="{DynamicResource MM.Brush.Accent}" />
+				<TextBlock Classes="h1" Text="{Binding Loc[Welcome_Title]}" />
+				<TextBlock Classes="h3 secondary"
+						   TextWrapping="Wrap"
+						   Text="{Binding Loc[Welcome_Subtitle]}" />
+				<StackPanel Orientation="Horizontal" Spacing="6">
+					<TextBlock Classes="caption muted" Text="{Binding Loc[Welcome_Version]}" />
+					<TextBlock Classes="caption muted" Text="{Binding Version}" />
+				</StackPanel>
+			</StackPanel>
+
+			<Grid ColumnDefinitions="*,*,*">
+				<Button Grid.Column="0"
+						Classes="card"
+						Margin="0,0,6,0"
+						Command="{Binding OpenEditorCommand}">
+					<StackPanel Spacing="8">
+						<ctl:Icon Key="workflows"
+								  Width="24"
+								  Height="24"
+								  Foreground="{DynamicResource MM.Brush.Accent}" />
+						<TextBlock Classes="h3" Text="{Binding Loc[Welcome_OpenEditor]}" />
+						<TextBlock Classes="secondary"
+								   TextWrapping="Wrap"
+								   Text="{Binding Loc[Welcome_OpenEditorHint]}" />
+					</StackPanel>
+				</Button>
+
+				<Button Grid.Column="1"
+						Classes="card"
+						Margin="6,0"
+						Command="{Binding OpenSettingsCommand}">
+					<StackPanel Spacing="8">
+						<ctl:Icon Key="settings"
+								  Width="24"
+								  Height="24"
+								  Foreground="{DynamicResource MM.Brush.Accent}" />
+						<TextBlock Classes="h3" Text="{Binding Loc[Welcome_OpenSettings]}" />
+						<TextBlock Classes="secondary"
+								   TextWrapping="Wrap"
+								   Text="{Binding Loc[Welcome_OpenSettingsHint]}" />
+					</StackPanel>
+				</Button>
+
+				<Button Grid.Column="2"
+						Classes="card"
+						Margin="6,0,0,0"
+						Command="{Binding OpenAboutCommand}">
+					<StackPanel Spacing="8">
+						<ctl:Icon Key="info"
+								  Width="24"
+								  Height="24"
+								  Foreground="{DynamicResource MM.Brush.Accent}" />
+						<TextBlock Classes="h3" Text="{Binding Loc[Welcome_OpenAbout]}" />
+						<TextBlock Classes="secondary"
+								   TextWrapping="Wrap"
+								   Text="{Binding Loc[Welcome_OpenAboutHint]}" />
+					</StackPanel>
+				</Button>
+			</Grid>
+
+			<CheckBox IsChecked="{Binding ShowOnStartup}"
+					  Content="{Binding Loc[Welcome_ShowOnStartup]}" />
+		</StackPanel>
+	</ScrollViewer>
+
+</UserControl>

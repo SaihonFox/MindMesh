@@ -1,0 +1,115 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:library="using:MindMesh.Presentation.Pages.Editor.Library"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.NodeLibraryView"
+			 x:DataType="library:NodeLibraryViewModel">
+
+	<DockPanel>
+		<TextBox DockPanel.Dock="Top"
+				 Margin="10"
+				 PlaceholderText="{Binding Loc[Library_Search]}"
+				 Text="{Binding SearchText}" />
+
+		<ScrollViewer>
+			<StackPanel Margin="10,0,10,12" Spacing="4">
+
+				<ItemsControl ItemsSource="{Binding Sections}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate x:DataType="library:LibrarySectionViewModel">
+							<StackPanel>
+								<ToggleButton Classes="section" IsChecked="{Binding IsExpanded}">
+									<Grid ColumnDefinitions="Auto,Auto,*,Auto">
+										<Panel Width="16" VerticalAlignment="Center">
+											<ctl:Icon Key="chevron-right"
+													  Width="12"
+													  Height="12"
+													  IsVisible="{Binding !IsExpanded}" />
+											<ctl:Icon Key="chevron-down"
+													  Width="12"
+													  Height="12"
+													  IsVisible="{Binding IsExpanded}" />
+										</Panel>
+										<ctl:TonePill Grid.Column="1"
+													  Width="26"
+													  Height="26"
+													  CornerRadius="7"
+													  Margin="2,0,10,0"
+													  Tone="{Binding Tone}">
+											<ctl:Icon Key="{Binding IconKey}"
+													  Width="14"
+													  Height="14"
+													  HorizontalAlignment="Center"
+													  VerticalAlignment="Center" />
+										</ctl:TonePill>
+										<TextBlock Grid.Column="2"
+												   FontWeight="SemiBold"
+												   VerticalAlignment="Center"
+												   TextTrimming="CharacterEllipsis"
+												   Text="{Binding Title}" />
+										<TextBlock Grid.Column="3"
+												   Classes="caption muted"
+												   VerticalAlignment="Center"
+												   Text="{Binding Count}" />
+									</Grid>
+								</ToggleButton>
+
+								<ItemsControl Margin="0,2,0,8"
+											  ItemsSource="{Binding Items}"
+											  IsVisible="{Binding IsExpanded}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<UniformGrid Columns="2" />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate x:DataType="library:LibraryNodeViewModel">
+											<Border Classes="tile"
+													Tag="{Binding}"
+													ToolTip.Tip="{Binding Description}"
+													PointerPressed="OnTilePressed"
+													PointerMoved="OnTileMoved"
+													PointerReleased="OnTileReleased"
+													PointerCaptureLost="OnTileCaptureLost"
+													DoubleTapped="OnTileDoubleTapped">
+												<Grid ColumnDefinitions="Auto,*">
+													<ctl:TonePill Width="30"
+																  Height="30"
+																  CornerRadius="8"
+																  VerticalAlignment="Center"
+																  Tone="{Binding Tone}">
+														<ctl:Icon Key="{Binding IconKey}"
+																  Width="16"
+																  Height="16"
+																  HorizontalAlignment="Center"
+																  VerticalAlignment="Center" />
+													</ctl:TonePill>
+													<TextBlock Grid.Column="1"
+															   Margin="8,0,0,0"
+															   FontSize="{DynamicResource MM.FontSize.Small}"
+															   FontWeight="SemiBold"
+															   VerticalAlignment="Center"
+															   TextWrapping="Wrap"
+															   MaxLines="2"
+															   TextTrimming="CharacterEllipsis"
+															   Text="{Binding Title}" />
+												</Grid>
+											</Border>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</StackPanel>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+				<TextBlock Classes="secondary"
+						   Margin="10,8"
+						   TextWrapping="Wrap"
+						   IsVisible="{Binding !HasResults}"
+						   Text="{Binding Loc[Library_NoResults]}" />
+			</StackPanel>
+		</ScrollViewer>
+	</DockPanel>
+
+</UserControl>

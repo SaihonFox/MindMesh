@@ -1,0 +1,297 @@
+<ResourceDictionary xmlns="https://github.com/avaloniaui"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+	<!--
+		Central palette of MindMesh. Every color of the application comes from here.
+		The light theme is the default; the dark theme has the same keys.
+	-->
+	<ResourceDictionary.ThemeDictionaries>
+		<ResourceDictionary x:Key="Light">
+
+			<!-- surfaces -->
+			<Color x:Key="MM.Color.Background">#F3F4F6</Color>
+			<Color x:Key="MM.Color.Panel">#FFFFFF</Color>
+			<Color x:Key="MM.Color.PanelAlt">#F7F8FA</Color>
+			<Color x:Key="MM.Color.Node">#FFFFFF</Color>
+			<Color x:Key="MM.Color.NodeHeader">#FFFFFF</Color>
+			<Color x:Key="MM.Color.Border">#E3E6EB</Color>
+
+			<!-- text -->
+			<Color x:Key="MM.Color.TextPrimary">#1D2330</Color>
+			<Color x:Key="MM.Color.TextSecondary">#5E6778</Color>
+			<Color x:Key="MM.Color.TextMuted">#8A93A3</Color>
+
+			<!-- accent -->
+			<Color x:Key="MM.Color.Accent">#6D5EF5</Color>
+			<Color x:Key="MM.Color.AccentHover">#5A4BE0</Color>
+			<Color x:Key="MM.Color.OnAccent">#FFFFFF</Color>
+			<Color x:Key="MM.Color.Success">#1F9D5B</Color>
+			<Color x:Key="MM.Color.Warning">#D9930D</Color>
+			<Color x:Key="MM.Color.Error">#D64545</Color>
+			<Color x:Key="MM.Color.Info">#2F6FE0</Color>
+
+			<!-- overlays -->
+			<Color x:Key="MM.Color.Hover">#0F000000</Color>
+			<Color x:Key="MM.Color.Pressed">#1F000000</Color>
+			<Color x:Key="MM.Color.AccentSubtle">#1F6D5EF5</Color>
+			<Color x:Key="MM.Color.AccentSubtleHover">#2E6D5EF5</Color>
+			<Color x:Key="MM.Color.AccentMuted">#446D5EF5</Color>
+
+			<!-- grid -->
+			<Color x:Key="MM.Color.GridMinor">#D5D9E0</Color>
+			<Color x:Key="MM.Color.GridMajor">#C3C8D1</Color>
+
+			<!-- port -->
+			<Color x:Key="MM.Color.PortData">#F59E3F</Color>
+			<Color x:Key="MM.Color.PortExecution">#4B5568</Color>
+			<Color x:Key="MM.Color.PortEvent">#E0529C</Color>
+			<Color x:Key="MM.Color.PortAIContext">#8B5CF6</Color>
+
+			<!-- Node and canvas -->
+			<Color x:Key="MM.Color.NodeRing">#FFFFFF</Color>
+			<Color x:Key="MM.Color.Canvas">#F3F4F6</Color>
+			<Color x:Key="MM.Color.Overlay">#F2FFFFFF</Color>
+			<Color x:Key="MM.Color.Selection">#1F6D5EF5</Color>
+
+			<!-- Category tones: foreground color and soft background -->
+			<Color x:Key="MM.Color.Tone.Gray">#5B6472</Color>
+			<Color x:Key="MM.Color.Tone.Gray.Soft">#ECEEF2</Color>
+			<Color x:Key="MM.Color.Tone.Blue">#2F6FE0</Color>
+			<Color x:Key="MM.Color.Tone.Blue.Soft">#E4EDFF</Color>
+			<Color x:Key="MM.Color.Tone.Purple">#7A4FE0</Color>
+			<Color x:Key="MM.Color.Tone.Purple.Soft">#EEE8FF</Color>
+			<Color x:Key="MM.Color.Tone.Orange">#D9731A</Color>
+			<Color x:Key="MM.Color.Tone.Orange.Soft">#FFEBD6</Color>
+			<Color x:Key="MM.Color.Tone.Green">#1F9D5B</Color>
+			<Color x:Key="MM.Color.Tone.Green.Soft">#DCF4E6</Color>
+			<Color x:Key="MM.Color.Tone.Red">#D64545</Color>
+			<Color x:Key="MM.Color.Tone.Red.Soft">#FFE3E3</Color>
+			<Color x:Key="MM.Color.Tone.Teal">#0F8F89</Color>
+			<Color x:Key="MM.Color.Tone.Teal.Soft">#D8F2F0</Color>
+			<Color x:Key="MM.Color.Tone.Pink">#D6317F</Color>
+			<Color x:Key="MM.Color.Tone.Pink.Soft">#FFE2EF</Color>
+			<Color x:Key="MM.Color.Tone.Yellow">#A67C00</Color>
+			<Color x:Key="MM.Color.Tone.Yellow.Soft">#FFF1C7</Color>
+
+			<!-- Brushes -->
+			<SolidColorBrush x:Key="MM.Brush.Background" Color="{StaticResource MM.Color.Background}" />
+			<SolidColorBrush x:Key="MM.Brush.Panel" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="MM.Brush.PanelAlt" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="MM.Brush.Node" Color="{StaticResource MM.Color.Node}" />
+			<SolidColorBrush x:Key="MM.Brush.NodeHeader" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="MM.Brush.Border" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="MM.Brush.TextPrimary" Color="{StaticResource MM.Color.TextPrimary}" />
+			<SolidColorBrush x:Key="MM.Brush.TextSecondary" Color="{StaticResource MM.Color.TextSecondary}" />
+			<SolidColorBrush x:Key="MM.Brush.TextMuted" Color="{StaticResource MM.Color.TextMuted}" />
+			<SolidColorBrush x:Key="MM.Brush.Accent" Color="{StaticResource MM.Color.Accent}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentHover" Color="{StaticResource MM.Color.AccentHover}" />
+			<SolidColorBrush x:Key="MM.Brush.OnAccent" Color="{StaticResource MM.Color.OnAccent}" />
+			<SolidColorBrush x:Key="MM.Brush.Success" Color="{StaticResource MM.Color.Success}" />
+			<SolidColorBrush x:Key="MM.Brush.Warning" Color="{StaticResource MM.Color.Warning}" />
+			<SolidColorBrush x:Key="MM.Brush.Error" Color="{StaticResource MM.Color.Error}" />
+			<SolidColorBrush x:Key="MM.Brush.Info" Color="{StaticResource MM.Color.Info}" />
+			<SolidColorBrush x:Key="MM.Brush.Hover" Color="{StaticResource MM.Color.Hover}" />
+			<SolidColorBrush x:Key="MM.Brush.Pressed" Color="{StaticResource MM.Color.Pressed}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentSubtle" Color="{StaticResource MM.Color.AccentSubtle}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentSubtleHover" Color="{StaticResource MM.Color.AccentSubtleHover}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentMuted" Color="{StaticResource MM.Color.AccentMuted}" />
+			<SolidColorBrush x:Key="MM.Brush.GridMinor" Color="{StaticResource MM.Color.GridMinor}" />
+			<SolidColorBrush x:Key="MM.Brush.GridMajor" Color="{StaticResource MM.Color.GridMajor}" />
+			<SolidColorBrush x:Key="MM.Brush.PortData" Color="{StaticResource MM.Color.PortData}" />
+			<SolidColorBrush x:Key="MM.Brush.PortExecution" Color="{StaticResource MM.Color.PortExecution}" />
+			<SolidColorBrush x:Key="MM.Brush.PortEvent" Color="{StaticResource MM.Color.PortEvent}" />
+			<SolidColorBrush x:Key="MM.Brush.PortAIContext" Color="{StaticResource MM.Color.PortAIContext}" />
+			<SolidColorBrush x:Key="MM.Brush.NodeRing" Color="{StaticResource MM.Color.NodeRing}" />
+			<SolidColorBrush x:Key="MM.Brush.Canvas" Color="{StaticResource MM.Color.Canvas}" />
+			<SolidColorBrush x:Key="MM.Brush.Overlay" Color="{StaticResource MM.Color.Overlay}" />
+			<SolidColorBrush x:Key="MM.Brush.Selection" Color="{StaticResource MM.Color.Selection}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Gray" Color="{StaticResource MM.Color.Tone.Gray}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Gray.Soft" Color="{StaticResource MM.Color.Tone.Gray.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Blue" Color="{StaticResource MM.Color.Tone.Blue}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Blue.Soft" Color="{StaticResource MM.Color.Tone.Blue.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Purple" Color="{StaticResource MM.Color.Tone.Purple}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Purple.Soft" Color="{StaticResource MM.Color.Tone.Purple.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Orange" Color="{StaticResource MM.Color.Tone.Orange}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Orange.Soft" Color="{StaticResource MM.Color.Tone.Orange.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Green" Color="{StaticResource MM.Color.Tone.Green}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Green.Soft" Color="{StaticResource MM.Color.Tone.Green.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Red" Color="{StaticResource MM.Color.Tone.Red}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Red.Soft" Color="{StaticResource MM.Color.Tone.Red.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Teal" Color="{StaticResource MM.Color.Tone.Teal}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Teal.Soft" Color="{StaticResource MM.Color.Tone.Teal.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Pink" Color="{StaticResource MM.Color.Tone.Pink}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Pink.Soft" Color="{StaticResource MM.Color.Tone.Pink.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Yellow" Color="{StaticResource MM.Color.Tone.Yellow}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Yellow.Soft" Color="{StaticResource MM.Color.Tone.Yellow.Soft}" />
+
+			<BoxShadows x:Key="MM.Shadow.Node">0 2 10 0 #14000000</BoxShadows>
+			<BoxShadows x:Key="MM.Shadow.NodeSelected">0 4 16 0 #286D5EF5</BoxShadows>
+
+			<!-- Overrides of built-in control resources, so standard controls match the palette -->
+			<SolidColorBrush x:Key="TextControlBackground" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="TextControlBackgroundFocused" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="TextControlBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="{StaticResource MM.Color.TextMuted}" />
+			<SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="{StaticResource MM.Color.Accent}" />
+			<SolidColorBrush x:Key="ComboBoxBackground" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="ComboBoxBackgroundPressed" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="ComboBoxBorderBrushPointerOver" Color="{StaticResource MM.Color.TextMuted}" />
+			<SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="ComboBoxDropDownBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="MenuFlyoutPresenterBackground" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="MenuFlyoutPresenterBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="ToolTipBackground" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="ToolTipForeground" Color="{StaticResource MM.Color.TextPrimary}" />
+			<SolidColorBrush x:Key="ToolTipBorderBrush" Color="{StaticResource MM.Color.Border}" />
+
+		</ResourceDictionary>
+		<ResourceDictionary x:Key="Dark">
+
+			<!-- surfaces -->
+			<Color x:Key="MM.Color.Background">#111318</Color>
+			<Color x:Key="MM.Color.Panel">#191C23</Color>
+			<Color x:Key="MM.Color.PanelAlt">#1D212A</Color>
+			<Color x:Key="MM.Color.Node">#20242D</Color>
+			<Color x:Key="MM.Color.NodeHeader">#282E39</Color>
+			<Color x:Key="MM.Color.Border">#303641</Color>
+
+			<!-- text -->
+			<Color x:Key="MM.Color.TextPrimary">#E7EAF0</Color>
+			<Color x:Key="MM.Color.TextSecondary">#929AA8</Color>
+			<Color x:Key="MM.Color.TextMuted">#687180</Color>
+
+			<!-- accent -->
+			<Color x:Key="MM.Color.Accent">#8B7CFF</Color>
+			<Color x:Key="MM.Color.AccentHover">#A092FF</Color>
+			<Color x:Key="MM.Color.OnAccent">#111318</Color>
+			<Color x:Key="MM.Color.Success">#4CCB91</Color>
+			<Color x:Key="MM.Color.Warning">#E6B85C</Color>
+			<Color x:Key="MM.Color.Error">#F07178</Color>
+			<Color x:Key="MM.Color.Info">#64A8F5</Color>
+
+			<!-- overlays -->
+			<Color x:Key="MM.Color.Hover">#14FFFFFF</Color>
+			<Color x:Key="MM.Color.Pressed">#22FFFFFF</Color>
+			<Color x:Key="MM.Color.AccentSubtle">#268B7CFF</Color>
+			<Color x:Key="MM.Color.AccentSubtleHover">#338B7CFF</Color>
+			<Color x:Key="MM.Color.AccentMuted">#448B7CFF</Color>
+
+			<!-- grid -->
+			<Color x:Key="MM.Color.GridMinor">#2A303B</Color>
+			<Color x:Key="MM.Color.GridMajor">#363D4A</Color>
+
+			<!-- port -->
+			<Color x:Key="MM.Color.PortData">#F59E3F</Color>
+			<Color x:Key="MM.Color.PortExecution">#AEB6C4</Color>
+			<Color x:Key="MM.Color.PortEvent">#E0529C</Color>
+			<Color x:Key="MM.Color.PortAIContext">#A78BFA</Color>
+
+			<!-- Node and canvas -->
+			<Color x:Key="MM.Color.NodeRing">#20242D</Color>
+			<Color x:Key="MM.Color.Canvas">#111318</Color>
+			<Color x:Key="MM.Color.Overlay">#F2191C23</Color>
+			<Color x:Key="MM.Color.Selection">#268B7CFF</Color>
+
+			<!-- Category tones: foreground color and soft background -->
+			<Color x:Key="MM.Color.Tone.Gray">#A3ABB9</Color>
+			<Color x:Key="MM.Color.Tone.Gray.Soft">#2A303B</Color>
+			<Color x:Key="MM.Color.Tone.Blue">#6FA3FF</Color>
+			<Color x:Key="MM.Color.Tone.Blue.Soft">#1F2D4A</Color>
+			<Color x:Key="MM.Color.Tone.Purple">#A68BFF</Color>
+			<Color x:Key="MM.Color.Tone.Purple.Soft">#2C2750</Color>
+			<Color x:Key="MM.Color.Tone.Orange">#FFA25C</Color>
+			<Color x:Key="MM.Color.Tone.Orange.Soft">#41301F</Color>
+			<Color x:Key="MM.Color.Tone.Green">#55D69A</Color>
+			<Color x:Key="MM.Color.Tone.Green.Soft">#1D3A2E</Color>
+			<Color x:Key="MM.Color.Tone.Red">#FF8A8A</Color>
+			<Color x:Key="MM.Color.Tone.Red.Soft">#43252A</Color>
+			<Color x:Key="MM.Color.Tone.Teal">#4FD1C5</Color>
+			<Color x:Key="MM.Color.Tone.Teal.Soft">#1B3A3A</Color>
+			<Color x:Key="MM.Color.Tone.Pink">#FF7DB5</Color>
+			<Color x:Key="MM.Color.Tone.Pink.Soft">#431F33</Color>
+			<Color x:Key="MM.Color.Tone.Yellow">#F2CB4D</Color>
+			<Color x:Key="MM.Color.Tone.Yellow.Soft">#3F3516</Color>
+
+			<!-- Brushes -->
+			<SolidColorBrush x:Key="MM.Brush.Background" Color="{StaticResource MM.Color.Background}" />
+			<SolidColorBrush x:Key="MM.Brush.Panel" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="MM.Brush.PanelAlt" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="MM.Brush.Node" Color="{StaticResource MM.Color.Node}" />
+			<SolidColorBrush x:Key="MM.Brush.NodeHeader" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="MM.Brush.Border" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="MM.Brush.TextPrimary" Color="{StaticResource MM.Color.TextPrimary}" />
+			<SolidColorBrush x:Key="MM.Brush.TextSecondary" Color="{StaticResource MM.Color.TextSecondary}" />
+			<SolidColorBrush x:Key="MM.Brush.TextMuted" Color="{StaticResource MM.Color.TextMuted}" />
+			<SolidColorBrush x:Key="MM.Brush.Accent" Color="{StaticResource MM.Color.Accent}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentHover" Color="{StaticResource MM.Color.AccentHover}" />
+			<SolidColorBrush x:Key="MM.Brush.OnAccent" Color="{StaticResource MM.Color.OnAccent}" />
+			<SolidColorBrush x:Key="MM.Brush.Success" Color="{StaticResource MM.Color.Success}" />
+			<SolidColorBrush x:Key="MM.Brush.Warning" Color="{StaticResource MM.Color.Warning}" />
+			<SolidColorBrush x:Key="MM.Brush.Error" Color="{StaticResource MM.Color.Error}" />
+			<SolidColorBrush x:Key="MM.Brush.Info" Color="{StaticResource MM.Color.Info}" />
+			<SolidColorBrush x:Key="MM.Brush.Hover" Color="{StaticResource MM.Color.Hover}" />
+			<SolidColorBrush x:Key="MM.Brush.Pressed" Color="{StaticResource MM.Color.Pressed}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentSubtle" Color="{StaticResource MM.Color.AccentSubtle}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentSubtleHover" Color="{StaticResource MM.Color.AccentSubtleHover}" />
+			<SolidColorBrush x:Key="MM.Brush.AccentMuted" Color="{StaticResource MM.Color.AccentMuted}" />
+			<SolidColorBrush x:Key="MM.Brush.GridMinor" Color="{StaticResource MM.Color.GridMinor}" />
+			<SolidColorBrush x:Key="MM.Brush.GridMajor" Color="{StaticResource MM.Color.GridMajor}" />
+			<SolidColorBrush x:Key="MM.Brush.PortData" Color="{StaticResource MM.Color.PortData}" />
+			<SolidColorBrush x:Key="MM.Brush.PortExecution" Color="{StaticResource MM.Color.PortExecution}" />
+			<SolidColorBrush x:Key="MM.Brush.PortEvent" Color="{StaticResource MM.Color.PortEvent}" />
+			<SolidColorBrush x:Key="MM.Brush.PortAIContext" Color="{StaticResource MM.Color.PortAIContext}" />
+			<SolidColorBrush x:Key="MM.Brush.NodeRing" Color="{StaticResource MM.Color.NodeRing}" />
+			<SolidColorBrush x:Key="MM.Brush.Canvas" Color="{StaticResource MM.Color.Canvas}" />
+			<SolidColorBrush x:Key="MM.Brush.Overlay" Color="{StaticResource MM.Color.Overlay}" />
+			<SolidColorBrush x:Key="MM.Brush.Selection" Color="{StaticResource MM.Color.Selection}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Gray" Color="{StaticResource MM.Color.Tone.Gray}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Gray.Soft" Color="{StaticResource MM.Color.Tone.Gray.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Blue" Color="{StaticResource MM.Color.Tone.Blue}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Blue.Soft" Color="{StaticResource MM.Color.Tone.Blue.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Purple" Color="{StaticResource MM.Color.Tone.Purple}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Purple.Soft" Color="{StaticResource MM.Color.Tone.Purple.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Orange" Color="{StaticResource MM.Color.Tone.Orange}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Orange.Soft" Color="{StaticResource MM.Color.Tone.Orange.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Green" Color="{StaticResource MM.Color.Tone.Green}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Green.Soft" Color="{StaticResource MM.Color.Tone.Green.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Red" Color="{StaticResource MM.Color.Tone.Red}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Red.Soft" Color="{StaticResource MM.Color.Tone.Red.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Teal" Color="{StaticResource MM.Color.Tone.Teal}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Teal.Soft" Color="{StaticResource MM.Color.Tone.Teal.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Pink" Color="{StaticResource MM.Color.Tone.Pink}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Pink.Soft" Color="{StaticResource MM.Color.Tone.Pink.Soft}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Yellow" Color="{StaticResource MM.Color.Tone.Yellow}" />
+			<SolidColorBrush x:Key="MM.Brush.Tone.Yellow.Soft" Color="{StaticResource MM.Color.Tone.Yellow.Soft}" />
+
+			<BoxShadows x:Key="MM.Shadow.Node">0 2 10 0 #66000000</BoxShadows>
+			<BoxShadows x:Key="MM.Shadow.NodeSelected">0 4 16 0 #448B7CFF</BoxShadows>
+
+			<!-- Overrides of built-in control resources, so standard controls match the palette -->
+			<SolidColorBrush x:Key="TextControlBackground" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="TextControlBackgroundPointerOver" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="TextControlBackgroundFocused" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="TextControlBackgroundDisabled" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="TextControlBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="TextControlBorderBrushPointerOver" Color="{StaticResource MM.Color.TextMuted}" />
+			<SolidColorBrush x:Key="TextControlBorderBrushFocused" Color="{StaticResource MM.Color.Accent}" />
+			<SolidColorBrush x:Key="ComboBoxBackground" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="ComboBoxBackgroundPointerOver" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="ComboBoxBackgroundPressed" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="ComboBoxBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="ComboBoxBorderBrushPointerOver" Color="{StaticResource MM.Color.TextMuted}" />
+			<SolidColorBrush x:Key="ComboBoxDropDownBackground" Color="{StaticResource MM.Color.PanelAlt}" />
+			<SolidColorBrush x:Key="ComboBoxDropDownBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="MenuFlyoutPresenterBackground" Color="{StaticResource MM.Color.Panel}" />
+			<SolidColorBrush x:Key="MenuFlyoutPresenterBorderBrush" Color="{StaticResource MM.Color.Border}" />
+			<SolidColorBrush x:Key="ToolTipBackground" Color="{StaticResource MM.Color.NodeHeader}" />
+			<SolidColorBrush x:Key="ToolTipForeground" Color="{StaticResource MM.Color.TextPrimary}" />
+			<SolidColorBrush x:Key="ToolTipBorderBrush" Color="{StaticResource MM.Color.Border}" />
+
+		</ResourceDictionary>
+	</ResourceDictionary.ThemeDictionaries>
+
+</ResourceDictionary>

@@ -1,0 +1,47 @@
+<Application xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 x:Class="MindMesh.Desktop.App"
+			 RequestedThemeVariant="Light">
+
+	<Application.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceInclude Source="avares://MindMesh.UI/Themes/MindMeshColors.axaml" />
+				<ResourceInclude Source="avares://MindMesh.UI/Themes/MindMeshTokens.axaml" />
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</Application.Resources>
+
+	<Application.Styles>
+		<FluentTheme>
+			<FluentTheme.Palettes>
+				<ColorPaletteResources x:Key="Light"
+									   Accent="#6D5EF5"
+									   RegionColor="#FFFFFF"
+									   ErrorText="#D64545" />
+				<ColorPaletteResources x:Key="Dark"
+									   Accent="#8B7CFF"
+									   RegionColor="#111318"
+									   ErrorText="#F07178"
+									   AltHigh="#111318"
+									   AltMediumHigh="#CC111318"
+									   AltMedium="#99111318"
+									   AltMediumLow="#66111318"
+									   AltLow="#33111318"
+									   BaseHigh="#E7EAF0"
+									   BaseMediumHigh="#C3C9D4"
+									   BaseMedium="#929AA8"
+									   BaseMediumLow="#687180"
+									   BaseLow="#303641"
+									   ChromeLow="#1D212A"
+									   ChromeMediumLow="#20242D"
+									   ChromeMedium="#282E39"
+									   ChromeHigh="#303641"
+									   ListLow="#1D212A"
+									   ListMedium="#282E39" />
+			</FluentTheme.Palettes>
+		</FluentTheme>
+		<StyleInclude Source="avares://MindMesh.UI/Themes/MindMeshStyles.axaml" />
+	</Application.Styles>
+
+</Application>

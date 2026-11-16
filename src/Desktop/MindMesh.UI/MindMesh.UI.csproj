@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<RootNamespace>MindMesh.UI</RootNamespace>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MindMesh.Presentation\MindMesh.Presentation.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia" />
+		<PackageReference Include="Avalonia.AvaloniaEdit" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<InternalsVisibleTo Include="MindMesh.UI.Tests" />
+	</ItemGroup>
+
+</Project>

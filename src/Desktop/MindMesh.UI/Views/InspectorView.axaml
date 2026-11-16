@@ -1,0 +1,251 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:inspector="using:MindMesh.Presentation.Pages.Editor.Inspector"
+			 xmlns:defs="using:MindMesh.Graph.Definitions"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.InspectorView"
+			 x:DataType="inspector:InspectorViewModel">
+
+	<UserControl.DataTemplates>
+
+		<!-- One editor per kind of parameter. The label, description and error text are added around them. -->
+
+		<DataTemplate DataType="inspector:TextFieldViewModel" x:DataType="inspector:TextFieldViewModel">
+			<TextBox Classes.invalid="{Binding HasError}"
+					 PlaceholderText="{Binding Placeholder}"
+					 Text="{Binding Text}" />
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:NumberFieldViewModel" x:DataType="inspector:NumberFieldViewModel">
+			<StackPanel Spacing="4">
+				<TextBox Classes.invalid="{Binding HasError}"
+						 PlaceholderText="{Binding Placeholder}"
+						 Text="{Binding Text}" />
+				<TextBlock Classes="field-hint"
+						   IsVisible="{Binding HasRangeHint}"
+						   Text="{Binding RangeHint}" />
+			</StackPanel>
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:BooleanFieldViewModel" x:DataType="inspector:BooleanFieldViewModel">
+			<ToggleSwitch OnContent=""
+						  OffContent=""
+						  IsChecked="{Binding IsChecked}" />
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:SelectFieldViewModel" x:DataType="inspector:SelectFieldViewModel">
+			<ComboBox HorizontalAlignment="Stretch"
+					  ItemsSource="{Binding Options}"
+					  SelectedItem="{Binding SelectedOption}">
+				<ComboBox.ItemTemplate>
+					<DataTemplate x:DataType="defs:ParameterOption">
+						<TextBlock Text="{Binding Label}" />
+					</DataTemplate>
+				</ComboBox.ItemTemplate>
+			</ComboBox>
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:MultiSelectFieldViewModel" x:DataType="inspector:MultiSelectFieldViewModel">
+			<ItemsControl ItemsSource="{Binding Items}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="inspector:MultiSelectItemViewModel">
+						<CheckBox Content="{Binding Label}" IsChecked="{Binding IsChecked}" />
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:CodeFieldViewModel" x:DataType="inspector:CodeFieldViewModel">
+			<Border BorderBrush="{DynamicResource MM.Brush.Border}"
+					BorderThickness="1"
+					CornerRadius="8"
+					ClipToBounds="True"
+					Height="{Binding EditorHeight}">
+				<ctl:CodeEditorField Language="{Binding Language}" Text="{Binding Text, Mode=TwoWay}" />
+			</Border>
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:SecretFieldViewModel" x:DataType="inspector:SecretFieldViewModel">
+			<Grid ColumnDefinitions="*,Auto">
+				<TextBox Classes.invalid="{Binding HasError}"
+						 PasswordChar="{Binding PasswordChar}"
+						 PlaceholderText="{Binding Placeholder}"
+						 Text="{Binding Text}" />
+				<ToggleButton Grid.Column="1"
+							  Classes="icon"
+							  Margin="4,0,0,0"
+							  IsChecked="{Binding IsRevealed}">
+					<ctl:Icon Key="eye" Width="16" Height="16" />
+				</ToggleButton>
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:FilePathFieldViewModel" x:DataType="inspector:FilePathFieldViewModel">
+			<Grid ColumnDefinitions="*,Auto">
+				<TextBox Classes.invalid="{Binding HasError}"
+						 PlaceholderText="{Binding Placeholder}"
+						 Text="{Binding Text}" />
+				<Button Grid.Column="1"
+						Classes="icon"
+						Margin="4,0,0,0"
+						Command="{Binding BrowseCommand}">
+					<ctl:Icon Key="folder" Width="16" Height="16" />
+				</Button>
+			</Grid>
+		</DataTemplate>
+
+		<DataTemplate DataType="inspector:DynamicFieldsViewModel" x:DataType="inspector:DynamicFieldsViewModel">
+			<StackPanel Spacing="6">
+				<ItemsControl ItemsSource="{Binding Rows}">
+					<ItemsControl.ItemTemplate>
+						<DataTemplate x:DataType="inspector:KeyValueRowViewModel">
+							<Grid ColumnDefinitions="*,*,Auto" Margin="0,0,0,6">
+								<TextBox Text="{Binding Key}" />
+								<TextBox Grid.Column="1" Margin="4,0,0,0" Text="{Binding Value}" />
+								<Button Grid.Column="2"
+										Classes="icon"
+										Margin="4,0,0,0"
+										Command="{Binding RemoveCommand}">
+									<ctl:Icon Key="close" Width="14" Height="14" />
+								</Button>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+
+				<Button HorizontalAlignment="Left" Command="{Binding AddRowCommand}">
+					<StackPanel Orientation="Horizontal" Spacing="6">
+						<ctl:Icon Key="plus" Width="14" Height="14" />
+						<TextBlock Text="{Binding Loc[Inspector_AddRow]}" />
+					</StackPanel>
+				</Button>
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.DataTemplates>
+
+	<Grid>
+		<ctl:EmptyState IconKey="panel-right"
+						IsVisible="{Binding IsEmpty}"
+						Title="{Binding Loc[Inspector_EmptyTitle]}"
+						Description="{Binding Loc[Inspector_EmptyDescription]}" />
+
+		<TextBlock Classes="secondary"
+				   Margin="16"
+				   TextWrapping="Wrap"
+				   IsVisible="{Binding IsMultipleSelection}"
+				   Text="{Binding MultipleSelectionText}" />
+
+		<ContentControl Content="{Binding Node}" IsVisible="{Binding HasNode}">
+			<ContentControl.ContentTemplate>
+				<DataTemplate x:DataType="inspector:NodeInspectorViewModel">
+					<ScrollViewer>
+						<StackPanel Margin="16" Spacing="0">
+
+							<!-- What the node is -->
+							<Grid ColumnDefinitions="Auto,*" Margin="0,0,0,16">
+								<ctl:TonePill Width="44"
+											  Height="44"
+											  CornerRadius="12"
+											  VerticalAlignment="Top"
+											  Tone="{Binding Tone}">
+									<ctl:Icon Key="{Binding IconKey}"
+											  Width="24"
+											  Height="24"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center" />
+								</ctl:TonePill>
+								<StackPanel Grid.Column="1" Margin="12,0,0,0" Spacing="2">
+									<TextBlock FontSize="{DynamicResource MM.FontSize.Title}"
+											   FontWeight="SemiBold"
+											   TextWrapping="Wrap"
+											   Text="{Binding NodeName}" />
+									<TextBlock Classes="caption muted" Text="{Binding CategoryTitle}" />
+									<TextBlock Classes="secondary"
+											   Margin="0,4,0,0"
+											   TextWrapping="Wrap"
+											   Text="{Binding NodeDescription}" />
+								</StackPanel>
+							</Grid>
+
+							<!-- Problems that are not tied to a field -->
+							<Border Margin="0,0,0,16"
+									Padding="10"
+									CornerRadius="8"
+									Background="{DynamicResource MM.Brush.Tone.Yellow.Soft}"
+									IsVisible="{Binding HasProblems}">
+								<ItemsControl ItemsSource="{Binding Problems}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate x:DataType="x:String">
+											<Grid ColumnDefinitions="Auto,*" Margin="0,2">
+												<ctl:Icon Key="alert"
+														  Width="14"
+														  Height="14"
+														  VerticalAlignment="Top"
+														  Foreground="{DynamicResource MM.Brush.Warning}" />
+												<TextBlock Grid.Column="1"
+														   Margin="8,0,0,0"
+														   TextWrapping="Wrap"
+														   FontSize="{DynamicResource MM.FontSize.Small}"
+														   Text="{Binding}" />
+											</Grid>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Border>
+
+							<!-- General -->
+							<StackPanel Classes="field">
+								<TextBlock Classes="field-label" Text="{Binding Loc[Inspector_NodeTitle]}" />
+								<TextBox PlaceholderText="{Binding TitlePlaceholder}" Text="{Binding Title}" />
+							</StackPanel>
+
+							<Grid ColumnDefinitions="*,Auto" Margin="0,0,0,14">
+								<TextBlock Classes="field-label"
+										   VerticalAlignment="Center"
+										   Text="{Binding Loc[Inspector_Disabled]}" />
+								<ToggleSwitch Grid.Column="1"
+											  OnContent=""
+											  OffContent=""
+											  IsChecked="{Binding IsDisabled}" />
+							</Grid>
+
+							<Border Height="1"
+									Margin="0,0,0,14"
+									Background="{DynamicResource MM.Brush.Border}"
+									IsVisible="{Binding HasFields}" />
+
+							<!-- Parameters -->
+							<ItemsControl ItemsSource="{Binding Fields}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate x:DataType="inspector:ParameterFieldViewModel">
+										<StackPanel Classes="field" IsVisible="{Binding IsVisible}">
+											<StackPanel Orientation="Horizontal" Spacing="4">
+												<TextBlock Classes="field-label" Text="{Binding Label}" />
+												<TextBlock Classes="field-label"
+														   Foreground="{DynamicResource MM.Brush.Error}"
+														   IsVisible="{Binding IsRequired}"
+														   Text="*" />
+											</StackPanel>
+											<ContentControl Content="{Binding}" />
+											<TextBlock Classes="field-hint"
+													   IsVisible="{Binding HasDescription}"
+													   Text="{Binding Description}" />
+											<TextBlock Classes="field-error"
+													   IsVisible="{Binding HasError}"
+													   Text="{Binding ErrorMessage}" />
+										</StackPanel>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<TextBlock Classes="secondary"
+									   IsVisible="{Binding !HasFields}"
+									   Text="{Binding Loc[Inspector_NoParameters]}" />
+						</StackPanel>
+					</ScrollViewer>
+				</DataTemplate>
+			</ContentControl.ContentTemplate>
+		</ContentControl>
+	</Grid>
+
+</UserControl>

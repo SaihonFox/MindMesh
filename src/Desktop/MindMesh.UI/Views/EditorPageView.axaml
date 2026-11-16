@@ -1,0 +1,186 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:editor="using:MindMesh.Presentation.Pages.Editor"
+			 xmlns:limits="using:MindMesh.Application.Settings"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 xmlns:views="using:MindMesh.UI.Views"
+			 x:Class="MindMesh.UI.Views.EditorPageView"
+			 x:DataType="editor:EditorPageViewModel">
+
+	<Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto">
+
+		<!-- Node library -->
+		<Border Grid.Column="0"
+				Classes="panel"
+				BorderThickness="0,0,1,0"
+				Width="{Binding Layout.NodeLibraryWidth}"
+				IsVisible="{Binding Layout.IsNodeLibraryVisible}">
+			<DockPanel>
+				<Border DockPanel.Dock="Top" Classes="panel-header">
+					<Grid ColumnDefinitions="*,Auto">
+						<TextBlock Classes="panel-title"
+								   VerticalAlignment="Center"
+								   Text="{Binding Loc[Panel_NodeLibrary]}" />
+						<Button Grid.Column="1"
+								Classes="icon"
+								Padding="4"
+								MinWidth="24"
+								MinHeight="24"
+								Command="{Binding Layout.ToggleNodeLibraryCommand}"
+								ToolTip.Tip="{Binding Loc[Panel_Hide]}">
+							<ctl:Icon Key="close" Width="14" Height="14" />
+						</Button>
+					</Grid>
+				</Border>
+
+				<views:NodeLibraryView x:Name="LibraryView" DataContext="{Binding Library}" />
+			</DockPanel>
+		</Border>
+
+		<ctl:PanelResizer Grid.Column="1"
+						  Width="4"
+						  Edge="Right"
+						  Size="{Binding Layout.NodeLibraryWidth}"
+						  MinSize="{x:Static limits:LayoutLimits.SidePanelMinWidth}"
+						  MaxSize="{x:Static limits:LayoutLimits.SidePanelMaxWidth}"
+						  IsVisible="{Binding Layout.IsNodeLibraryVisible}" />
+
+		<!-- Center: canvas and console -->
+		<Grid Grid.Column="2" MinWidth="320" RowDefinitions="*,Auto,Auto">
+
+			<Border Grid.Row="0" Classes="canvas" MinHeight="120">
+				<views:GraphCanvasView x:Name="CanvasView" DataContext="{Binding Editor}" />
+			</Border>
+
+			<ctl:PanelResizer Grid.Row="1"
+							  Height="4"
+							  Edge="Top"
+							  Size="{Binding Layout.ConsoleHeight}"
+							  MinSize="{x:Static limits:LayoutLimits.ConsoleMinHeight}"
+							  MaxSize="{x:Static limits:LayoutLimits.ConsoleMaxHeight}"
+							  IsVisible="{Binding Layout.IsConsoleVisible}" />
+
+			<Border Grid.Row="2"
+					Classes="panel"
+					BorderThickness="0,1,0,0"
+					Height="{Binding Layout.ConsoleHeight}"
+					IsVisible="{Binding Layout.IsConsoleVisible}">
+				<DockPanel>
+					<Border DockPanel.Dock="Top" Classes="panel-header">
+						<Grid ColumnDefinitions="*,Auto">
+							<TextBlock Classes="panel-title"
+									   VerticalAlignment="Center"
+									   Text="{Binding Loc[Panel_Console]}" />
+							<Button Grid.Column="1"
+									Classes="icon"
+									Padding="4"
+									MinWidth="24"
+									MinHeight="24"
+									Command="{Binding Layout.ToggleConsoleCommand}"
+									ToolTip.Tip="{Binding Loc[Panel_Hide]}">
+								<ctl:Icon Key="close" Width="14" Height="14" />
+							</Button>
+						</Grid>
+					</Border>
+
+					<TabControl Classes="console"
+								ItemsSource="{Binding Console.Tabs}"
+								SelectedItem="{Binding Console.SelectedTab}">
+						<TabControl.ItemTemplate>
+							<DataTemplate x:DataType="editor:ConsoleTabViewModel">
+								<TextBlock Text="{Binding Title}" />
+							</DataTemplate>
+						</TabControl.ItemTemplate>
+						<TabControl.ContentTemplate>
+							<DataTemplate x:DataType="editor:ConsoleTabViewModel">
+								<ctl:EmptyState IconKey="{Binding IconKey}"
+												Title="{Binding Title}"
+												Description="{Binding EmptyDescription}" />
+							</DataTemplate>
+						</TabControl.ContentTemplate>
+					</TabControl>
+				</DockPanel>
+			</Border>
+		</Grid>
+
+		<!-- Inspector -->
+		<ctl:PanelResizer Grid.Column="3"
+						  Width="4"
+						  Edge="Left"
+						  Size="{Binding Layout.InspectorWidth}"
+						  MinSize="{x:Static limits:LayoutLimits.SidePanelMinWidth}"
+						  MaxSize="{x:Static limits:LayoutLimits.SidePanelMaxWidth}"
+						  IsVisible="{Binding Layout.IsInspectorVisible}" />
+
+		<Border Grid.Column="4"
+				Classes="panel"
+				BorderThickness="1,0,0,0"
+				Width="{Binding Layout.InspectorWidth}"
+				IsVisible="{Binding Layout.IsInspectorVisible}">
+			<DockPanel>
+				<Border DockPanel.Dock="Top" Classes="panel-header">
+					<Grid ColumnDefinitions="*,Auto">
+						<TextBlock Classes="panel-title"
+								   VerticalAlignment="Center"
+								   Text="{Binding Loc[Panel_Inspector]}" />
+						<Button Grid.Column="1"
+								Classes="icon"
+								Padding="4"
+								MinWidth="24"
+								MinHeight="24"
+								Command="{Binding Layout.ToggleInspectorCommand}"
+								ToolTip.Tip="{Binding Loc[Panel_Hide]}">
+							<ctl:Icon Key="close" Width="14" Height="14" />
+						</Button>
+					</Grid>
+				</Border>
+
+				<views:InspectorView DataContext="{Binding Inspector}" />
+			</DockPanel>
+		</Border>
+
+		<!-- AI Assistant -->
+		<ctl:PanelResizer Grid.Column="5"
+						  Width="4"
+						  Edge="Left"
+						  Size="{Binding Layout.AssistantWidth}"
+						  MinSize="{x:Static limits:LayoutLimits.SidePanelMinWidth}"
+						  MaxSize="{x:Static limits:LayoutLimits.SidePanelMaxWidth}"
+						  IsVisible="{Binding Layout.IsAssistantVisible}" />
+
+		<Border Grid.Column="6"
+				Classes="panel"
+				BorderThickness="1,0,0,0"
+				Width="{Binding Layout.AssistantWidth}"
+				IsVisible="{Binding Layout.IsAssistantVisible}">
+			<DockPanel>
+				<Border DockPanel.Dock="Top" Classes="panel-header">
+					<Grid ColumnDefinitions="*,Auto">
+						<TextBlock Classes="panel-title"
+								   VerticalAlignment="Center"
+								   Text="{Binding Loc[Panel_Assistant]}" />
+						<Button Grid.Column="1"
+								Classes="icon"
+								Padding="4"
+								MinWidth="24"
+								MinHeight="24"
+								Command="{Binding Layout.ToggleAssistantCommand}"
+								ToolTip.Tip="{Binding Loc[Panel_Hide]}">
+							<ctl:Icon Key="close" Width="14" Height="14" />
+						</Button>
+					</Grid>
+				</Border>
+
+				<Border DockPanel.Dock="Bottom" Padding="10">
+					<TextBox IsEnabled="{Binding Assistant.IsAvailable}"
+							 PlaceholderText="{Binding Loc[Assistant_InputPlaceholder]}" />
+				</Border>
+
+				<ctl:EmptyState IconKey="assistant"
+								Title="{Binding Loc[Assistant_EmptyTitle]}"
+								Description="{Binding Loc[Assistant_EmptyDescription]}" />
+			</DockPanel>
+		</Border>
+	</Grid>
+
+</UserControl>

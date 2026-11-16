@@ -1,0 +1,46 @@
+<Window xmlns="https://github.com/avaloniaui"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:shell="using:MindMesh.Presentation.Shell"
+		xmlns:welcome="using:MindMesh.Presentation.Pages.Welcome"
+		xmlns:editor="using:MindMesh.Presentation.Pages.Editor"
+		xmlns:settingsPage="using:MindMesh.Presentation.Pages.Settings"
+		xmlns:about="using:MindMesh.Presentation.Pages.About"
+		xmlns:placeholder="using:MindMesh.Presentation.Pages.Placeholder"
+		xmlns:views="using:MindMesh.UI.Views"
+		x:Class="MindMesh.UI.Views.MainWindow"
+		x:DataType="shell:MainWindowViewModel"
+		Title="{Binding WindowTitle}"
+		Width="1440"
+		Height="860"
+		MinWidth="960"
+		MinHeight="600"
+		WindowStartupLocation="CenterScreen">
+
+	<Window.DataTemplates>
+		<DataTemplate DataType="welcome:WelcomePageViewModel">
+			<views:WelcomePageView />
+		</DataTemplate>
+		<DataTemplate DataType="editor:EditorPageViewModel">
+			<views:EditorPageView />
+		</DataTemplate>
+		<DataTemplate DataType="settingsPage:SettingsPageViewModel">
+			<views:SettingsPageView />
+		</DataTemplate>
+		<DataTemplate DataType="about:AboutPageViewModel">
+			<views:AboutPageView />
+		</DataTemplate>
+		<DataTemplate DataType="placeholder:PlaceholderPageViewModel">
+			<views:PlaceholderPageView />
+		</DataTemplate>
+	</Window.DataTemplates>
+
+	<Grid RowDefinitions="Auto,*">
+		<views:TopBarView Grid.Row="0" DataContext="{Binding TopBar}" />
+
+		<Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+			<views:SidebarView Grid.Column="0" DataContext="{Binding Sidebar}" />
+			<ContentControl Grid.Column="1" Content="{Binding Navigation.CurrentPage}" />
+		</Grid>
+	</Grid>
+
+</Window>

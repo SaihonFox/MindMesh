@@ -1,0 +1,40 @@
+<Solution>
+	<Folder Name="/Solution Items/">
+		<File Path=".editorconfig" />
+		<File Path=".gitattributes" />
+		<File Path=".gitignore" />
+		<File Path="Directory.Build.props" />
+		<File Path="Directory.Packages.props" />
+		<File Path="global.json" />
+		<File Path="README.md" />
+	</Folder>
+	<Folder Name="/docs/">
+		<File Path="docs/architecture/overview.md" />
+		<File Path="docs/architecture/phase-1-report.md" />
+		<File Path="docs/architecture/phase-2-report.md" />
+	</Folder>
+	<Folder Name="/src/Core/">
+		<Project Path="src/Core/MindMesh.Domain/MindMesh.Domain.csproj" />
+		<Project Path="src/Core/MindMesh.Graph/MindMesh.Graph.csproj" />
+		<Project Path="src/Core/MindMesh.Plugins.Abstractions/MindMesh.Plugins.Abstractions.csproj" />
+		<Project Path="src/Core/MindMesh.Nodes/MindMesh.Nodes.csproj" />
+		<Project Path="src/Core/MindMesh.Application/MindMesh.Application.csproj" />
+	</Folder>
+	<Folder Name="/src/Infrastructure/">
+		<Project Path="src/Infrastructure/MindMesh.Infrastructure/MindMesh.Infrastructure.csproj" />
+	</Folder>
+	<Folder Name="/src/Desktop/">
+		<Project Path="src/Desktop/MindMesh.Presentation/MindMesh.Presentation.csproj" />
+		<Project Path="src/Desktop/MindMesh.UI/MindMesh.UI.csproj" />
+		<Project Path="src/Desktop/MindMesh.Desktop/MindMesh.Desktop.csproj" />
+	</Folder>
+	<Folder Name="/tests/">
+		<Project Path="tests/MindMesh.Domain.Tests/MindMesh.Domain.Tests.csproj" />
+		<Project Path="tests/MindMesh.Graph.Tests/MindMesh.Graph.Tests.csproj" />
+		<Project Path="tests/MindMesh.Nodes.Tests/MindMesh.Nodes.Tests.csproj" />
+		<Project Path="tests/MindMesh.Application.Tests/MindMesh.Application.Tests.csproj" />
+		<Project Path="tests/MindMesh.Infrastructure.Tests/MindMesh.Infrastructure.Tests.csproj" />
+		<Project Path="tests/MindMesh.Presentation.Tests/MindMesh.Presentation.Tests.csproj" />
+		<Project Path="tests/MindMesh.UI.Tests/MindMesh.UI.Tests.csproj" />
+	</Folder>
+</Solution>

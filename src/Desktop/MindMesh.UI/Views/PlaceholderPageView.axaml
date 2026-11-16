@@ -1,0 +1,30 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:placeholder="using:MindMesh.Presentation.Pages.Placeholder"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.PlaceholderPageView"
+			 x:DataType="placeholder:PlaceholderPageViewModel">
+
+	<StackPanel HorizontalAlignment="Center"
+				VerticalAlignment="Center"
+				Spacing="8">
+		<ctl:Icon Key="workflows"
+				  Width="40"
+				  Height="40"
+				  HorizontalAlignment="Center"
+				  Foreground="{DynamicResource MM.Brush.TextMuted}" />
+		<TextBlock Classes="h2"
+				   HorizontalAlignment="Center"
+				   Text="{Binding Title}" />
+		<TextBlock Classes="secondary"
+				   HorizontalAlignment="Center"
+				   Text="{Binding Loc[Placeholder_Description]}" />
+		<StackPanel Orientation="Horizontal"
+					HorizontalAlignment="Center"
+					Spacing="6">
+			<TextBlock Classes="muted" Text="{Binding Loc[Placeholder_Phase]}" />
+			<TextBlock Classes="muted" Text="{Binding Phase}" />
+		</StackPanel>
+	</StackPanel>
+
+</UserControl>

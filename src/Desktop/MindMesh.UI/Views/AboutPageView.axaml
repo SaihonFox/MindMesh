@@ -1,0 +1,54 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:about="using:MindMesh.Presentation.Pages.About"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.AboutPageView"
+			 x:DataType="about:AboutPageViewModel">
+
+	<ScrollViewer>
+		<StackPanel MaxWidth="680"
+					Margin="40,40"
+					Spacing="20"
+					HorizontalAlignment="Center">
+
+			<StackPanel Orientation="Horizontal" Spacing="16">
+				<ctl:Icon Key="logo"
+						  Width="48"
+						  Height="48"
+						  StrokeThickness="1.5"
+						  Foreground="{DynamicResource MM.Brush.Accent}" />
+				<StackPanel Spacing="2" VerticalAlignment="Center">
+					<TextBlock Classes="h2" Text="{Binding AppName}" />
+					<TextBlock Classes="secondary" Text="{Binding Loc[Welcome_Subtitle]}" />
+				</StackPanel>
+			</StackPanel>
+
+			<Border Classes="card">
+				<StackPanel Spacing="14">
+					<StackPanel Spacing="2">
+						<TextBlock Classes="caption muted" Text="{Binding Loc[About_Version]}" />
+						<SelectableTextBlock Text="{Binding Version}" />
+					</StackPanel>
+
+					<StackPanel Spacing="2">
+						<TextBlock Classes="caption muted" Text="{Binding Loc[About_Runtime]}" />
+						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding Runtime}" />
+					</StackPanel>
+
+					<StackPanel Spacing="2">
+						<TextBlock Classes="caption muted" Text="{Binding Loc[About_OS]}" />
+						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding OperatingSystem}" />
+					</StackPanel>
+
+					<StackPanel Spacing="2">
+						<TextBlock Classes="caption muted" Text="{Binding Loc[About_DataDirectory]}" />
+						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding DataDirectory}" />
+					</StackPanel>
+				</StackPanel>
+			</Border>
+
+			<TextBlock Classes="caption muted" Text="{Binding Copyright}" />
+		</StackPanel>
+	</ScrollViewer>
+
+</UserControl>

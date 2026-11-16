@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<RootNamespace>MindMesh.Desktop</RootNamespace>
+		<AssemblyName>MindMesh</AssemblyName>
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+		<BuiltInComInteropSupport>false</BuiltInComInteropSupport>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\MindMesh.UI\MindMesh.UI.csproj" />
+		<ProjectReference Include="..\MindMesh.Presentation\MindMesh.Presentation.csproj" />
+		<ProjectReference Include="..\..\Core\MindMesh.Application\MindMesh.Application.csproj" />
+		<ProjectReference Include="..\..\Core\MindMesh.Nodes\MindMesh.Nodes.csproj" />
+		<ProjectReference Include="..\..\Infrastructure\MindMesh.Infrastructure\MindMesh.Infrastructure.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Avalonia.Desktop" />
+		<PackageReference Include="Avalonia.Themes.Fluent" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" />
+		<PackageReference Include="Tmds.DBus.Protocol" />
+	</ItemGroup>
+
+</Project>

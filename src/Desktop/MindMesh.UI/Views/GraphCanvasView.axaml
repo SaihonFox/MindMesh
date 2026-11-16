@@ -1,0 +1,360 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:canvas="using:MindMesh.Presentation.Pages.Editor.Canvas"
+			 xmlns:library="using:MindMesh.Presentation.Pages.Editor.Library"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.GraphCanvasView"
+			 x:DataType="canvas:GraphEditorViewModel"
+			 Focusable="True"
+			 ClipToBounds="True">
+
+	<Border Classes="canvas" ClipToBounds="True">
+		<Grid>
+
+			<ctl:CanvasGridBackground x:Name="GridLayer" UseDots="True" IsHitTestVisible="False" />
+
+			<!-- Receives every pointer event of the canvas; the layers above it are not hit-testable. -->
+			<Border x:Name="HitLayer" Background="Transparent" />
+
+			<ctl:ConnectionsLayer Editor="{Binding}" />
+
+			<!-- Nodes live in world coordinates; the transform below applies pan and zoom. -->
+			<Canvas x:Name="WorldLayer"
+					IsHitTestVisible="False"
+					RenderTransformOrigin="0,0">
+				<ItemsControl x:Name="NodesHost" ItemsSource="{Binding Nodes}">
+					<ItemsControl.ItemsPanel>
+						<ItemsPanelTemplate>
+							<Canvas />
+						</ItemsPanelTemplate>
+					</ItemsControl.ItemsPanel>
+
+					<ItemsControl.Styles>
+						<Style Selector="ItemsControl > ContentPresenter" x:DataType="canvas:NodeViewModel">
+							<Setter Property="Canvas.Left" Value="{Binding X}" />
+							<Setter Property="Canvas.Top" Value="{Binding Y}" />
+							<Setter Property="ZIndex" Value="{Binding ZIndex}" />
+							<Setter Property="IsVisible" Value="{Binding IsInViewport}" />
+						</Style>
+					</ItemsControl.Styles>
+
+					<ItemsControl.ItemTemplate>
+						<DataTemplate x:DataType="canvas:NodeViewModel">
+							<Grid Width="272" Height="{Binding Height}">
+
+								<ctl:NodeCard Classes="node-card"
+											  VisualState="{Binding VisualState}"
+											  IsSelected="{Binding IsSelected}"
+											  IsFound="{Binding IsFindMatch}">
+									<Grid RowDefinitions="68,*">
+
+										<!-- Header: icon, title, description, category -->
+										<Grid ColumnDefinitions="Auto,*,Auto" Margin="14,0,12,0">
+											<ctl:TonePill Width="40"
+														  Height="40"
+														  CornerRadius="10"
+														  VerticalAlignment="Center"
+														  Tone="{Binding Tone}">
+												<ctl:Icon Key="{Binding IconKey}"
+														  Width="22"
+														  Height="22"
+														  HorizontalAlignment="Center"
+														  VerticalAlignment="Center" />
+											</ctl:TonePill>
+
+											<StackPanel Grid.Column="1"
+														Margin="12,0,8,0"
+														VerticalAlignment="Center"
+														Spacing="2">
+												<TextBlock FontSize="14"
+														   FontWeight="SemiBold"
+														   TextTrimming="CharacterEllipsis"
+														   Foreground="{DynamicResource MM.Brush.TextPrimary}"
+														   Text="{Binding Title}" />
+												<TextBlock FontSize="{DynamicResource MM.FontSize.Caption}"
+														   TextTrimming="CharacterEllipsis"
+														   Foreground="{DynamicResource MM.Brush.TextMuted}"
+														   Text="{Binding Description}" />
+											</StackPanel>
+
+											<ctl:TonePill Grid.Column="2"
+														  CornerRadius="8"
+														  Padding="8,2"
+														  MaxWidth="84"
+														  VerticalAlignment="Center"
+														  Tone="{Binding Tone}">
+												<TextBlock FontSize="10"
+														   FontWeight="SemiBold"
+														   TextTrimming="CharacterEllipsis"
+														   Text="{Binding CategoryTitle}" />
+											</ctl:TonePill>
+										</Grid>
+
+										<!-- Port labels; the dots themselves are drawn at the card edges below. -->
+										<Grid Grid.Row="1"
+											  Margin="0,8,0,0"
+											  ColumnDefinitions="*,*"
+											  IsVisible="{Binding !IsCollapsed}">
+											<ItemsControl ItemsSource="{Binding Inputs}">
+												<ItemsControl.ItemTemplate>
+													<DataTemplate x:DataType="canvas:PortViewModel">
+														<Border Height="28">
+															<TextBlock Classes="port-label"
+																	   Margin="18,0,4,0"
+																	   HorizontalAlignment="Left"
+																	   Text="{Binding Name}" />
+														</Border>
+													</DataTemplate>
+												</ItemsControl.ItemTemplate>
+											</ItemsControl>
+
+											<ItemsControl Grid.Column="1" ItemsSource="{Binding Outputs}">
+												<ItemsControl.ItemTemplate>
+													<DataTemplate x:DataType="canvas:PortViewModel">
+														<Border Height="28">
+															<TextBlock Classes="port-label"
+																	   Margin="4,0,18,0"
+																	   HorizontalAlignment="Right"
+																	   Text="{Binding Name}" />
+														</Border>
+													</DataTemplate>
+												</ItemsControl.ItemTemplate>
+											</ItemsControl>
+										</Grid>
+									</Grid>
+								</ctl:NodeCard>
+
+								<!-- Port dots, centred on the card edges. -->
+								<ItemsControl ItemsSource="{Binding Ports}">
+									<ItemsControl.ItemsPanel>
+										<ItemsPanelTemplate>
+											<Canvas />
+										</ItemsPanelTemplate>
+									</ItemsControl.ItemsPanel>
+
+									<ItemsControl.Styles>
+										<Style Selector="ItemsControl > ContentPresenter" x:DataType="canvas:PortViewModel">
+											<Setter Property="Canvas.Left" Value="{Binding DotX}" />
+											<Setter Property="Canvas.Top" Value="{Binding DotY}" />
+										</Style>
+									</ItemsControl.Styles>
+
+									<ItemsControl.ItemTemplate>
+										<DataTemplate x:DataType="canvas:PortViewModel">
+											<ctl:PortDot Kind="{Binding Kind}"
+														 IsConnected="{Binding IsConnected}"
+														 Hint="{Binding Hint}" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+
+								<!-- Problem marker -->
+								<Border Width="20"
+										Height="20"
+										CornerRadius="10"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
+										Margin="0,-8,-8,0"
+										Background="{DynamicResource MM.Brush.Warning}"
+										IsVisible="{Binding HasIssues}">
+									<ctl:Icon Key="alert"
+											  Width="12"
+											  Height="12"
+											  Foreground="{DynamicResource MM.Brush.OnAccent}"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center" />
+								</Border>
+							</Grid>
+						</DataTemplate>
+					</ItemsControl.ItemTemplate>
+				</ItemsControl>
+			</Canvas>
+
+			<ctl:CanvasOverlay Editor="{Binding}" />
+
+			<ctl:EmptyState IconKey="workflows"
+							IsHitTestVisible="False"
+							IsVisible="{Binding !HasNodes}"
+							Title="{Binding Loc[Canvas_EmptyTitle]}"
+							Description="{Binding Loc[Canvas_EmptyDescription]}" />
+
+			<!-- Find bar -->
+			<Border Classes="floating"
+					HorizontalAlignment="Center"
+					VerticalAlignment="Top"
+					Margin="0,16,0,0"
+					Padding="8,6"
+					IsVisible="{Binding Find.IsOpen}">
+				<StackPanel Orientation="Horizontal" Spacing="6">
+					<ctl:Icon Key="search"
+							  Width="16"
+							  Height="16"
+							  VerticalAlignment="Center"
+							  Foreground="{DynamicResource MM.Brush.TextMuted}" />
+					<TextBox x:Name="FindBox"
+							 Width="220"
+							 PlaceholderText="{Binding Loc[Find_Placeholder]}"
+							 Text="{Binding Find.SearchText}" />
+					<StackPanel Orientation="Horizontal"
+								Spacing="2"
+								VerticalAlignment="Center"
+								IsVisible="{Binding Find.HasMatches}">
+						<TextBlock Classes="caption muted" Text="{Binding Find.CurrentNumber}" />
+						<TextBlock Classes="caption muted" Text="/" />
+						<TextBlock Classes="caption muted" Text="{Binding Find.MatchCount}" />
+					</StackPanel>
+					<Button Classes="icon"
+							Click="OnFindPreviousClick"
+							ToolTip.Tip="{Binding Loc[Find_Previous]}">
+						<ctl:Icon Key="chevron-down" Width="14" Height="14" RenderTransform="scaleY(-1)" />
+					</Button>
+					<Button Classes="icon"
+							Click="OnFindNextClick"
+							ToolTip.Tip="{Binding Loc[Find_Next]}">
+						<ctl:Icon Key="chevron-down" Width="14" Height="14" />
+					</Button>
+					<Button Classes="icon"
+							Click="OnFindCloseClick"
+							ToolTip.Tip="{Binding Loc[Panel_Hide]}">
+						<ctl:Icon Key="close" Width="14" Height="14" />
+					</Button>
+				</StackPanel>
+			</Border>
+
+			<!-- Quick add: search box that places a node where it was opened -->
+			<Border x:Name="QuickAddHost"
+					Classes="floating"
+					Width="360"
+					Padding="8"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Top"
+					IsVisible="{Binding QuickAdd.IsOpen}">
+				<StackPanel Spacing="8">
+					<TextBox x:Name="QuickAddBox"
+							 PlaceholderText="{Binding Loc[QuickAdd_Placeholder]}"
+							 Text="{Binding QuickAdd.SearchText}" />
+
+					<ListBox x:Name="QuickAddList"
+							 MaxHeight="320"
+							 Background="Transparent"
+							 BorderThickness="0"
+							 ItemsSource="{Binding QuickAdd.Results}"
+							 SelectedItem="{Binding QuickAdd.SelectedItem}"
+							 IsVisible="{Binding QuickAdd.HasResults}">
+						<ListBox.ItemContainerTheme>
+							<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+								<Setter Property="Padding" Value="8,6" />
+								<Setter Property="CornerRadius" Value="8" />
+							</ControlTheme>
+						</ListBox.ItemContainerTheme>
+						<ListBox.ItemTemplate>
+							<DataTemplate x:DataType="library:LibraryNodeViewModel">
+								<Grid ColumnDefinitions="Auto,*,Auto">
+									<ctl:TonePill Width="30"
+												  Height="30"
+												  CornerRadius="8"
+												  VerticalAlignment="Center"
+												  Tone="{Binding Tone}">
+										<ctl:Icon Key="{Binding IconKey}"
+												  Width="16"
+												  Height="16"
+												  HorizontalAlignment="Center"
+												  VerticalAlignment="Center" />
+									</ctl:TonePill>
+									<StackPanel Grid.Column="1" Margin="10,0" VerticalAlignment="Center">
+										<TextBlock FontWeight="SemiBold"
+												   TextTrimming="CharacterEllipsis"
+												   Text="{Binding Title}" />
+										<TextBlock Classes="caption muted"
+												   TextTrimming="CharacterEllipsis"
+												   Text="{Binding Description}" />
+									</StackPanel>
+									<TextBlock Grid.Column="2"
+											   Classes="caption muted"
+											   VerticalAlignment="Center"
+											   Text="{Binding CategoryTitle}" />
+								</Grid>
+							</DataTemplate>
+						</ListBox.ItemTemplate>
+					</ListBox>
+
+					<TextBlock Classes="secondary"
+							   Margin="4,2"
+							   IsVisible="{Binding !QuickAdd.HasResults}"
+							   Text="{Binding Loc[QuickAdd_NoResults]}" />
+				</StackPanel>
+			</Border>
+
+			<!-- Canvas toolbar -->
+			<Border Classes="floating"
+					HorizontalAlignment="Left"
+					VerticalAlignment="Bottom"
+					Margin="16"
+					Padding="4">
+				<StackPanel Orientation="Horizontal" Spacing="2">
+					<Button Classes="icon"
+							Command="{Binding ZoomOutCommand}"
+							ToolTip.Tip="{Binding Loc[Canvas_ZoomOut]}">
+						<ctl:Icon Key="minus" Width="16" Height="16" />
+					</Button>
+					<Button Classes="icon"
+							MinWidth="52"
+							Command="{Binding ResetZoomCommand}"
+							ToolTip.Tip="{Binding Loc[Canvas_ResetZoom]}">
+						<TextBlock FontSize="{DynamicResource MM.FontSize.Small}"
+								   Text="{Binding Viewport.ZoomText}" />
+					</Button>
+					<Button Classes="icon"
+							Command="{Binding ZoomInCommand}"
+							ToolTip.Tip="{Binding Loc[Canvas_ZoomIn]}">
+						<ctl:Icon Key="plus" Width="16" Height="16" />
+					</Button>
+					<Button Classes="icon"
+							Command="{Binding FitToViewCommand}"
+							ToolTip.Tip="{Binding Loc[Canvas_Fit]}">
+						<ctl:Icon Key="fit" Width="16" Height="16" />
+					</Button>
+
+					<Border Classes="separator-vertical" />
+
+					<Button Classes="icon"
+							Command="{Binding UndoCommand}"
+							ToolTip.Tip="{Binding Loc[Tip_Undo]}">
+						<ctl:Icon Key="undo" Width="16" Height="16" />
+					</Button>
+					<Button Classes="icon"
+							Command="{Binding RedoCommand}"
+							ToolTip.Tip="{Binding Loc[Tip_Redo]}">
+						<ctl:Icon Key="redo" Width="16" Height="16" />
+					</Button>
+
+					<Border Classes="separator-vertical" />
+
+					<ToggleButton Classes="icon"
+								  IsChecked="{Binding SnapToGrid}"
+								  ToolTip.Tip="{Binding Loc[Canvas_Snap]}">
+						<ctl:Icon Key="auto-layout" Width="16" Height="16" />
+					</ToggleButton>
+					<ToggleButton Classes="icon"
+								  IsChecked="{Binding IsMinimapVisible}"
+								  ToolTip.Tip="{Binding Loc[Canvas_Minimap]}">
+						<ctl:Icon Key="map" Width="16" Height="16" />
+					</ToggleButton>
+				</StackPanel>
+			</Border>
+
+			<!-- Minimap -->
+			<Border Classes="floating"
+					Width="200"
+					Height="132"
+					HorizontalAlignment="Right"
+					VerticalAlignment="Bottom"
+					Margin="16"
+					ClipToBounds="True"
+					IsVisible="{Binding IsMinimapVisible}">
+				<ctl:MinimapControl Editor="{Binding}" />
+			</Border>
+		</Grid>
+	</Border>
+
+</UserControl>

@@ -1,0 +1,804 @@
+<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Workspace_UntitledProject" xml:space="preserve">
+    <value>Untitled project</value>
+  </data>
+  <data name="Workspace_UntitledWorkflow" xml:space="preserve">
+    <value>Untitled workflow</value>
+  </data>
+  <data name="SaveStatus_Saved" xml:space="preserve">
+    <value>All changes saved</value>
+  </data>
+  <data name="SaveStatus_Unsaved" xml:space="preserve">
+    <value>Unsaved changes</value>
+  </data>
+  <data name="SaveStatus_Saving" xml:space="preserve">
+    <value>Saving…</value>
+  </data>
+  <data name="TopBar_Home" xml:space="preserve">
+    <value>Welcome screen</value>
+  </data>
+  <data name="Toolbar_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Toolbar_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="Toolbar_AutoLayout" xml:space="preserve">
+    <value>Auto layout</value>
+  </data>
+  <data name="Toolbar_Validate" xml:space="preserve">
+    <value>Validate</value>
+  </data>
+  <data name="Toolbar_Run" xml:space="preserve">
+    <value>Run</value>
+  </data>
+  <data name="Toolbar_Debug" xml:space="preserve">
+    <value>Debug</value>
+  </data>
+  <data name="Toolbar_Assistant" xml:space="preserve">
+    <value>AI Assistant</value>
+  </data>
+  <data name="Toolbar_Mode" xml:space="preserve">
+    <value>Editor mode</value>
+  </data>
+  <data name="Toolbar_ToggleLibrary" xml:space="preserve">
+    <value>Show or hide the node library</value>
+  </data>
+  <data name="Toolbar_ToggleInspector" xml:space="preserve">
+    <value>Show or hide the inspector</value>
+  </data>
+  <data name="Toolbar_ToggleConsole" xml:space="preserve">
+    <value>Show or hide the console</value>
+  </data>
+  <data name="Tip_Undo" xml:space="preserve">
+    <value>Undo (Ctrl+Z)</value>
+  </data>
+  <data name="Tip_Redo" xml:space="preserve">
+    <value>Redo (Ctrl+Y)</value>
+  </data>
+  <data name="Tip_AutoLayout" xml:space="preserve">
+    <value>Auto layout — available later</value>
+  </data>
+  <data name="Tip_Validate" xml:space="preserve">
+    <value>Validate the graph — available with the workflow core (Phase 3)</value>
+  </data>
+  <data name="Tip_Run" xml:space="preserve">
+    <value>Run the workflow — available with the runtime (Phase 4)</value>
+  </data>
+  <data name="Tip_Debug" xml:space="preserve">
+    <value>Debug the workflow — available with the debugger (Phase 5)</value>
+  </data>
+  <data name="UserMenu_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="UserMenu_About" xml:space="preserve">
+    <value>About MindMesh</value>
+  </data>
+  <data name="Mode_Workflow" xml:space="preserve">
+    <value>Workflow</value>
+  </data>
+  <data name="Mode_AiAgent" xml:space="preserve">
+    <value>AI Agent</value>
+  </data>
+  <data name="Mode_DataFlow" xml:space="preserve">
+    <value>Data Flow</value>
+  </data>
+  <data name="Mode_Logic" xml:space="preserve">
+    <value>Logic</value>
+  </data>
+  <data name="Sidebar_Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Sidebar_Workflows" xml:space="preserve">
+    <value>Workflows</value>
+  </data>
+  <data name="Sidebar_Templates" xml:space="preserve">
+    <value>Templates</value>
+  </data>
+  <data name="Sidebar_Marketplace" xml:space="preserve">
+    <value>Marketplace</value>
+  </data>
+  <data name="Sidebar_Executions" xml:space="preserve">
+    <value>Executions</value>
+  </data>
+  <data name="Sidebar_Plugins" xml:space="preserve">
+    <value>Plugins</value>
+  </data>
+  <data name="Sidebar_Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Sidebar_Toggle" xml:space="preserve">
+    <value>Collapse or expand the sidebar</value>
+  </data>
+  <data name="Panel_NodeLibrary" xml:space="preserve">
+    <value>Node library</value>
+  </data>
+  <data name="Panel_Inspector" xml:space="preserve">
+    <value>Inspector</value>
+  </data>
+  <data name="Panel_Console" xml:space="preserve">
+    <value>Execution console</value>
+  </data>
+  <data name="Panel_Assistant" xml:space="preserve">
+    <value>AI Assistant</value>
+  </data>
+  <data name="Panel_Hide" xml:space="preserve">
+    <value>Hide panel</value>
+  </data>
+  <data name="Library_Search" xml:space="preserve">
+    <value>Search nodes…</value>
+  </data>
+  <data name="Inspector_EmptyTitle" xml:space="preserve">
+    <value>Nothing selected</value>
+  </data>
+  <data name="Inspector_EmptyDescription" xml:space="preserve">
+    <value>Select a node on the canvas to edit its settings.</value>
+  </data>
+  <data name="Canvas_EmptyTitle" xml:space="preserve">
+    <value>The canvas is empty</value>
+  </data>
+  <data name="Canvas_EmptyDescription" xml:space="preserve">
+    <value>Drag a node from the library, double-click one, or press Space to search for a node.</value>
+  </data>
+  <data name="Assistant_EmptyTitle" xml:space="preserve">
+    <value>The assistant is not available yet</value>
+  </data>
+  <data name="Assistant_EmptyDescription" xml:space="preserve">
+    <value>Connect an AI provider to build and explain workflows in plain language (Phase 6).</value>
+  </data>
+  <data name="Assistant_InputPlaceholder" xml:space="preserve">
+    <value>Ask the assistant…</value>
+  </data>
+  <data name="Console_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Console_Logs" xml:space="preserve">
+    <value>Logs</value>
+  </data>
+  <data name="Console_Errors" xml:space="preserve">
+    <value>Errors</value>
+  </data>
+  <data name="Console_Variables" xml:space="preserve">
+    <value>Variables</value>
+  </data>
+  <data name="Console_ExecutionData" xml:space="preserve">
+    <value>Execution data</value>
+  </data>
+  <data name="Console_Debugger" xml:space="preserve">
+    <value>Debugger</value>
+  </data>
+  <data name="ConsoleEmpty_Output" xml:space="preserve">
+    <value>The output of a run appears here.</value>
+  </data>
+  <data name="ConsoleEmpty_Logs" xml:space="preserve">
+    <value>Execution events appear here in real time.</value>
+  </data>
+  <data name="ConsoleEmpty_Errors" xml:space="preserve">
+    <value>No errors.</value>
+  </data>
+  <data name="ConsoleEmpty_Variables" xml:space="preserve">
+    <value>Workflow variables appear here while it runs.</value>
+  </data>
+  <data name="ConsoleEmpty_ExecutionData" xml:space="preserve">
+    <value>Input and output data of every node appears here.</value>
+  </data>
+  <data name="ConsoleEmpty_Debugger" xml:space="preserve">
+    <value>Breakpoints and stepping appear here (Phase 5).</value>
+  </data>
+  <data name="Category_Triggers" xml:space="preserve">
+    <value>Triggers</value>
+  </data>
+  <data name="Category_Logic" xml:space="preserve">
+    <value>Logic</value>
+  </data>
+  <data name="Category_Http" xml:space="preserve">
+    <value>HTTP</value>
+  </data>
+  <data name="Category_Database" xml:space="preserve">
+    <value>Database</value>
+  </data>
+  <data name="Category_Files" xml:space="preserve">
+    <value>Files</value>
+  </data>
+  <data name="Category_Integrations" xml:space="preserve">
+    <value>Integrations</value>
+  </data>
+  <data name="Category_DataTransformation" xml:space="preserve">
+    <value>Data transformation</value>
+  </data>
+  <data name="Category_Llm" xml:space="preserve">
+    <value>LLM</value>
+  </data>
+  <data name="Category_Agent" xml:space="preserve">
+    <value>Agent</value>
+  </data>
+  <data name="Category_Memory" xml:space="preserve">
+    <value>Memory</value>
+  </data>
+  <data name="Category_Tools" xml:space="preserve">
+    <value>Tools</value>
+  </data>
+  <data name="Category_Rag" xml:space="preserve">
+    <value>RAG</value>
+  </data>
+  <data name="Category_Embeddings" xml:space="preserve">
+    <value>Embeddings</value>
+  </data>
+  <data name="Category_VectorSearch" xml:space="preserve">
+    <value>Vector search</value>
+  </data>
+  <data name="Category_AiContext" xml:space="preserve">
+    <value>AI context</value>
+  </data>
+  <data name="Category_Input" xml:space="preserve">
+    <value>Input</value>
+  </data>
+  <data name="Category_Output" xml:space="preserve">
+    <value>Output</value>
+  </data>
+  <data name="Category_Mapping" xml:space="preserve">
+    <value>Mapping</value>
+  </data>
+  <data name="Category_Filtering" xml:space="preserve">
+    <value>Filtering</value>
+  </data>
+  <data name="Category_Aggregation" xml:space="preserve">
+    <value>Aggregation</value>
+  </data>
+  <data name="Category_Json" xml:space="preserve">
+    <value>JSON</value>
+  </data>
+  <data name="Category_Csv" xml:space="preserve">
+    <value>CSV</value>
+  </data>
+  <data name="Category_Xml" xml:space="preserve">
+    <value>XML</value>
+  </data>
+  <data name="Category_DataValidation" xml:space="preserve">
+    <value>Data validation</value>
+  </data>
+  <data name="Category_Variables" xml:space="preserve">
+    <value>Variables</value>
+  </data>
+  <data name="Category_Conditions" xml:space="preserve">
+    <value>Conditions</value>
+  </data>
+  <data name="Category_Loops" xml:space="preserve">
+    <value>Loops</value>
+  </data>
+  <data name="Category_Functions" xml:space="preserve">
+    <value>Functions</value>
+  </data>
+  <data name="Category_Switch" xml:space="preserve">
+    <value>Switch</value>
+  </data>
+  <data name="Category_Merge" xml:space="preserve">
+    <value>Merge</value>
+  </data>
+  <data name="Category_Expressions" xml:space="preserve">
+    <value>Expressions</value>
+  </data>
+  <data name="Category_ErrorHandling" xml:space="preserve">
+    <value>Error handling</value>
+  </data>
+  <data name="Welcome_Title" xml:space="preserve">
+    <value>Welcome to MindMesh</value>
+  </data>
+  <data name="Welcome_Subtitle" xml:space="preserve">
+    <value>Design automations, AI agents and data flows visually.</value>
+  </data>
+  <data name="Welcome_OpenEditor" xml:space="preserve">
+    <value>Open the editor</value>
+  </data>
+  <data name="Welcome_OpenEditorHint" xml:space="preserve">
+    <value>Start with an empty workflow canvas</value>
+  </data>
+  <data name="Welcome_OpenSettings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Welcome_OpenSettingsHint" xml:space="preserve">
+    <value>Language, layout and storage</value>
+  </data>
+  <data name="Welcome_OpenAbout" xml:space="preserve">
+    <value>About MindMesh</value>
+  </data>
+  <data name="Welcome_OpenAboutHint" xml:space="preserve">
+    <value>Version and diagnostics</value>
+  </data>
+  <data name="Welcome_ShowOnStartup" xml:space="preserve">
+    <value>Show this screen on startup</value>
+  </data>
+  <data name="Welcome_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="Settings_Title" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Settings_General" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Settings_Language" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="Settings_LanguageHint" xml:space="preserve">
+    <value>Applied immediately.</value>
+  </data>
+  <data name="Settings_Theme" xml:space="preserve">
+    <value>Theme</value>
+  </data>
+  <data name="Settings_ThemeHint" xml:space="preserve">
+    <value>Light is the default. Choose System to follow your operating system.</value>
+  </data>
+  <data name="Settings_Layout" xml:space="preserve">
+    <value>Layout</value>
+  </data>
+  <data name="Settings_CompactSidebar" xml:space="preserve">
+    <value>Compact sidebar</value>
+  </data>
+  <data name="Settings_ResetLayout" xml:space="preserve">
+    <value>Reset panel layout</value>
+  </data>
+  <data name="Settings_ResetLayoutHint" xml:space="preserve">
+    <value>Restores default panel sizes and visibility.</value>
+  </data>
+  <data name="Settings_Storage" xml:space="preserve">
+    <value>Storage</value>
+  </data>
+  <data name="Settings_DataDirectory" xml:space="preserve">
+    <value>Data folder</value>
+  </data>
+  <data name="Settings_LogsDirectory" xml:space="preserve">
+    <value>Logs folder</value>
+  </data>
+  <data name="About_Title" xml:space="preserve">
+    <value>About MindMesh</value>
+  </data>
+  <data name="About_Version" xml:space="preserve">
+    <value>Version</value>
+  </data>
+  <data name="About_Runtime" xml:space="preserve">
+    <value>Runtime</value>
+  </data>
+  <data name="About_OS" xml:space="preserve">
+    <value>Operating system</value>
+  </data>
+  <data name="About_DataDirectory" xml:space="preserve">
+    <value>Data folder</value>
+  </data>
+  <data name="Placeholder_Description" xml:space="preserve">
+    <value>This section is not built yet.</value>
+  </data>
+  <data name="Placeholder_Phase" xml:space="preserve">
+    <value>Planned for phase</value>
+  </data>
+  <data name="Node_ai_llm_Name" xml:space="preserve">
+    <value>LLM</value>
+  </data>
+  <data name="Node_ai_llm_Description" xml:space="preserve">
+    <value>Sends a prompt to a language model and returns its answer.</value>
+  </data>
+  <data name="Node_ai_agent_Name" xml:space="preserve">
+    <value>AI Agent</value>
+  </data>
+  <data name="Node_ai_agent_Description" xml:space="preserve">
+    <value>An agent that plans, calls tools and answers a task on its own.</value>
+  </data>
+  <data name="Node_ai_prompt_template_Name" xml:space="preserve">
+    <value>Prompt Template</value>
+  </data>
+  <data name="Node_ai_prompt_template_Description" xml:space="preserve">
+    <value>Fills a prompt template with values.</value>
+  </data>
+  <data name="Node_ai_memory_Name" xml:space="preserve">
+    <value>Chat Memory</value>
+  </data>
+  <data name="Node_ai_memory_Description" xml:space="preserve">
+    <value>Keeps the conversation history between runs.</value>
+  </data>
+  <data name="Node_ai_embedding_Name" xml:space="preserve">
+    <value>Embedding</value>
+  </data>
+  <data name="Node_ai_embedding_Description" xml:space="preserve">
+    <value>Turns text into a vector for similarity search.</value>
+  </data>
+  <data name="Node_ai_vector_search_Name" xml:space="preserve">
+    <value>Vector Search</value>
+  </data>
+  <data name="Node_ai_vector_search_Description" xml:space="preserve">
+    <value>Finds the stored documents closest in meaning to a vector.</value>
+  </data>
+  <data name="Node_ai_rag_Name" xml:space="preserve">
+    <value>RAG</value>
+  </data>
+  <data name="Node_ai_rag_Description" xml:space="preserve">
+    <value>Answers a question using documents found in your knowledge base.</value>
+  </data>
+  <data name="Node_ai_tool_Name" xml:space="preserve">
+    <value>AI Tool</value>
+  </data>
+  <data name="Node_ai_tool_Description" xml:space="preserve">
+    <value>Exposes a part of the workflow to an agent as a tool it can call.</value>
+  </data>
+  <data name="Node_flow_input_Name" xml:space="preserve">
+    <value>Workflow Input</value>
+  </data>
+  <data name="Node_flow_input_Description" xml:space="preserve">
+    <value>Declares a value the workflow receives from its caller.</value>
+  </data>
+  <data name="Node_flow_output_Name" xml:space="preserve">
+    <value>Workflow Output</value>
+  </data>
+  <data name="Node_flow_output_Description" xml:space="preserve">
+    <value>Declares a value the workflow returns to its caller.</value>
+  </data>
+  <data name="Node_flow_aggregate_Name" xml:space="preserve">
+    <value>Aggregate</value>
+  </data>
+  <data name="Node_flow_aggregate_Description" xml:space="preserve">
+    <value>Summarizes an array: count, sum, average, minimum or maximum.</value>
+  </data>
+  <data name="Node_flow_validate_Name" xml:space="preserve">
+    <value>Validate Data</value>
+  </data>
+  <data name="Node_flow_validate_Description" xml:space="preserve">
+    <value>Checks data against a JSON schema and routes valid and invalid data separately.</value>
+  </data>
+  <data name="Node_data_set_variable_Name" xml:space="preserve">
+    <value>Set Variable</value>
+  </data>
+  <data name="Node_data_set_variable_Description" xml:space="preserve">
+    <value>Stores a value in a workflow variable.</value>
+  </data>
+  <data name="Node_data_get_variable_Name" xml:space="preserve">
+    <value>Get Variable</value>
+  </data>
+  <data name="Node_data_get_variable_Description" xml:space="preserve">
+    <value>Reads the value of a workflow variable.</value>
+  </data>
+  <data name="Node_data_json_parse_Name" xml:space="preserve">
+    <value>JSON Parse</value>
+  </data>
+  <data name="Node_data_json_parse_Description" xml:space="preserve">
+    <value>Turns JSON text into structured data.</value>
+  </data>
+  <data name="Node_data_json_serialize_Name" xml:space="preserve">
+    <value>JSON Serialize</value>
+  </data>
+  <data name="Node_data_json_serialize_Description" xml:space="preserve">
+    <value>Turns structured data into JSON text.</value>
+  </data>
+  <data name="Node_data_mapping_Name" xml:space="preserve">
+    <value>Data Mapping</value>
+  </data>
+  <data name="Node_data_mapping_Description" xml:space="preserve">
+    <value>Builds a new object from fields of the input using expressions.</value>
+  </data>
+  <data name="Node_data_filter_Name" xml:space="preserve">
+    <value>Filter</value>
+  </data>
+  <data name="Node_data_filter_Description" xml:space="preserve">
+    <value>Keeps only the items of an array that match a condition.</value>
+  </data>
+  <data name="Node_data_transform_Name" xml:space="preserve">
+    <value>Transform</value>
+  </data>
+  <data name="Node_data_transform_Description" xml:space="preserve">
+    <value>Changes the shape of data with a script.</value>
+  </data>
+  <data name="Node_data_expression_Name" xml:space="preserve">
+    <value>Expression</value>
+  </data>
+  <data name="Node_data_expression_Description" xml:space="preserve">
+    <value>Computes a value from an expression.</value>
+  </data>
+  <data name="Node_data_merge_objects_Name" xml:space="preserve">
+    <value>Merge Objects</value>
+  </data>
+  <data name="Node_data_merge_objects_Description" xml:space="preserve">
+    <value>Combines several objects into one.</value>
+  </data>
+  <data name="Node_db_postgres_Name" xml:space="preserve">
+    <value>PostgreSQL Query</value>
+  </data>
+  <data name="Node_db_postgres_Description" xml:space="preserve">
+    <value>Runs an SQL statement on a PostgreSQL database.</value>
+  </data>
+  <data name="Node_db_sqlite_Name" xml:space="preserve">
+    <value>SQLite Query</value>
+  </data>
+  <data name="Node_db_sqlite_Description" xml:space="preserve">
+    <value>Runs an SQL statement on a SQLite database file.</value>
+  </data>
+  <data name="Node_db_redis_Name" xml:space="preserve">
+    <value>Redis Command</value>
+  </data>
+  <data name="Node_db_redis_Description" xml:space="preserve">
+    <value>Runs a command on a Redis server.</value>
+  </data>
+  <data name="Node_file_read_Name" xml:space="preserve">
+    <value>Read File</value>
+  </data>
+  <data name="Node_file_read_Description" xml:space="preserve">
+    <value>Reads a file from disk.</value>
+  </data>
+  <data name="Node_file_write_Name" xml:space="preserve">
+    <value>Write File</value>
+  </data>
+  <data name="Node_file_write_Description" xml:space="preserve">
+    <value>Writes data to a file.</value>
+  </data>
+  <data name="Node_file_parse_csv_Name" xml:space="preserve">
+    <value>Parse CSV</value>
+  </data>
+  <data name="Node_file_parse_csv_Description" xml:space="preserve">
+    <value>Turns CSV text into an array of rows.</value>
+  </data>
+  <data name="Node_file_parse_json_Name" xml:space="preserve">
+    <value>Parse JSON</value>
+  </data>
+  <data name="Node_file_parse_json_Description" xml:space="preserve">
+    <value>Reads a JSON file or text into structured data.</value>
+  </data>
+  <data name="Node_file_parse_xml_Name" xml:space="preserve">
+    <value>Parse XML</value>
+  </data>
+  <data name="Node_file_parse_xml_Description" xml:space="preserve">
+    <value>Turns XML text into structured data.</value>
+  </data>
+  <data name="Node_http_request_Name" xml:space="preserve">
+    <value>HTTP Request</value>
+  </data>
+  <data name="Node_http_request_Description" xml:space="preserve">
+    <value>Sends an HTTP request and returns the response.</value>
+  </data>
+  <data name="Node_http_response_Name" xml:space="preserve">
+    <value>HTTP Response</value>
+  </data>
+  <data name="Node_http_response_Description" xml:space="preserve">
+    <value>Sends the reply to the request that started the workflow.</value>
+  </data>
+  <data name="Node_http_rest_client_Name" xml:space="preserve">
+    <value>REST Client</value>
+  </data>
+  <data name="Node_http_rest_client_Description" xml:space="preserve">
+    <value>Calls a REST resource of a base URL, with retries.</value>
+  </data>
+  <data name="Node_http_graphql_Name" xml:space="preserve">
+    <value>GraphQL Request</value>
+  </data>
+  <data name="Node_http_graphql_Description" xml:space="preserve">
+    <value>Runs a GraphQL query or mutation.</value>
+  </data>
+  <data name="Node_integration_telegram_Name" xml:space="preserve">
+    <value>Telegram</value>
+  </data>
+  <data name="Node_integration_telegram_Description" xml:space="preserve">
+    <value>Sends a message with a Telegram bot.</value>
+  </data>
+  <data name="Node_integration_discord_Name" xml:space="preserve">
+    <value>Discord</value>
+  </data>
+  <data name="Node_integration_discord_Description" xml:space="preserve">
+    <value>Posts a message to a Discord channel.</value>
+  </data>
+  <data name="Node_integration_github_Name" xml:space="preserve">
+    <value>GitHub</value>
+  </data>
+  <data name="Node_integration_github_Description" xml:space="preserve">
+    <value>Works with issues, pull requests and repositories on GitHub.</value>
+  </data>
+  <data name="Node_integration_email_Name" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Node_integration_email_Description" xml:space="preserve">
+    <value>Sends an email through an SMTP server.</value>
+  </data>
+  <data name="Node_integration_generic_webhook_Name" xml:space="preserve">
+    <value>Generic Webhook</value>
+  </data>
+  <data name="Node_integration_generic_webhook_Description" xml:space="preserve">
+    <value>Posts a JSON payload to any webhook address.</value>
+  </data>
+  <data name="Node_logic_if_Name" xml:space="preserve">
+    <value>If</value>
+  </data>
+  <data name="Node_logic_if_Description" xml:space="preserve">
+    <value>Continues along the True or False branch depending on a condition.</value>
+  </data>
+  <data name="Node_logic_switch_Name" xml:space="preserve">
+    <value>Switch</value>
+  </data>
+  <data name="Node_logic_switch_Description" xml:space="preserve">
+    <value>Routes execution to one of several branches by the value of an expression.</value>
+  </data>
+  <data name="Node_logic_loop_Name" xml:space="preserve">
+    <value>Loop</value>
+  </data>
+  <data name="Node_logic_loop_Description" xml:space="preserve">
+    <value>Repeats the branch a fixed number of times, then continues.</value>
+  </data>
+  <data name="Node_logic_foreach_Name" xml:space="preserve">
+    <value>For Each</value>
+  </data>
+  <data name="Node_logic_foreach_Description" xml:space="preserve">
+    <value>Runs the branch once for every item of an array.</value>
+  </data>
+  <data name="Node_logic_merge_Name" xml:space="preserve">
+    <value>Merge</value>
+  </data>
+  <data name="Node_logic_merge_Description" xml:space="preserve">
+    <value>Joins several branches back into one.</value>
+  </data>
+  <data name="Node_logic_delay_Name" xml:space="preserve">
+    <value>Delay</value>
+  </data>
+  <data name="Node_logic_delay_Description" xml:space="preserve">
+    <value>Waits for a while before continuing.</value>
+  </data>
+  <data name="Node_logic_try_catch_Name" xml:space="preserve">
+    <value>Try / Catch</value>
+  </data>
+  <data name="Node_logic_try_catch_Description" xml:space="preserve">
+    <value>Runs a branch and handles its errors in another.</value>
+  </data>
+  <data name="Node_logic_stop_Name" xml:space="preserve">
+    <value>Stop Workflow</value>
+  </data>
+  <data name="Node_logic_stop_Description" xml:space="preserve">
+    <value>Ends the workflow with a status and a message.</value>
+  </data>
+  <data name="Node_trigger_manual_Name" xml:space="preserve">
+    <value>Manual Trigger</value>
+  </data>
+  <data name="Node_trigger_manual_Description" xml:space="preserve">
+    <value>Starts the workflow when you press Run.</value>
+  </data>
+  <data name="Node_trigger_webhook_Name" xml:space="preserve">
+    <value>Webhook Trigger</value>
+  </data>
+  <data name="Node_trigger_webhook_Description" xml:space="preserve">
+    <value>Starts the workflow when an HTTP request arrives.</value>
+  </data>
+  <data name="Node_trigger_schedule_Name" xml:space="preserve">
+    <value>Schedule Trigger</value>
+  </data>
+  <data name="Node_trigger_schedule_Description" xml:space="preserve">
+    <value>Starts the workflow on a timer or a cron schedule.</value>
+  </data>
+  <data name="Node_trigger_event_Name" xml:space="preserve">
+    <value>Event Trigger</value>
+  </data>
+  <data name="Node_trigger_event_Description" xml:space="preserve">
+    <value>Starts the workflow when an application or plugin event is raised.</value>
+  </data>
+  <data name="Theme_Light" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="Theme_Dark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="Theme_System" xml:space="preserve">
+    <value>System</value>
+  </data>
+  <data name="Canvas_ZoomIn" xml:space="preserve">
+    <value>Zoom in</value>
+  </data>
+  <data name="Canvas_ZoomOut" xml:space="preserve">
+    <value>Zoom out</value>
+  </data>
+  <data name="Canvas_ResetZoom" xml:space="preserve">
+    <value>Reset zoom to 100%</value>
+  </data>
+  <data name="Canvas_Fit" xml:space="preserve">
+    <value>Fit the graph to the window</value>
+  </data>
+  <data name="Canvas_Snap" xml:space="preserve">
+    <value>Snap to grid</value>
+  </data>
+  <data name="Canvas_Minimap" xml:space="preserve">
+    <value>Show or hide the minimap</value>
+  </data>
+  <data name="Find_Placeholder" xml:space="preserve">
+    <value>Find a node…</value>
+  </data>
+  <data name="Find_Previous" xml:space="preserve">
+    <value>Previous match</value>
+  </data>
+  <data name="Find_Next" xml:space="preserve">
+    <value>Next match</value>
+  </data>
+  <data name="QuickAdd_Placeholder" xml:space="preserve">
+    <value>Type to search nodes…</value>
+  </data>
+  <data name="QuickAdd_NoResults" xml:space="preserve">
+    <value>No node fits.</value>
+  </data>
+  <data name="Library_NoResults" xml:space="preserve">
+    <value>No nodes match your search.</value>
+  </data>
+  <data name="Menu_AddNode" xml:space="preserve">
+    <value>Add node…</value>
+  </data>
+  <data name="Menu_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="Menu_SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Menu_FitView" xml:space="preserve">
+    <value>Fit to window</value>
+  </data>
+  <data name="Menu_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Menu_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Menu_Enable" xml:space="preserve">
+    <value>Enable</value>
+  </data>
+  <data name="Menu_Disable" xml:space="preserve">
+    <value>Disable</value>
+  </data>
+  <data name="Menu_Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Menu_Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
+  <data name="Menu_Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Menu_DeleteConnection" xml:space="preserve">
+    <value>Delete connection</value>
+  </data>
+  <data name="Inspector_MultipleSelected" xml:space="preserve">
+    <value>{0} nodes selected. Select a single node to edit its settings.</value>
+  </data>
+  <data name="Inspector_NodeTitle" xml:space="preserve">
+    <value>Title</value>
+  </data>
+  <data name="Inspector_Disabled" xml:space="preserve">
+    <value>Disabled</value>
+  </data>
+  <data name="Inspector_NoParameters" xml:space="preserve">
+    <value>This node has no settings.</value>
+  </data>
+  <data name="Inspector_AddRow" xml:space="preserve">
+    <value>Add</value>
+  </data>
+  <data name="Validation_RequiredParameterMissing" xml:space="preserve">
+    <value>{0} is required.</value>
+  </data>
+  <data name="Validation_InvalidNumber" xml:space="preserve">
+    <value>{0} must be a number.</value>
+  </data>
+  <data name="Validation_NumberTooSmall" xml:space="preserve">
+    <value>{0} must be at least {1}.</value>
+  </data>
+  <data name="Validation_NumberTooLarge" xml:space="preserve">
+    <value>{0} must be at most {1}.</value>
+  </data>
+  <data name="Validation_InvalidJson" xml:space="preserve">
+    <value>{0} is not valid JSON.</value>
+  </data>
+  <data name="Validation_UnknownOption" xml:space="preserve">
+    <value>{0} has a value that is not in the list.</value>
+  </data>
+  <data name="Validation_RequiredInputNotConnected" xml:space="preserve">
+    <value>The input “{0}” is not connected.</value>
+  </data>
+</root>

@@ -1,0 +1,101 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:settingsPage="using:MindMesh.Presentation.Pages.Settings"
+			 x:Class="MindMesh.UI.Views.SettingsPageView"
+			 x:DataType="settingsPage:SettingsPageViewModel">
+
+	<ScrollViewer>
+		<StackPanel MaxWidth="680"
+					Margin="40,40"
+					Spacing="20"
+					HorizontalAlignment="Center">
+
+			<TextBlock Classes="h2" Text="{Binding Loc[Settings_Title]}" />
+
+			<!-- General -->
+			<Border Classes="card">
+				<StackPanel Spacing="18">
+					<TextBlock Classes="h3" Text="{Binding Loc[Settings_General]}" />
+
+					<Grid ColumnDefinitions="*,Auto">
+						<StackPanel Spacing="2" VerticalAlignment="Center">
+							<TextBlock Text="{Binding Loc[Settings_Language]}" />
+							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_LanguageHint]}" />
+						</StackPanel>
+						<ComboBox Grid.Column="1"
+								  MinWidth="200"
+								  ItemsSource="{Binding Languages}"
+								  SelectedItem="{Binding SelectedLanguage}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate x:DataType="settingsPage:LanguageOptionViewModel">
+									<TextBlock Text="{Binding DisplayName}" />
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</Grid>
+
+					<Grid ColumnDefinitions="*,Auto">
+						<StackPanel Spacing="2" VerticalAlignment="Center">
+							<TextBlock Text="{Binding Loc[Settings_Theme]}" />
+							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_ThemeHint]}" />
+						</StackPanel>
+						<ComboBox Grid.Column="1"
+								  MinWidth="200"
+								  ItemsSource="{Binding Themes}"
+								  SelectedItem="{Binding SelectedTheme}">
+							<ComboBox.ItemTemplate>
+								<DataTemplate x:DataType="settingsPage:ThemeOptionViewModel">
+									<TextBlock Text="{Binding Title}" />
+								</DataTemplate>
+							</ComboBox.ItemTemplate>
+						</ComboBox>
+					</Grid>
+				</StackPanel>
+			</Border>
+
+			<!-- Layout -->
+			<Border Classes="card">
+				<StackPanel Spacing="18">
+					<TextBlock Classes="h3" Text="{Binding Loc[Settings_Layout]}" />
+
+					<Grid ColumnDefinitions="*,Auto">
+						<TextBlock VerticalAlignment="Center"
+								   Text="{Binding Loc[Settings_CompactSidebar]}" />
+						<ToggleSwitch Grid.Column="1"
+									  OnContent=""
+									  OffContent=""
+									  IsChecked="{Binding Sidebar.IsCompact}" />
+					</Grid>
+
+					<Grid ColumnDefinitions="*,Auto">
+						<StackPanel Spacing="2" VerticalAlignment="Center">
+							<TextBlock Text="{Binding Loc[Settings_ResetLayout]}" />
+							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_ResetLayoutHint]}" />
+						</StackPanel>
+						<Button Grid.Column="1"
+								Content="{Binding Loc[Settings_ResetLayout]}"
+								Command="{Binding ResetLayoutCommand}" />
+					</Grid>
+				</StackPanel>
+			</Border>
+
+			<!-- Storage -->
+			<Border Classes="card">
+				<StackPanel Spacing="14">
+					<TextBlock Classes="h3" Text="{Binding Loc[Settings_Storage]}" />
+
+					<StackPanel Spacing="2">
+						<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_DataDirectory]}" />
+						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding DataDirectory}" />
+					</StackPanel>
+
+					<StackPanel Spacing="2">
+						<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_LogsDirectory]}" />
+						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding LogsDirectory}" />
+					</StackPanel>
+				</StackPanel>
+			</Border>
+		</StackPanel>
+	</ScrollViewer>
+
+</UserControl>

@@ -1,0 +1,130 @@
+using MindMesh.Graph.Definitions;
+using MindMesh.Graph.Ports;
+
+namespace MindMesh.Nodes.BuiltIn.Definitions;
+
+internal static class AiNodes
+{
+	public static IEnumerable<INodeDefinition> Create()
+	{
+		yield return NodeDefinition.Create("ai.llm", "LLM", BuiltInCategories.Llm)
+			.Describe("Sends a prompt to a language model and returns its answer.")
+			.Icon("sparkles")
+			.Keywords("gpt", "claude", "model", "chat", "completion", "prompt")
+			.In("in", "In", PortType.Execution)
+			.In("prompt", "Prompt", PortType.String, description: "Overrides the prompt setting.")
+			.In("context", "Context", PortType.AIContext, description: "Chat history or retrieved documents.")
+			.Out("out", "Out", PortType.Execution)
+			.Out("response", "Response", PortType.String)
+			.Out("updatedContext", "Context", PortType.AIContext)
+			.Out("usage", "Token usage", PortType.Object)
+			.Param(Param.Select("provider", "Provider", ["OpenAI", "Anthropic", "Local (Ollama)", "Custom"], "OpenAI"))
+			.Param(Param.Text("model", "Model", required: true, placeholder: "model name"))
+			.Param(Param.Secret("apiKey", "API key", required: true).When("provider", "OpenAI", "Anthropic", "Custom"))
+			.Param(Param.Text("endpoint", "Endpoint", placeholder: "http://localhost:11434").When("provider", "Local (Ollama)", "Custom"))
+			.Param(Param.Expression("system", "System prompt"))
+			.Param(Param.Expression("prompt", "Prompt", required: true))
+			.Param(Param.Number("temperature", "Temperature", 0.7m, minimum: 0, maximum: 2))
+			.Param(Param.Number("maxTokens", "Max tokens", 1024, minimum: 1, maximum: 200000))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.agent", "AI Agent", BuiltInCategories.Agent)
+			.Describe("An agent that plans, calls tools and answers a task on its own.")
+			.Icon("bot")
+			.Keywords("autonomous", "assistant", "planner", "tools", "react")
+			.In("in", "In", PortType.Execution)
+			.In("task", "Task", PortType.String)
+			.In("context", "Context", PortType.AIContext, multiple: true)
+			.In("tools", "Tools", PortType.AIContext, multiple: true, description: "AI Tool nodes the agent may call.")
+			.Out("out", "Out", PortType.Execution)
+			.Out("answer", "Answer", PortType.String)
+			.Out("steps", "Steps", PortType.Array)
+			.Param(Param.Select("provider", "Provider", ["OpenAI", "Anthropic", "Local (Ollama)", "Custom"], "OpenAI"))
+			.Param(Param.Text("model", "Model", required: true))
+			.Param(Param.Secret("apiKey", "API key", required: true).When("provider", "OpenAI", "Anthropic", "Custom"))
+			.Param(Param.Expression("instructions", "Instructions"))
+			.Param(Param.Number("maxSteps", "Max steps", 10, minimum: 1, maximum: 100))
+			.Param(Param.Boolean("returnSteps", "Return intermediate steps"))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.prompt-template", "Prompt Template", BuiltInCategories.AiContext)
+			.Describe("Fills a prompt template with values.")
+			.Icon("message")
+			.Keywords("prompt", "format", "text", "variables", "placeholders")
+			.In("values", "Values", PortType.Object)
+			.Out("prompt", "Prompt", PortType.String)
+			.Out("context", "Context", PortType.AIContext)
+			.Param(Param.Expression("template", "Template", "Answer the question: {{question}}", required: true))
+			.Param(Param.Select("role", "Role", ["User", "System", "Assistant"], "User"))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.memory", "Chat Memory", BuiltInCategories.Memory)
+			.Describe("Keeps the conversation history between runs.")
+			.Icon("brain")
+			.Keywords("history", "conversation", "remember", "session")
+			.In("in", "In", PortType.Execution)
+			.In("message", "New message", PortType.String)
+			.Out("out", "Out", PortType.Execution)
+			.Out("context", "History", PortType.AIContext)
+			.Param(Param.Text("sessionKey", "Session key", "default", required: true))
+			.Param(Param.Select("storage", "Storage", ["Run", "Project", "Persistent"], "Project"))
+			.Param(Param.Number("window", "Messages to keep", 20, minimum: 1, maximum: 1000))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.embedding", "Embedding", BuiltInCategories.Embeddings)
+			.Describe("Turns text into a vector for similarity search.")
+			.Icon("vector")
+			.Keywords("vector", "encode", "semantic")
+			.In("in", "In", PortType.Execution)
+			.In("text", "Text", PortType.String, required: true)
+			.Out("out", "Out", PortType.Execution)
+			.Out("vector", "Vector", PortType.Array)
+			.Param(Param.Select("provider", "Provider", ["OpenAI", "Local (Ollama)", "Custom"], "OpenAI"))
+			.Param(Param.Text("model", "Model", required: true))
+			.Param(Param.Secret("apiKey", "API key", required: true).When("provider", "OpenAI", "Custom"))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.vector-search", "Vector Search", BuiltInCategories.VectorSearch)
+			.Describe("Finds the stored documents closest in meaning to a vector.")
+			.Icon("search")
+			.Keywords("similarity", "nearest", "index", "semantic")
+			.In("in", "In", PortType.Execution)
+			.In("vector", "Vector", PortType.Array, required: true)
+			.Out("out", "Out", PortType.Execution)
+			.Out("matches", "Matches", PortType.Array)
+			.Out("context", "Documents", PortType.AIContext)
+			.Param(Param.Text("collection", "Collection", required: true))
+			.Param(Param.Number("topK", "Results", 5, minimum: 1, maximum: 100))
+			.Param(Param.Number("threshold", "Minimum similarity", 0m, minimum: 0, maximum: 1))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.rag", "RAG", BuiltInCategories.Rag)
+			.Describe("Answers a question using documents found in your knowledge base.")
+			.Icon("book")
+			.Keywords("retrieval", "knowledge", "documents", "grounded", "question answering")
+			.In("in", "In", PortType.Execution)
+			.In("question", "Question", PortType.String, required: true)
+			.In("documents", "Documents", PortType.AIContext)
+			.Out("out", "Out", PortType.Execution)
+			.Out("answer", "Answer", PortType.String)
+			.Out("sources", "Sources", PortType.Array)
+			.Param(Param.Text("collection", "Collection", required: true))
+			.Param(Param.Number("topK", "Documents to use", 5, minimum: 1, maximum: 50))
+			.Param(Param.Text("model", "Model", required: true))
+			.Param(Param.Secret("apiKey", "API key", required: true))
+			.Param(Param.Boolean("cite", "Cite sources", true))
+			.Build();
+
+		yield return NodeDefinition.Create("ai.tool", "AI Tool", BuiltInCategories.Tools)
+			.Describe("Exposes a part of the workflow to an agent as a tool it can call.")
+			.Icon("wrench")
+			.Keywords("function calling", "capability", "action")
+			.In("in", "Input", PortType.Any)
+			.Out("tool", "Tool", PortType.AIContext)
+			.Out("call", "When called", PortType.Execution)
+			.Param(Param.Text("name", "Tool name", required: true, placeholder: "search_orders"))
+			.Param(Param.Text("description", "Description for the model", required: true))
+			.Param(Param.Json("schema", "Input schema", "{\n  \"type\": \"object\",\n  \"properties\": {}\n}"))
+			.Build();
+	}
+}
