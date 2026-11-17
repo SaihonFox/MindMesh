@@ -59,14 +59,14 @@ public class ProjectTests
 		{
 			var projects = fixture.App.Get<ProjectService>();
 
-			Assert.True(await projects.CreateAsync("Flow", "About flow"));
+			Assert.True(await projects.CreateAsync("Flow", "About flow", TestContext.Current.CancellationToken));
 			fixture.Add("trigger.manual", 100, 100);
 
 			Assert.Equal(SaveStatus.Unsaved, fixture.App.Get<EditorWorkspace>().SaveStatus);
-			Assert.True(await projects.SaveAsync());
+			Assert.True(await projects.SaveAsync(TestContext.Current.CancellationToken));
 			Assert.Equal(SaveStatus.Saved, fixture.App.Get<EditorWorkspace>().SaveStatus);
 
-			var result = await fixture.App.Get<IWorkflowStore>().LoadAsync(projects.CurrentPath!);
+			var result = await fixture.App.Get<IWorkflowStore>().LoadAsync(projects.CurrentPath!, TestContext.Current.CancellationToken);
 
 			Assert.Equal("Flow", result.Content!.Name);
 			Assert.Equal("About flow", result.Content.Description);
@@ -79,7 +79,7 @@ public class ProjectTests
 		try
 		{
 			using var other = new EditorFixture();
-			var opened = await other.App.Get<ProjectService>().OpenAsync(copy);
+			var opened = await other.App.Get<ProjectService>().OpenAsync(copy, TestContext.Current.CancellationToken);
 
 			Assert.NotNull(opened);
 			Assert.Equal("Flow", other.App.Get<EditorWorkspace>().ProjectName);
@@ -99,7 +99,7 @@ public class ProjectTests
 		var projects = fixture.App.Get<ProjectService>();
 		var topBar = fixture.App.Get<TopBarViewModel>();
 
-		await projects.CreateAsync("Old name", null);
+		await projects.CreateAsync("Old name", null, TestContext.Current.CancellationToken);
 
 		topBar.BeginRenameCommand.Execute(null);
 
@@ -112,7 +112,7 @@ public class ProjectTests
 		Assert.False(topBar.IsRenaming);
 		Assert.Equal("New name", topBar.ProjectDisplayName);
 
-		var saved = await fixture.App.Get<IWorkflowStore>().LoadAsync(projects.CurrentPath!);
+		var saved = await fixture.App.Get<IWorkflowStore>().LoadAsync(projects.CurrentPath!, TestContext.Current.CancellationToken);
 
 		Assert.Equal("New name", saved.Content!.Name);
 	}
@@ -123,7 +123,7 @@ public class ProjectTests
 		using var fixture = new EditorFixture();
 		var topBar = fixture.App.Get<TopBarViewModel>();
 
-		await fixture.App.Get<ProjectService>().CreateAsync("Keep", null);
+		await fixture.App.Get<ProjectService>().CreateAsync("Keep", null, TestContext.Current.CancellationToken);
 
 		topBar.BeginRenameCommand.Execute(null);
 		topBar.RenameText = "Other";
@@ -144,8 +144,8 @@ public class ProjectTests
 		using var fixture = new EditorFixture();
 		var projects = fixture.App.Get<ProjectService>();
 
-		await projects.CreateAsync("First", null);
-		await projects.CreateAsync("Second", "Notes");
+		await projects.CreateAsync("First", null, TestContext.Current.CancellationToken);
+		await projects.CreateAsync("Second", "Notes", TestContext.Current.CancellationToken);
 
 		var page = fixture.App.Get<ProjectsPageViewModel>();
 
@@ -170,8 +170,8 @@ public class ProjectTests
 		using var fixture = new EditorFixture();
 		var projects = fixture.App.Get<ProjectService>();
 
-		await projects.CreateAsync("Twin", null);
-		await projects.CreateAsync("Twin", null);
+		await projects.CreateAsync("Twin", null, TestContext.Current.CancellationToken);
+		await projects.CreateAsync("Twin", null, TestContext.Current.CancellationToken);
 
 		Assert.Equal(2, Directory.GetFiles(fixture.App.ProjectsDirectory, "*.mmflow").Length);
 	}
@@ -181,7 +181,7 @@ public class ProjectTests
 	{
 		using var fixture = new EditorFixture();
 
-		Assert.True(await fixture.App.Get<ProjectService>().CreateAsync("a/b:c*?", null));
+		Assert.True(await fixture.App.Get<ProjectService>().CreateAsync("a/b:c*?", null, TestContext.Current.CancellationToken));
 		Assert.Single(Directory.GetFiles(fixture.App.ProjectsDirectory, "*.mmflow"));
 	}
 }

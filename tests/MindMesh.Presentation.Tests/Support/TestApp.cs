@@ -7,8 +7,8 @@ using MindMesh.Application.Paths;
 using MindMesh.Application.Secrets;
 using MindMesh.Application.Settings;
 using MindMesh.Application.Workflows;
-using MindMesh.Infrastructure.Workflows;
 using MindMesh.Infrastructure.Secrets;
+using MindMesh.Infrastructure.Workflows;
 using MindMesh.Nodes;
 using MindMesh.Presentation.DependencyInjection;
 
