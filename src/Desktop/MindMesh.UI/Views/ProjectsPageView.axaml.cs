@@ -25,4 +25,3 @@ public partial class ProjectsPageView : UserControl
 	/// <summary>The rename field gets the focus, with the whole name selected, whenever it appears.</summary>
 	private void OnRenameAttached(object? sender, VisualTreeAttachmentEventArgs e) => FocusWhenShown.Attach(sender, selectAll: true);
 }
-}

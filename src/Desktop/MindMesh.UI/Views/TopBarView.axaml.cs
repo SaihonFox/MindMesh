@@ -25,4 +25,3 @@ public partial class TopBarView : UserControl
 	/// <summary>The rename field gets the focus, with the whole name selected, whenever it appears.</summary>
 	private void OnRenameBoxAttached(object? sender, VisualTreeAttachmentEventArgs e) => FocusWhenShown.Attach(sender, selectAll: true);
 }
-}
