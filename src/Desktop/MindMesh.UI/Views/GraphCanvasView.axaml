@@ -18,157 +18,157 @@
 
 			<ctl:ConnectionsLayer Editor="{Binding}" />
 
-			<!-- Nodes live in world coordinates; the transform below applies pan and zoom. -->
-			<Canvas x:Name="WorldLayer"
-					IsHitTestVisible="False"
-					RenderTransformOrigin="0,0">
-				<ItemsControl x:Name="NodesHost" ItemsSource="{Binding Nodes}">
-					<ItemsControl.ItemsPanel>
-						<ItemsPanelTemplate>
-							<Canvas />
-						</ItemsPanelTemplate>
-					</ItemsControl.ItemsPanel>
+			<!-- Nodes live in world coordinates; the transform on this control applies pan and zoom.
+				 The control fills the canvas, so the transform is never applied to something of zero size. -->
+			<ItemsControl x:Name="WorldLayer"
+						  ItemsSource="{Binding Nodes}"
+						  IsHitTestVisible="False"
+						  RenderTransformOrigin="0,0">
+				<ItemsControl.ItemsPanel>
+					<ItemsPanelTemplate>
+						<Canvas />
+					</ItemsPanelTemplate>
+				</ItemsControl.ItemsPanel>
 
-					<ItemsControl.Styles>
-						<Style Selector="ItemsControl > ContentPresenter" x:DataType="canvas:NodeViewModel">
-							<Setter Property="Canvas.Left" Value="{Binding X}" />
-							<Setter Property="Canvas.Top" Value="{Binding Y}" />
-							<Setter Property="ZIndex" Value="{Binding ZIndex}" />
-							<Setter Property="IsVisible" Value="{Binding IsInViewport}" />
-						</Style>
-					</ItemsControl.Styles>
+				<ItemsControl.Styles>
+					<Style Selector="ItemsControl#WorldLayer > ContentPresenter" x:DataType="canvas:NodeViewModel">
+						<Setter Property="Canvas.Left" Value="{Binding X}" />
+						<Setter Property="Canvas.Top" Value="{Binding Y}" />
+						<Setter Property="ZIndex" Value="{Binding ZIndex}" />
+						<Setter Property="IsVisible" Value="{Binding IsInViewport}" />
+					</Style>
+				</ItemsControl.Styles>
 
-					<ItemsControl.ItemTemplate>
-						<DataTemplate x:DataType="canvas:NodeViewModel">
-							<Grid Width="272" Height="{Binding Height}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="canvas:NodeViewModel">
+						<Grid Width="272" Height="{Binding Height}">
 
-								<ctl:NodeCard Classes="node-card"
-											  VisualState="{Binding VisualState}"
-											  IsSelected="{Binding IsSelected}"
-											  IsFound="{Binding IsFindMatch}">
-									<Grid RowDefinitions="68,*">
+							<ctl:NodeCard Classes="node-card"
+										  VisualState="{Binding VisualState}"
+										  IsSelected="{Binding IsSelected}"
+										  IsFound="{Binding IsFindMatch}">
+								<Grid RowDefinitions="68,*">
 
-										<!-- Header: icon, title, description, category -->
-										<Grid ColumnDefinitions="Auto,*,Auto" Margin="14,0,12,0">
-											<ctl:TonePill Width="40"
-														  Height="40"
-														  CornerRadius="10"
-														  VerticalAlignment="Center"
-														  Tone="{Binding Tone}">
-												<ctl:Icon Key="{Binding IconKey}"
-														  Width="22"
-														  Height="22"
-														  HorizontalAlignment="Center"
-														  VerticalAlignment="Center" />
-											</ctl:TonePill>
+									<!-- Header: icon, title, description, category -->
+									<Grid ColumnDefinitions="Auto,*,Auto" Margin="14,0,12,0">
+										<ctl:TonePill Width="40"
+													  Height="40"
+													  CornerRadius="10"
+													  VerticalAlignment="Center"
+													  Tone="{Binding Tone}">
+											<ctl:Icon Key="{Binding IconKey}"
+													  Width="22"
+													  Height="22"
+													  HorizontalAlignment="Center"
+													  VerticalAlignment="Center" />
+										</ctl:TonePill>
 
-											<StackPanel Grid.Column="1"
-														Margin="12,0,8,0"
-														VerticalAlignment="Center"
-														Spacing="2">
-												<TextBlock FontSize="14"
-														   FontWeight="SemiBold"
-														   TextTrimming="CharacterEllipsis"
-														   Foreground="{DynamicResource MM.Brush.TextPrimary}"
-														   Text="{Binding Title}" />
-												<TextBlock FontSize="{DynamicResource MM.FontSize.Caption}"
-														   TextTrimming="CharacterEllipsis"
-														   Foreground="{DynamicResource MM.Brush.TextMuted}"
-														   Text="{Binding Description}" />
-											</StackPanel>
+										<StackPanel Grid.Column="1"
+													Margin="12,0,8,0"
+													VerticalAlignment="Center"
+													Spacing="2">
+											<TextBlock FontSize="14"
+													   FontWeight="SemiBold"
+													   TextTrimming="CharacterEllipsis"
+													   Foreground="{DynamicResource MM.Brush.TextPrimary}"
+													   Text="{Binding Title}" />
+											<TextBlock FontSize="{DynamicResource MM.FontSize.Caption}"
+													   TextTrimming="CharacterEllipsis"
+													   Foreground="{DynamicResource MM.Brush.TextMuted}"
+													   Text="{Binding Description}" />
+										</StackPanel>
 
-											<ctl:TonePill Grid.Column="2"
-														  CornerRadius="8"
-														  Padding="8,2"
-														  MaxWidth="84"
-														  VerticalAlignment="Center"
-														  Tone="{Binding Tone}">
-												<TextBlock FontSize="10"
-														   FontWeight="SemiBold"
-														   TextTrimming="CharacterEllipsis"
-														   Text="{Binding CategoryTitle}" />
-											</ctl:TonePill>
-										</Grid>
-
-										<!-- Port labels; the dots themselves are drawn at the card edges below. -->
-										<Grid Grid.Row="1"
-											  Margin="0,8,0,0"
-											  ColumnDefinitions="*,*"
-											  IsVisible="{Binding !IsCollapsed}">
-											<ItemsControl ItemsSource="{Binding Inputs}">
-												<ItemsControl.ItemTemplate>
-													<DataTemplate x:DataType="canvas:PortViewModel">
-														<Border Height="28">
-															<TextBlock Classes="port-label"
-																	   Margin="18,0,4,0"
-																	   HorizontalAlignment="Left"
-																	   Text="{Binding Name}" />
-														</Border>
-													</DataTemplate>
-												</ItemsControl.ItemTemplate>
-											</ItemsControl>
-
-											<ItemsControl Grid.Column="1" ItemsSource="{Binding Outputs}">
-												<ItemsControl.ItemTemplate>
-													<DataTemplate x:DataType="canvas:PortViewModel">
-														<Border Height="28">
-															<TextBlock Classes="port-label"
-																	   Margin="4,0,18,0"
-																	   HorizontalAlignment="Right"
-																	   Text="{Binding Name}" />
-														</Border>
-													</DataTemplate>
-												</ItemsControl.ItemTemplate>
-											</ItemsControl>
-										</Grid>
+										<ctl:TonePill Grid.Column="2"
+													  CornerRadius="8"
+													  Padding="8,2"
+													  MaxWidth="84"
+													  VerticalAlignment="Center"
+													  Tone="{Binding Tone}">
+											<TextBlock FontSize="10"
+													   FontWeight="SemiBold"
+													   TextTrimming="CharacterEllipsis"
+													   Text="{Binding CategoryTitle}" />
+										</ctl:TonePill>
 									</Grid>
-								</ctl:NodeCard>
 
-								<!-- Port dots, centred on the card edges. -->
-								<ItemsControl ItemsSource="{Binding Ports}">
-									<ItemsControl.ItemsPanel>
-										<ItemsPanelTemplate>
-											<Canvas />
-										</ItemsPanelTemplate>
-									</ItemsControl.ItemsPanel>
+									<!-- Port labels; the dots themselves are drawn at the card edges below. -->
+									<Grid Grid.Row="1"
+										  Margin="0,8,0,0"
+										  ColumnDefinitions="*,*"
+										  IsVisible="{Binding !IsCollapsed}">
+										<ItemsControl ItemsSource="{Binding Inputs}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate x:DataType="canvas:PortViewModel">
+													<Border Height="28">
+														<TextBlock Classes="port-label"
+																   Margin="18,0,4,0"
+																   HorizontalAlignment="Left"
+																   Text="{Binding Name}" />
+													</Border>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
 
-									<ItemsControl.Styles>
-										<Style Selector="ItemsControl > ContentPresenter" x:DataType="canvas:PortViewModel">
-											<Setter Property="Canvas.Left" Value="{Binding DotX}" />
-											<Setter Property="Canvas.Top" Value="{Binding DotY}" />
-										</Style>
-									</ItemsControl.Styles>
+										<ItemsControl Grid.Column="1" ItemsSource="{Binding Outputs}">
+											<ItemsControl.ItemTemplate>
+												<DataTemplate x:DataType="canvas:PortViewModel">
+													<Border Height="28">
+														<TextBlock Classes="port-label"
+																   Margin="4,0,18,0"
+																   HorizontalAlignment="Right"
+																   Text="{Binding Name}" />
+													</Border>
+												</DataTemplate>
+											</ItemsControl.ItemTemplate>
+										</ItemsControl>
+									</Grid>
+								</Grid>
+							</ctl:NodeCard>
 
-									<ItemsControl.ItemTemplate>
-										<DataTemplate x:DataType="canvas:PortViewModel">
-											<ctl:PortDot Kind="{Binding Kind}"
-														 IsConnected="{Binding IsConnected}"
-														 Hint="{Binding Hint}" />
-										</DataTemplate>
-									</ItemsControl.ItemTemplate>
-								</ItemsControl>
+							<!-- Port dots, centred on the card edges. -->
+							<ItemsControl ItemsSource="{Binding Ports}">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<Canvas />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
 
-								<!-- Problem marker -->
-								<Border Width="20"
-										Height="20"
-										CornerRadius="10"
-										HorizontalAlignment="Right"
-										VerticalAlignment="Top"
-										Margin="0,-8,-8,0"
-										Background="{DynamicResource MM.Brush.Warning}"
-										IsVisible="{Binding HasIssues}">
-									<ctl:Icon Key="alert"
-											  Width="12"
-											  Height="12"
-											  Foreground="{DynamicResource MM.Brush.OnAccent}"
-											  HorizontalAlignment="Center"
-											  VerticalAlignment="Center" />
-								</Border>
-							</Grid>
-						</DataTemplate>
-					</ItemsControl.ItemTemplate>
-				</ItemsControl>
-			</Canvas>
+								<ItemsControl.Styles>
+									<Style Selector="ItemsControl > ContentPresenter" x:DataType="canvas:PortViewModel">
+										<Setter Property="Canvas.Left" Value="{Binding DotX}" />
+										<Setter Property="Canvas.Top" Value="{Binding DotY}" />
+									</Style>
+								</ItemsControl.Styles>
+
+								<ItemsControl.ItemTemplate>
+									<DataTemplate x:DataType="canvas:PortViewModel">
+										<ctl:PortDot Kind="{Binding Kind}"
+													 IsConnected="{Binding IsConnected}"
+													 Hint="{Binding Hint}" />
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+
+							<!-- Problem marker -->
+							<Border Width="20"
+									Height="20"
+									CornerRadius="10"
+									HorizontalAlignment="Right"
+									VerticalAlignment="Top"
+									Margin="0,-8,-8,0"
+									Background="{DynamicResource MM.Brush.Warning}"
+									IsVisible="{Binding HasIssues}">
+								<ctl:Icon Key="alert"
+										  Width="12"
+										  Height="12"
+										  Foreground="{DynamicResource MM.Brush.OnAccent}"
+										  HorizontalAlignment="Center"
+										  VerticalAlignment="Center" />
+							</Border>
+						</Grid>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
 
 			<ctl:CanvasOverlay Editor="{Binding}" />
 
