@@ -14,8 +14,8 @@ public sealed class MinimapViewModel : ObservableObject
 	private const double Padding = 8;
 
 	/// <summary>The smallest world area the minimap covers, so a few nodes do not blow up to fill it.</summary>
-	private const double MinimumWorldWidth = 2400;
-	private const double MinimumWorldHeight = 1600;
+	private const double MinimumWorldWidth = 1800;
+	private const double MinimumWorldHeight = 1200;
 
 	private readonly GraphEditorViewModel _editor;
 	private double _scale = 1;

@@ -282,9 +282,9 @@
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="CornerRadius" Value="10" />
-		<Setter Property="Padding" Value="10" />
-		<Setter Property="Margin" Value="3" />
+		<Setter Property="CornerRadius" Value="12" />
+		<Setter Property="Padding" Value="8" />
+		<Setter Property="Margin" Value="2" />
 		<Setter Property="Cursor" Value="Hand" />
 	</Style>
 	<Style Selector="Border.tile:pointerover">
@@ -298,6 +298,11 @@
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
 		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 		<Setter Property="CornerRadius" Value="8" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
+	</Style>
+	<!-- A checked (expanded) section would otherwise take the white "checked" foreground of the stock toggle button. -->
+	<Style Selector="ToggleButton.section:checked /template/ ContentPresenter#PART_ContentPresenter, ToggleButton.section:checked:pointerover /template/ ContentPresenter#PART_ContentPresenter, ToggleButton.section:checked:pressed /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
 	</Style>
 	<Style Selector="ToggleButton.section:pointerover /template/ ContentPresenter#PART_ContentPresenter">

@@ -73,8 +73,8 @@
 													PointerCaptureLost="OnTileCaptureLost"
 													DoubleTapped="OnTileDoubleTapped">
 												<Grid ColumnDefinitions="Auto,*">
-													<ctl:TonePill Width="30"
-																  Height="30"
+													<ctl:TonePill Width="26"
+																  Height="26"
 																  CornerRadius="8"
 																  VerticalAlignment="Center"
 																  Tone="{Binding Tone}">
@@ -85,7 +85,7 @@
 																  VerticalAlignment="Center" />
 													</ctl:TonePill>
 													<TextBlock Grid.Column="1"
-															   Margin="8,0,0,0"
+															   Margin="7,0,0,0"
 															   FontSize="{DynamicResource MM.FontSize.Small}"
 															   FontWeight="SemiBold"
 															   VerticalAlignment="Center"
