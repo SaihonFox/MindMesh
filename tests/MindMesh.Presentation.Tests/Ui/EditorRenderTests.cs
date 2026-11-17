@@ -91,10 +91,15 @@ public class EditorRenderTests
 		return new RenderReport(drawn, report.ToString());
 	}
 
+	/// <summary>Layout and drawing take a few turns: new controls are created while measuring and drawn one tick later.</summary>
 	private static void Pump()
 	{
-		Dispatcher.UIThread.RunJobs();
-		AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+		for (var turn = 0; turn < 4; turn++)
+		{
+			Dispatcher.UIThread.RunJobs();
+			AvaloniaHeadlessPlatform.ForceRenderTimerTick();
+		}
+
 		Dispatcher.UIThread.RunJobs();
 	}
 
