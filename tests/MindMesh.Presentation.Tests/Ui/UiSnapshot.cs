@@ -15,9 +15,11 @@ internal sealed class UiSnapshot
 	private readonly int _width;
 	private readonly int _height;
 	private readonly int _stride;
+	private readonly Bitmap _bitmap;
 
-	private UiSnapshot(byte[] pixels, int width, int height, int stride)
+	private UiSnapshot(Bitmap bitmap, byte[] pixels, int width, int height, int stride)
 	{
+		_bitmap = bitmap;
 		_pixels = pixels;
 		_width = width;
 		_height = height;
@@ -35,7 +37,29 @@ internal sealed class UiSnapshot
 		var bytes = new byte[locked.RowBytes * locked.Size.Height];
 		Marshal.Copy(locked.Address, bytes, 0, bytes.Length);
 
-		return new UiSnapshot(bytes, locked.Size.Width, locked.Size.Height, locked.RowBytes);
+		return new UiSnapshot(bitmap, bytes, locked.Size.Width, locked.Size.Height, locked.RowBytes);
+	}
+
+	/// <summary>The frame as a PNG in base64, cut into lines, so a CI log can carry a real picture of the screen.</summary>
+	public string PngBase64()
+	{
+		using var stream = new MemoryStream();
+
+		_bitmap.Save(stream);
+
+		var text = Convert.ToBase64String(stream.ToArray());
+		var builder = new StringBuilder();
+
+		builder.AppendLine("<<<PNG");
+
+		for (var index = 0; index < text.Length; index += 160)
+		{
+			builder.AppendLine(text.Substring(index, Math.Min(160, text.Length - index)));
+		}
+
+		builder.AppendLine("PNG>>>");
+
+		return builder.ToString();
 	}
 
 	public double Luminance(int x, int y)

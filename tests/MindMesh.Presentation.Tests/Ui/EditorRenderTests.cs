@@ -82,11 +82,9 @@ public class EditorRenderTests
 				report.AppendLine($"    text '{text.Text}' foreground={text.Foreground} at ({origin.X:0.#}, {origin.Y:0.#}) size {text.Bounds.Width:0.#}x{text.Bounds.Height:0.#} visible={text.IsEffectivelyVisible}");
 			}
 
-			var cardOrigin = first.TranslatePoint(default, window) ?? default;
-			report.AppendLine(snapshot.Ascii(new Rect(cardOrigin.X - 20, cardOrigin.Y - 20, 260, 140), 120, 40));
 		}
 
-		report.AppendLine(snapshot.Ascii(new Rect(0, 0, snapshot.Width, snapshot.Height), 160, 52));
+		report.AppendLine(snapshot.PngBase64());
 
 		return new RenderReport(drawn, report.ToString());
 	}
