@@ -4,8 +4,8 @@
 			 x:Class="MindMesh.UI.Views.NewProjectDialogView"
 			 x:DataType="projects:NewProjectDialogViewModel">
 
-	<!-- A dimmed layer over the whole window with the dialog in the middle. -->
-	<Grid Background="{DynamicResource MM.Brush.Overlay}">
+	<!-- A dark, see-through layer over the whole window with the dialog in the middle. -->
+	<Grid Background="#66101828">
 		<Border Classes="floating"
 				Width="440"
 				Padding="24"
