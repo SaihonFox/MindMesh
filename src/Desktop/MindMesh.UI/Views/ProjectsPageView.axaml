@@ -58,7 +58,7 @@
 											 IsVisible="{Binding IsRenaming}"
 											 Text="{Binding RenameText, Mode=TwoWay}"
 											 LostFocus="OnRenameLostFocus"
-											 IsVisibleChanged="OnRenameVisibleChanged">
+											 AttachedToVisualTree="OnRenameAttached">
 										<TextBox.KeyBindings>
 											<KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
 											<KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />

@@ -47,7 +47,7 @@
 						 Text="{Binding RenameText, Mode=TwoWay}"
 						 VerticalAlignment="Center"
 						 LostFocus="OnRenameLostFocus"
-						 IsVisibleChanged="OnRenameBoxVisibleChanged">
+						 AttachedToVisualTree="OnRenameBoxAttached">
 					<TextBox.KeyBindings>
 						<KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
 						<KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />

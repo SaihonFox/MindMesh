@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using MindMesh.Presentation.Shell;
+using MindMesh.UI.Controls;
 
 namespace MindMesh.UI.Views;
 
@@ -21,13 +22,7 @@ public partial class TopBarView : UserControl
 		}
 	}
 
-	/// <summary>The field gets the focus and the whole name is selected as soon as it appears.</summary>
-	private void OnRenameBoxVisibleChanged(object? sender, AvaloniaPropertyChangedEventArgs e)
-	{
-		if (sender is TextBox { IsVisible: true } box)
-		{
-			box.Focus();
-			box.SelectAll();
-		}
-	}
+	/// <summary>The rename field gets the focus, with the whole name selected, whenever it appears.</summary>
+	private void OnRenameBoxAttached(object? sender, VisualTreeAttachmentEventArgs e) => FocusWhenShown.Attach(sender, selectAll: true);
+}
 }

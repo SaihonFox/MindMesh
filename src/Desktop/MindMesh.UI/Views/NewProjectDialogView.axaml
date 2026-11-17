@@ -20,7 +20,7 @@
 							 MaxLength="120"
 							 Watermark="{Binding Loc[Project_NamePlaceholder]}"
 							 Text="{Binding Name, Mode=TwoWay}"
-							 IsVisibleChanged="OnVisibleChanged">
+							 AttachedToVisualTree="OnNameAttached">
 						<TextBox.KeyBindings>
 							<KeyBinding Gesture="Enter" Command="{Binding CreateCommand}" />
 							<KeyBinding Gesture="Escape" Command="{Binding CancelCommand}" />
