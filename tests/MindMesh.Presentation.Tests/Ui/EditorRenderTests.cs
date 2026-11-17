@@ -64,6 +64,28 @@ public class EditorRenderTests
 			drawn &= card.IsEffectivelyVisible && card.Bounds.Width > 0 && ink > 30;
 		}
 
+		foreach (var key in new[] { "MM.Brush.Node", "MM.Brush.Border", "MM.Brush.TextPrimary", "MM.Brush.TextMuted", "MM.Brush.Canvas", "MM.Shadow.Node", "MM.Brush.Accent" })
+		{
+			var found = Avalonia.Application.Current!.TryGetResource(key, Avalonia.Styling.ThemeVariant.Light, out var value);
+
+			report.AppendLine($"  resource {key}: {(found ? value?.GetType().Name + " " + value : "MISSING")}");
+		}
+
+		if (cards.Count > 0)
+		{
+			var first = cards[0];
+			report.AppendLine($"  first card: Background={first.Background} BorderBrush={first.BorderBrush} Thickness={first.BorderThickness} Corner={first.CornerRadius} Classes=[{string.Join(' ', first.Classes)}] Child={first.Child?.GetType().Name}");
+
+			foreach (var text in first.GetVisualDescendants().OfType<TextBlock>())
+			{
+				var origin = text.TranslatePoint(default, window) ?? default;
+				report.AppendLine($"    text '{text.Text}' foreground={text.Foreground} at ({origin.X:0.#}, {origin.Y:0.#}) size {text.Bounds.Width:0.#}x{text.Bounds.Height:0.#} visible={text.IsEffectivelyVisible}");
+			}
+
+			var cardOrigin = first.TranslatePoint(default, window) ?? default;
+			report.AppendLine(snapshot.Ascii(new Rect(cardOrigin.X - 20, cardOrigin.Y - 20, 260, 140), 120, 40));
+		}
+
 		report.AppendLine(snapshot.Ascii(new Rect(0, 0, snapshot.Width, snapshot.Height), 160, 52));
 
 		return new RenderReport(drawn, report.ToString());
