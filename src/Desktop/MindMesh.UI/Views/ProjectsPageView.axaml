@@ -1,0 +1,92 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:projects="using:MindMesh.Presentation.Projects"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.ProjectsPageView"
+			 x:DataType="projects:ProjectsPageViewModel">
+
+	<ScrollViewer>
+		<StackPanel MaxWidth="780"
+					Margin="40,40"
+					Spacing="20"
+					HorizontalAlignment="Stretch">
+
+			<Grid ColumnDefinitions="*,Auto,Auto">
+				<TextBlock Grid.Column="0"
+						   Classes="h1"
+						   VerticalAlignment="Center"
+						   Text="{Binding Loc[Sidebar_Projects]}" />
+				<Button Grid.Column="1"
+						Margin="0,0,8,0"
+						Command="{Binding OpenFileCommand}"
+						Content="{Binding Loc[Project_OpenFile]}" />
+				<Button Grid.Column="2"
+						Classes="primary"
+						Command="{Binding NewCommand}"
+						Content="{Binding Loc[Project_New]}" />
+			</Grid>
+
+			<TextBlock Foreground="{DynamicResource MM.Brush.Error}"
+					   TextWrapping="Wrap"
+					   IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+					   Text="{Binding Message}" />
+
+			<StackPanel Spacing="4"
+						HorizontalAlignment="Center"
+						Margin="0,48"
+						IsVisible="{Binding IsEmpty}">
+				<TextBlock Classes="h3"
+						   HorizontalAlignment="Center"
+						   Text="{Binding Loc[Project_ListEmpty]}" />
+				<TextBlock Classes="secondary"
+						   HorizontalAlignment="Center"
+						   TextAlignment="Center"
+						   TextWrapping="Wrap"
+						   Text="{Binding Loc[Project_ListEmptyHint]}" />
+			</StackPanel>
+
+			<ItemsControl ItemsSource="{Binding Items}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="projects:ProjectItemViewModel">
+						<Border Classes="card" Margin="0,0,0,10" Padding="16,12">
+							<Grid ColumnDefinitions="*,Auto">
+								<StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+									<TextBlock Classes="h3"
+											   Text="{Binding Name}"
+											   IsVisible="{Binding !IsRenaming}" />
+									<TextBox MaxLength="120"
+											 IsVisible="{Binding IsRenaming}"
+											 Text="{Binding RenameText, Mode=TwoWay}"
+											 LostFocus="OnRenameLostFocus"
+											 IsVisibleChanged="OnRenameVisibleChanged">
+										<TextBox.KeyBindings>
+											<KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
+											<KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />
+										</TextBox.KeyBindings>
+									</TextBox>
+									<TextBlock Classes="secondary"
+											   TextWrapping="Wrap"
+											   Text="{Binding Description}"
+											   IsVisible="{Binding HasDescription}" />
+									<TextBlock Classes="caption muted" Text="{Binding ModifiedText}" />
+								</StackPanel>
+								<StackPanel Grid.Column="1"
+											Orientation="Horizontal"
+											Spacing="6"
+											VerticalAlignment="Center">
+									<Button Command="{Binding BeginRenameCommand}"
+											Content="{Binding RenameLabel}" />
+									<Button Classes="primary"
+											Command="{Binding OpenCommand}"
+											IsEnabled="{Binding IsReadable}"
+											Content="{Binding OpenLabel}" />
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+	</ScrollViewer>
+
+</UserControl>

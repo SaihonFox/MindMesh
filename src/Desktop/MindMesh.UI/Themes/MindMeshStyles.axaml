@@ -155,6 +155,17 @@
 	</Style>
 
 	<!-- Logo button -->
+	<!-- A name in the top bar that turns into a text field when clicked -->
+	<Style Selector="Button.crumb">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="Padding" Value="8,3" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+	<Style Selector="Button.crumb:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
+	</Style>
+
 	<Style Selector="Button.logo">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />

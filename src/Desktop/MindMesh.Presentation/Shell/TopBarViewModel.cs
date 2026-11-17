@@ -1,9 +1,11 @@
 using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MindMesh.Presentation.Common;
 using MindMesh.Presentation.Localization;
 using MindMesh.Presentation.Navigation;
 using MindMesh.Presentation.Pages.Editor;
+using MindMesh.Presentation.Projects;
 
 namespace MindMesh.Presentation.Shell;
 
@@ -14,16 +16,29 @@ public sealed partial class TopBarViewModel : ViewModelBase
 {
 	private readonly INavigationService _navigation;
 	private readonly EditorWorkspace _workspace;
+	private readonly ProjectService _projects;
+
+	[ObservableProperty]
+	private bool _isRenaming;
+
+	[ObservableProperty]
+	private string _renameText = string.Empty;
+
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(SaveStatusText))]
+	private string? _saveError;
 
 	public TopBarViewModel(
 		ILocalizer localizer,
 		INavigationService navigation,
 		EditorWorkspace workspace,
+		ProjectService projects,
 		EditorToolbarViewModel toolbar)
 		: base(localizer)
 	{
 		_navigation = navigation;
 		_workspace = workspace;
+		_projects = projects;
 		Toolbar = toolbar;
 
 		navigation.PropertyChanged += OnNavigationPropertyChanged;
@@ -41,7 +56,47 @@ public sealed partial class TopBarViewModel : ViewModelBase
 	public string WorkflowDisplayName =>
 		string.IsNullOrWhiteSpace(_workspace.WorkflowName) ? Loc["Workspace_UntitledWorkflow"] : _workspace.WorkflowName;
 
-	public string SaveStatusText => Loc[$"SaveStatus_{_workspace.SaveStatus}"];
+	/// <summary>The workflow name is shown after the project name only when it differs from it.</summary>
+	public bool ShowWorkflow =>
+		!string.IsNullOrWhiteSpace(_workspace.WorkflowName) && _workspace.WorkflowName != _workspace.ProjectName;
+
+	public string SaveStatusText =>
+		SaveError is null ? Loc[$"SaveStatus_{_workspace.SaveStatus}"] : string.Format(Loc["Project_SaveFailed"], SaveError);
+
+	[RelayCommand]
+	private void BeginRename()
+	{
+		RenameText = ProjectDisplayName;
+		IsRenaming = true;
+	}
+
+	[RelayCommand]
+	private void CancelRename() => IsRenaming = false;
+
+	/// <summary>Takes the typed name, renames the project and saves it.</summary>
+	[RelayCommand]
+	private async Task CommitRenameAsync()
+	{
+		if (!IsRenaming)
+		{
+			return;
+		}
+
+		IsRenaming = false;
+
+		var name = RenameText.Trim();
+
+		if (name.Length == 0 || name == ProjectDisplayName)
+		{
+			return;
+		}
+
+		SaveError = await _projects.RenameAsync(name) ? null : _projects.LastError;
+	}
+
+	/// <summary>Saves the open project (Ctrl+S).</summary>
+	[RelayCommand]
+	private async Task SaveAsync() => SaveError = await _projects.SaveAsync() ? null : _projects.LastError;
 
 	[RelayCommand]
 	private void GoHome() => _navigation.NavigateTo(PageKey.Welcome);
@@ -73,9 +128,11 @@ public sealed partial class TopBarViewModel : ViewModelBase
 		{
 			case nameof(EditorWorkspace.ProjectName):
 				OnPropertyChanged(nameof(ProjectDisplayName));
+				OnPropertyChanged(nameof(ShowWorkflow));
 				break;
 			case nameof(EditorWorkspace.WorkflowName):
 				OnPropertyChanged(nameof(WorkflowDisplayName));
+				OnPropertyChanged(nameof(ShowWorkflow));
 				break;
 			case nameof(EditorWorkspace.SaveStatus):
 				OnPropertyChanged(nameof(SaveStatusText));

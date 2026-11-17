@@ -4,6 +4,7 @@ using MindMesh.Application.AppInfo;
 using MindMesh.Application.Settings;
 using MindMesh.Presentation.Localization;
 using MindMesh.Presentation.Navigation;
+using MindMesh.Presentation.Projects;
 
 namespace MindMesh.Presentation.Pages.Welcome;
 
@@ -14,6 +15,7 @@ public sealed partial class WelcomePageViewModel : PageViewModel
 {
 	private readonly INavigationService _navigation;
 	private readonly ISettingsService _settings;
+	private readonly NewProjectDialogViewModel _newProjectDialog;
 
 	[ObservableProperty]
 	private bool _showOnStartup;
@@ -22,11 +24,13 @@ public sealed partial class WelcomePageViewModel : PageViewModel
 		ILocalizer localizer,
 		INavigationService navigation,
 		ISettingsService settings,
+		NewProjectDialogViewModel newProjectDialog,
 		IAppInfo appInfo)
 		: base(PageKey.Welcome, localizer)
 	{
 		_navigation = navigation;
 		_settings = settings;
+		_newProjectDialog = newProjectDialog;
 
 		AppName = appInfo.Name;
 		Version = appInfo.Version;
@@ -36,6 +40,12 @@ public sealed partial class WelcomePageViewModel : PageViewModel
 	public string AppName { get; }
 
 	public string Version { get; }
+
+	[RelayCommand]
+	private void NewProject() => _newProjectDialog.OpenCommand.Execute(null);
+
+	[RelayCommand]
+	private void OpenProjects() => _navigation.NavigateTo(PageKey.Projects);
 
 	[RelayCommand]
 	private void OpenEditor() => _navigation.NavigateTo(PageKey.Editor);

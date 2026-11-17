@@ -6,6 +6,8 @@ using MindMesh.Application.DependencyInjection;
 using MindMesh.Application.Paths;
 using MindMesh.Application.Secrets;
 using MindMesh.Application.Settings;
+using MindMesh.Application.Workflows;
+using MindMesh.Infrastructure.Workflows;
 using MindMesh.Infrastructure.Secrets;
 using MindMesh.Nodes;
 using MindMesh.Presentation.DependencyInjection;
@@ -18,6 +20,7 @@ namespace MindMesh.Presentation.Tests.Support;
 internal sealed class TestApp : IDisposable
 {
 	private readonly ServiceProvider _provider;
+	private readonly string _projectsDirectory = Path.Combine(Path.GetTempPath(), "mindmesh-tests", Guid.NewGuid().ToString("N"));
 
 	public TestApp(AppSettings? settings = null)
 	{
@@ -26,7 +29,8 @@ internal sealed class TestApp : IDisposable
 		var services = new ServiceCollection();
 		services.AddSingleton<ISettingsService>(Settings);
 		services.AddSingleton<IAppInfo, FakeAppInfo>();
-		services.AddSingleton<IAppPaths, FakeAppPaths>();
+		services.AddSingleton<IAppPaths>(new FakeAppPaths(_projectsDirectory));
+		services.AddSingleton<IWorkflowStore, FileWorkflowStore>();
 		services.AddSingleton(typeof(ILogger<>), typeof(NullLogger<>));
 		services.AddSingleton<ISecretStore, InMemorySecretStore>();
 
@@ -49,7 +53,18 @@ internal sealed class TestApp : IDisposable
 	public T Get<T>()
 		where T : notnull => _provider.GetRequiredService<T>();
 
-	public void Dispose() => _provider.Dispose();
+	/// <summary>Where the projects of this app are stored; a folder of its own, removed on dispose.</summary>
+	public string ProjectsDirectory => _projectsDirectory;
+
+	public void Dispose()
+	{
+		_provider.Dispose();
+
+		if (Directory.Exists(_projectsDirectory))
+		{
+			Directory.Delete(_projectsDirectory, recursive: true);
+		}
+	}
 
 	private sealed class FakeAppInfo : IAppInfo
 	{
@@ -60,12 +75,14 @@ internal sealed class TestApp : IDisposable
 		public string Copyright => "(c) test";
 	}
 
-	private sealed class FakeAppPaths : IAppPaths
+	private sealed class FakeAppPaths(string projectsDirectory) : IAppPaths
 	{
 		public string DataDirectory => "/data";
 
 		public string SettingsFilePath => "/data/settings.json";
 
 		public string LogsDirectory => "/data/logs";
+
+		public string ProjectsDirectory => projectsDirectory;
 	}
 }

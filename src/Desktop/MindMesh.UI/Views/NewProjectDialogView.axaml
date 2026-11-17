@@ -1,0 +1,58 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:projects="using:MindMesh.Presentation.Projects"
+			 x:Class="MindMesh.UI.Views.NewProjectDialogView"
+			 x:DataType="projects:NewProjectDialogViewModel">
+
+	<!-- A dimmed layer over the whole window with the dialog in the middle. -->
+	<Grid Background="{DynamicResource MM.Brush.Overlay}">
+		<Border Classes="floating"
+				Width="440"
+				Padding="24"
+				HorizontalAlignment="Center"
+				VerticalAlignment="Center">
+			<StackPanel Spacing="14">
+				<TextBlock Classes="h2" Text="{Binding Loc[Project_NewTitle]}" />
+
+				<StackPanel Spacing="6">
+					<TextBlock Classes="secondary" Text="{Binding Loc[Project_Name]}" />
+					<TextBox x:Name="NameBox"
+							 MaxLength="120"
+							 Watermark="{Binding Loc[Project_NamePlaceholder]}"
+							 Text="{Binding Name, Mode=TwoWay}"
+							 IsVisibleChanged="OnVisibleChanged">
+						<TextBox.KeyBindings>
+							<KeyBinding Gesture="Enter" Command="{Binding CreateCommand}" />
+							<KeyBinding Gesture="Escape" Command="{Binding CancelCommand}" />
+						</TextBox.KeyBindings>
+					</TextBox>
+				</StackPanel>
+
+				<StackPanel Spacing="6">
+					<TextBlock Classes="secondary" Text="{Binding Loc[Project_Description]}" />
+					<TextBox AcceptsReturn="True"
+							 TextWrapping="Wrap"
+							 MinHeight="84"
+							 MaxLength="500"
+							 Watermark="{Binding Loc[Project_DescriptionPlaceholder]}"
+							 Text="{Binding Description, Mode=TwoWay}" />
+				</StackPanel>
+
+				<TextBlock Foreground="{DynamicResource MM.Brush.Error}"
+						   TextWrapping="Wrap"
+						   IsVisible="{Binding Error, Converter={x:Static ObjectConverters.IsNotNull}}"
+						   Text="{Binding Error}" />
+
+				<StackPanel Orientation="Horizontal"
+							Spacing="8"
+							HorizontalAlignment="Right">
+					<Button Command="{Binding CancelCommand}" Content="{Binding Loc[Project_Cancel]}" />
+					<Button Classes="primary"
+							Command="{Binding CreateCommand}"
+							Content="{Binding Loc[Project_Create]}" />
+				</StackPanel>
+			</StackPanel>
+		</Border>
+	</Grid>
+
+</UserControl>

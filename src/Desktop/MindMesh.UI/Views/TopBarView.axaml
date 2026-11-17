@@ -32,13 +32,34 @@
 						Spacing="8"
 						Margin="20,0,0,0"
 						VerticalAlignment="Center">
-				<TextBlock Classes="secondary"
-						   Text="{Binding ProjectDisplayName}"
-						   VerticalAlignment="Center" />
-				<TextBlock Classes="muted" Text="/" VerticalAlignment="Center" />
-				<TextBlock FontWeight="SemiBold"
-						   Text="{Binding WorkflowDisplayName}"
-						   VerticalAlignment="Center" />
+				<Button Classes="crumb"
+						Command="{Binding BeginRenameCommand}"
+						IsVisible="{Binding !IsRenaming}"
+						ToolTip.Tip="{Binding Loc[Project_RenameTip]}">
+					<TextBlock FontWeight="SemiBold"
+							   Text="{Binding ProjectDisplayName}"
+							   VerticalAlignment="Center" />
+				</Button>
+				<TextBox x:Name="RenameBox"
+						 Width="220"
+						 MaxLength="120"
+						 IsVisible="{Binding IsRenaming}"
+						 Text="{Binding RenameText, Mode=TwoWay}"
+						 VerticalAlignment="Center"
+						 LostFocus="OnRenameLostFocus"
+						 IsVisibleChanged="OnRenameBoxVisibleChanged">
+					<TextBox.KeyBindings>
+						<KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
+						<KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />
+					</TextBox.KeyBindings>
+				</TextBox>
+				<StackPanel Orientation="Horizontal"
+							Spacing="8"
+							IsVisible="{Binding ShowWorkflow}">
+					<TextBlock Classes="muted" Text="/" VerticalAlignment="Center" />
+					<TextBlock Text="{Binding WorkflowDisplayName}"
+							   VerticalAlignment="Center" />
+				</StackPanel>
 				<TextBlock Classes="caption muted"
 						   Margin="8,0,0,0"
 						   Text="{Binding SaveStatusText}"

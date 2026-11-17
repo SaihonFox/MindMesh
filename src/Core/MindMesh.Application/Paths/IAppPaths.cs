@@ -10,4 +10,7 @@ public interface IAppPaths
 	string SettingsFilePath { get; }
 
 	string LogsDirectory { get; }
+
+	/// <summary>Where new projects are stored as workflow files.</summary>
+	string ProjectsDirectory { get; }
 }

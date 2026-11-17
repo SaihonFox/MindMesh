@@ -26,6 +26,13 @@
 					<TextBlock Classes="caption muted" Text="{Binding Loc[Welcome_Version]}" />
 					<TextBlock Classes="caption muted" Text="{Binding Version}" />
 				</StackPanel>
+				<StackPanel Orientation="Horizontal" Spacing="8" Margin="0,10,0,0">
+					<Button Classes="primary"
+							Command="{Binding NewProjectCommand}"
+							Content="{Binding Loc[Project_New]}" />
+					<Button Command="{Binding OpenProjectsCommand}"
+							Content="{Binding Loc[Project_OpenExisting]}" />
+				</StackPanel>
 			</StackPanel>
 
 			<Grid ColumnDefinitions="*,*,*">

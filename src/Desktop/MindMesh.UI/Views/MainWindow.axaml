@@ -6,6 +6,7 @@
 		xmlns:settingsPage="using:MindMesh.Presentation.Pages.Settings"
 		xmlns:about="using:MindMesh.Presentation.Pages.About"
 		xmlns:placeholder="using:MindMesh.Presentation.Pages.Placeholder"
+		xmlns:projects="using:MindMesh.Presentation.Projects"
 		xmlns:views="using:MindMesh.UI.Views"
 		x:Class="MindMesh.UI.Views.MainWindow"
 		x:DataType="shell:MainWindowViewModel"
@@ -16,7 +17,15 @@
 		MinHeight="600"
 		WindowStartupLocation="CenterScreen">
 
+	<Window.KeyBindings>
+		<KeyBinding Gesture="Ctrl+S" Command="{Binding TopBar.SaveCommand}" />
+		<KeyBinding Gesture="Ctrl+N" Command="{Binding NewProjectDialog.OpenCommand}" />
+	</Window.KeyBindings>
+
 	<Window.DataTemplates>
+		<DataTemplate DataType="projects:ProjectsPageViewModel">
+			<views:ProjectsPageView />
+		</DataTemplate>
 		<DataTemplate DataType="welcome:WelcomePageViewModel">
 			<views:WelcomePageView />
 		</DataTemplate>
@@ -34,13 +43,18 @@
 		</DataTemplate>
 	</Window.DataTemplates>
 
-	<Grid RowDefinitions="Auto,*">
-		<views:TopBarView Grid.Row="0" DataContext="{Binding TopBar}" />
+	<Grid>
+		<Grid RowDefinitions="Auto,*">
+			<views:TopBarView Grid.Row="0" DataContext="{Binding TopBar}" />
 
-		<Grid Grid.Row="1" ColumnDefinitions="Auto,*">
-			<views:SidebarView Grid.Column="0" DataContext="{Binding Sidebar}" />
-			<ContentControl Grid.Column="1" Content="{Binding Navigation.CurrentPage}" />
+			<Grid Grid.Row="1" ColumnDefinitions="Auto,*">
+				<views:SidebarView Grid.Column="0" DataContext="{Binding Sidebar}" />
+				<ContentControl Grid.Column="1" Content="{Binding Navigation.CurrentPage}" />
+			</Grid>
 		</Grid>
+
+		<views:NewProjectDialogView DataContext="{Binding NewProjectDialog}"
+									IsVisible="{Binding IsOpen}" />
 	</Grid>
 
 </Window>

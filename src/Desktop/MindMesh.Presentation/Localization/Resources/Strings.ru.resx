@@ -801,4 +801,67 @@
   <data name="Validation_RequiredInputNotConnected" xml:space="preserve">
     <value>Вход «{0}» не подключён.</value>
   </data>
+  <data name="Project_New" xml:space="preserve">
+    <value>Новый проект</value>
+  </data>
+  <data name="Project_NewTitle" xml:space="preserve">
+    <value>Новый проект</value>
+  </data>
+  <data name="Project_Name" xml:space="preserve">
+    <value>Название</value>
+  </data>
+  <data name="Project_NamePlaceholder" xml:space="preserve">
+    <value>Мой процесс</value>
+  </data>
+  <data name="Project_Description" xml:space="preserve">
+    <value>Описание</value>
+  </data>
+  <data name="Project_DescriptionPlaceholder" xml:space="preserve">
+    <value>Для чего этот проект? (необязательно)</value>
+  </data>
+  <data name="Project_Create" xml:space="preserve">
+    <value>Создать</value>
+  </data>
+  <data name="Project_Cancel" xml:space="preserve">
+    <value>Отмена</value>
+  </data>
+  <data name="Project_Open" xml:space="preserve">
+    <value>Открыть</value>
+  </data>
+  <data name="Project_OpenFile" xml:space="preserve">
+    <value>Открыть файл…</value>
+  </data>
+  <data name="Project_OpenExisting" xml:space="preserve">
+    <value>Открыть проект</value>
+  </data>
+  <data name="Project_Rename" xml:space="preserve">
+    <value>Переименовать</value>
+  </data>
+  <data name="Project_RenameTip" xml:space="preserve">
+    <value>Нажмите, чтобы переименовать проект</value>
+  </data>
+  <data name="Project_ListEmpty" xml:space="preserve">
+    <value>Проектов пока нет</value>
+  </data>
+  <data name="Project_ListEmptyHint" xml:space="preserve">
+    <value>Создайте проект, и он появится здесь.</value>
+  </data>
+  <data name="Project_PickTitle" xml:space="preserve">
+    <value>Открыть проект</value>
+  </data>
+  <data name="Project_CreateFailed" xml:space="preserve">
+    <value>Не удалось создать проект: {0}</value>
+  </data>
+  <data name="Project_OpenFailed" xml:space="preserve">
+    <value>Не удалось открыть «{0}»: {1}</value>
+  </data>
+  <data name="Project_OpenedWithLoss" xml:space="preserve">
+    <value>«{0}» открыт, но часть данных прочитать не удалось, и их нет в проекте. Не сохраняйте поверх файла, если хотите оставить его как есть.</value>
+  </data>
+  <data name="Project_RenameFailed" xml:space="preserve">
+    <value>Не удалось переименовать проект: {0}</value>
+  </data>
+  <data name="Project_SaveFailed" xml:space="preserve">
+    <value>Не удалось сохранить: {0}</value>
+  </data>
 </root>

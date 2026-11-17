@@ -801,4 +801,67 @@
   <data name="Validation_RequiredInputNotConnected" xml:space="preserve">
     <value>The input “{0}” is not connected.</value>
   </data>
+  <data name="Project_New" xml:space="preserve">
+    <value>New project</value>
+  </data>
+  <data name="Project_NewTitle" xml:space="preserve">
+    <value>New project</value>
+  </data>
+  <data name="Project_Name" xml:space="preserve">
+    <value>Name</value>
+  </data>
+  <data name="Project_NamePlaceholder" xml:space="preserve">
+    <value>My workflow</value>
+  </data>
+  <data name="Project_Description" xml:space="preserve">
+    <value>Description</value>
+  </data>
+  <data name="Project_DescriptionPlaceholder" xml:space="preserve">
+    <value>What is this project for? (optional)</value>
+  </data>
+  <data name="Project_Create" xml:space="preserve">
+    <value>Create</value>
+  </data>
+  <data name="Project_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Project_Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="Project_OpenFile" xml:space="preserve">
+    <value>Open file…</value>
+  </data>
+  <data name="Project_OpenExisting" xml:space="preserve">
+    <value>Open a project</value>
+  </data>
+  <data name="Project_Rename" xml:space="preserve">
+    <value>Rename</value>
+  </data>
+  <data name="Project_RenameTip" xml:space="preserve">
+    <value>Click to rename the project</value>
+  </data>
+  <data name="Project_ListEmpty" xml:space="preserve">
+    <value>No projects yet</value>
+  </data>
+  <data name="Project_ListEmptyHint" xml:space="preserve">
+    <value>Create a project and it will appear here.</value>
+  </data>
+  <data name="Project_PickTitle" xml:space="preserve">
+    <value>Open a project</value>
+  </data>
+  <data name="Project_CreateFailed" xml:space="preserve">
+    <value>The project could not be created: {0}</value>
+  </data>
+  <data name="Project_OpenFailed" xml:space="preserve">
+    <value>“{0}” could not be opened: {1}</value>
+  </data>
+  <data name="Project_OpenedWithLoss" xml:space="preserve">
+    <value>“{0}” was opened, but some parts of it could not be read and are missing. Do not save over the file if you want to keep it as it is.</value>
+  </data>
+  <data name="Project_RenameFailed" xml:space="preserve">
+    <value>The project could not be renamed: {0}</value>
+  </data>
+  <data name="Project_SaveFailed" xml:space="preserve">
+    <value>Could not save: {0}</value>
+  </data>
 </root>

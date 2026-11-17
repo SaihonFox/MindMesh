@@ -12,6 +12,7 @@ using MindMesh.Presentation.Pages.Placeholder;
 using MindMesh.Presentation.Pages.Settings;
 using MindMesh.Presentation.Pages.Welcome;
 using MindMesh.Presentation.Platform;
+using MindMesh.Presentation.Projects;
 using MindMesh.Presentation.Shell;
 
 namespace MindMesh.Presentation.DependencyInjection;
@@ -34,6 +35,8 @@ public static class PresentationServiceCollectionExtensions
 
 		// Editor parts live as long as the application, so panel state survives navigation.
 		services.AddSingleton<EditorWorkspace>();
+		services.AddSingleton<ProjectService>();
+		services.AddSingleton<NewProjectDialogViewModel>();
 		services.AddSingleton<NodeText>();
 		services.AddSingleton<GraphClipboard>();
 		services.AddSingleton<GraphEditorViewModel>();
@@ -50,7 +53,7 @@ public static class PresentationServiceCollectionExtensions
 		services.AddPage<SettingsPageViewModel>(PageKey.Settings, ServiceLifetime.Transient);
 		services.AddPage<AboutPageViewModel>(PageKey.About, ServiceLifetime.Transient);
 
-		services.AddPlaceholderPage(PageKey.Projects, phase: 3);
+		services.AddPage<ProjectsPageViewModel>(PageKey.Projects, ServiceLifetime.Transient);
 		services.AddPlaceholderPage(PageKey.Templates, phase: 9);
 		services.AddPlaceholderPage(PageKey.Marketplace, phase: 9);
 		services.AddPlaceholderPage(PageKey.Executions, phase: 5);

@@ -172,7 +172,6 @@ public class NavigationTests
 	}
 
 	[Theory]
-	[InlineData(PageKey.Projects, 3)]
 	[InlineData(PageKey.Executions, 5)]
 	[InlineData(PageKey.Templates, 9)]
 	[InlineData(PageKey.Marketplace, 9)]
@@ -185,6 +184,14 @@ public class NavigationTests
 
 		Assert.Equal(phase, page.Phase);
 		Assert.False(string.IsNullOrWhiteSpace(page.Title));
+	}
+
+	[Fact]
+	public void ProjectsPage_IsTheProjectsPageViewModel()
+	{
+		using var app = new TestApp();
+
+		Assert.IsType<MindMesh.Presentation.Projects.ProjectsPageViewModel>(app.Get<IPageFactory>().Create(PageKey.Projects));
 	}
 
 	[Fact]
