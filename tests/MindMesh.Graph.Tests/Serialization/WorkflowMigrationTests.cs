@@ -53,7 +53,10 @@ public class WorkflowMigrationTests
 	public void TheDefaultMigrator_EndsAtTheCurrentVersion()
 	{
 		Assert.Equal(WorkflowFormat.CurrentVersion, WorkflowMigrator.Default.CurrentVersion);
-		Assert.Equal(WorkflowFormat.CurrentVersion - 1, WorkflowFormat.Migrations.Select(migration => migration.FromVersion).Distinct().Count());
+		var expected = WorkflowFormat.CurrentVersion - 1;
+		var steps = WorkflowFormat.Migrations.Select(migration => migration.FromVersion).Distinct().ToArray();
+
+		Assert.Equal(expected, steps.Length);
 	}
 
 	[Fact]
