@@ -236,7 +236,7 @@
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="CornerRadius" Value="12" />
+		<Setter Property="CornerRadius" Value="16" />
 		<Setter Property="BoxShadow" Value="{DynamicResource MM.Shadow.Node}" />
 	</Style>
 
@@ -245,7 +245,7 @@
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Node}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="1.5" />
-		<Setter Property="CornerRadius" Value="14" />
+		<Setter Property="CornerRadius" Value="16" />
 		<Setter Property="BoxShadow" Value="{DynamicResource MM.Shadow.Node}" />
 	</Style>
 	<Style Selector="ctl|NodeCard.node-card:found">

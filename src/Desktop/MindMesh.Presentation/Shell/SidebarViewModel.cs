@@ -10,18 +10,21 @@ namespace MindMesh.Presentation.Shell;
 
 /// <summary>
 /// Left sidebar: navigation between the main sections, with an expanded and a compact mode.
+/// Inside the editor it is always compact, so the canvas gets the room.
 /// </summary>
 public sealed partial class SidebarViewModel : ViewModelBase
 {
-	public const double ExpandedWidth = 224;
+	public const double ExpandedWidth = 200;
 
 	public const double CompactWidth = 56;
 
 	private readonly ISettingsService _settings;
 	private readonly INavigationService _navigation;
+	private bool _isEditorOpen;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(Width))]
+	[NotifyPropertyChangedFor(nameof(IsShownCompact))]
 	private bool _isCompact;
 
 	public SidebarViewModel(
@@ -49,7 +52,6 @@ public sealed partial class SidebarViewModel : ViewModelBase
 		];
 
 		_isCompact = settings.Current.Layout.IsSidebarCompact;
-		ApplyCompactToItems(_isCompact);
 		UpdateSelection();
 
 		navigation.PropertyChanged += OnNavigationPropertyChanged;
@@ -67,14 +69,17 @@ public sealed partial class SidebarViewModel : ViewModelBase
 
 	public IReadOnlyList<NavigationItemViewModel> FooterItems { get; }
 
-	public double Width => IsCompact ? CompactWidth : ExpandedWidth;
+	/// <summary>The sidebar shows icons only: by the user's choice, or because the editor is open.</summary>
+	public bool IsShownCompact => IsCompact || _isEditorOpen;
+
+	public double Width => IsShownCompact ? CompactWidth : ExpandedWidth;
 
 	[RelayCommand]
 	private void ToggleCompact() => IsCompact = !IsCompact;
 
 	partial void OnIsCompactChanged(bool value)
 	{
-		ApplyCompactToItems(value);
+		ApplyCompactToItems(IsShownCompact);
 
 		_settings.Update(settings => settings with
 		{
@@ -96,6 +101,11 @@ public sealed partial class SidebarViewModel : ViewModelBase
 	private void UpdateSelection()
 	{
 		var current = _navigation.CurrentPageKey;
+
+		_isEditorOpen = current == PageKey.Editor;
+		ApplyCompactToItems(IsShownCompact);
+		OnPropertyChanged(nameof(IsShownCompact));
+		OnPropertyChanged(nameof(Width));
 
 		foreach (var item in Items.Concat(FooterItems))
 		{

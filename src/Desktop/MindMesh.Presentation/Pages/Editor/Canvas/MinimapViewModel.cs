@@ -13,6 +13,10 @@ public sealed class MinimapViewModel : ObservableObject
 	public const double Height = 132;
 	private const double Padding = 8;
 
+	/// <summary>The smallest world area the minimap covers, so a few nodes do not blow up to fill it.</summary>
+	private const double MinimumWorldWidth = 2400;
+	private const double MinimumWorldHeight = 1600;
+
 	private readonly GraphEditorViewModel _editor;
 	private double _scale = 1;
 	private double _originX;
@@ -57,6 +61,16 @@ public sealed class MinimapViewModel : ObservableObject
 		}
 
 		bounds = bounds.Inflate(32);
+
+		if (bounds.Width < MinimumWorldWidth)
+		{
+			bounds = new Rect2D(bounds.X - ((MinimumWorldWidth - bounds.Width) / 2), bounds.Y, MinimumWorldWidth, bounds.Height);
+		}
+
+		if (bounds.Height < MinimumWorldHeight)
+		{
+			bounds = new Rect2D(bounds.X, bounds.Y - ((MinimumWorldHeight - bounds.Height) / 2), bounds.Width, MinimumWorldHeight);
+		}
 
 		var availableWidth = Width - (2 * Padding);
 		var availableHeight = Height - (2 * Padding);

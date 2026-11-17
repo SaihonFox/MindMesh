@@ -3,9 +3,13 @@
 
 	<!-- Theme independent design tokens: radii, font sizes, fixed sizes. -->
 
-	<CornerRadius x:Key="MM.CornerRadius.Small">4</CornerRadius>
-	<CornerRadius x:Key="MM.CornerRadius.Medium">6</CornerRadius>
-	<CornerRadius x:Key="MM.CornerRadius.Large">10</CornerRadius>
+	<CornerRadius x:Key="MM.CornerRadius.Small">8</CornerRadius>
+	<CornerRadius x:Key="MM.CornerRadius.Medium">10</CornerRadius>
+	<CornerRadius x:Key="MM.CornerRadius.Large">16</CornerRadius>
+
+	<!-- The Fluent theme reads these for every stock control and popup, so rounding them rounds the whole app. -->
+	<CornerRadius x:Key="ControlCornerRadius">8</CornerRadius>
+	<CornerRadius x:Key="OverlayCornerRadius">14</CornerRadius>
 
 	<x:Double x:Key="MM.FontSize.Caption">11</x:Double>
 	<x:Double x:Key="MM.FontSize.Small">12</x:Double>
