@@ -3,11 +3,13 @@ using MindMesh.Application.AppInfo;
 using MindMesh.Application.Paths;
 using MindMesh.Application.Secrets;
 using MindMesh.Application.Settings;
+using MindMesh.Application.Workflows;
 using MindMesh.Infrastructure.AppInfo;
 using MindMesh.Infrastructure.Logging;
 using MindMesh.Infrastructure.Paths;
 using MindMesh.Infrastructure.Secrets;
 using MindMesh.Infrastructure.Settings;
+using MindMesh.Infrastructure.Workflows;
 
 namespace MindMesh.Infrastructure.DependencyInjection;
 
@@ -26,6 +28,7 @@ public static class InfrastructureServiceCollectionExtensions
 		services.AddSingleton<IAppInfo, AssemblyAppInfo>();
 		services.AddSingleton<IAppSettingsStore, JsonAppSettingsStore>();
 		services.AddSingleton<ISecretStore, InMemorySecretStore>();
+		services.AddSingleton<IWorkflowStore, FileWorkflowStore>();
 		services.AddHostedService<SettingsLifecycleService>();
 		services.AddMindMeshLogging();
 
