@@ -20,8 +20,11 @@
 
 			<!-- Nodes live in world coordinates; the transform on this control applies pan and zoom.
 				 The control fills the canvas, so the transform is never applied to something of zero size. -->
+			<!-- An items control clips to its own size by default, and that size is only the first screenful of
+				 world coordinates: anything beyond it (far to the right, below, or at negative coordinates) would vanish. -->
 			<ItemsControl x:Name="WorldLayer"
 						  ItemsSource="{Binding Nodes}"
+						  ClipToBounds="False"
 						  IsHitTestVisible="False"
 						  RenderTransformOrigin="0,0">
 				<ItemsControl.ItemsPanel>

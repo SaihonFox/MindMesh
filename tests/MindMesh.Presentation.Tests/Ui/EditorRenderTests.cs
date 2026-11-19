@@ -110,6 +110,37 @@ public class EditorRenderTests
 	}
 
 	[Fact]
+	public async Task NodesBeyondTheFirstScreenful_AreDrawnToo()
+	{
+		var inks = await UiSession.Run(() =>
+		{
+			using var fixture = new EditorFixture(new AppSettings { ShowWelcomeOnStartup = false });
+			var window = new MainWindow { DataContext = fixture.App.Get<MainWindowViewModel>(), Width = 1440, Height = 860 };
+
+			window.Show();
+			Pump();
+
+			// The first one is inside the area that was visible at start; the others are far to the right,
+			// below it, and at negative coordinates.
+			fixture.Add("trigger.manual", 150, 150);
+			fixture.Add("http.request", 1500, 1000);
+			fixture.Add("logic.if", -900, -600);
+			Pump();
+			fixture.Editor.FitToViewCommand.Execute(null);
+			Pump();
+
+			var snapshot = UiSnapshot.Capture(window);
+
+			return window.GetVisualDescendants().OfType<NodeCard>()
+				.Select(card => snapshot.CountInk(new Rect(card.TranslatePoint(default, window) ?? default, card.Bounds.Size)))
+				.ToList();
+		});
+
+		Assert.Equal(3, inks.Count);
+		Assert.All(inks, ink => Assert.True(ink > 8, $"A node is not drawn; dark pixels per card: {string.Join(", ", inks)}."));
+	}
+
+	[Fact]
 	public async Task TheScreenCanBeInspected_WhenAskedFor()
 	{
 		if (Environment.GetEnvironmentVariable("MM_UI_SNAPSHOT") != "1")
