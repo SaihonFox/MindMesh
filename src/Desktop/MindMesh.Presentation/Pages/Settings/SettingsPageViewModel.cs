@@ -74,16 +74,12 @@ public sealed partial class SettingsPageViewModel : PageViewModel
 	partial void OnSelectedThemeChanged(ThemeOptionViewModel? value)
 	{
 		if (value is not null)
-		{
 			_settings.Update(settings => settings with { Theme = value.Mode });
-		}
 	}
 
 	partial void OnSelectedLanguageChanged(LanguageOptionViewModel? value)
 	{
 		if (value is not null)
-		{
 			_settings.Update(settings => settings with { Language = value.Code });
-		}
 	}
 }

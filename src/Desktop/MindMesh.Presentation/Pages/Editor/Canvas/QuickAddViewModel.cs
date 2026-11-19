@@ -68,9 +68,7 @@ public sealed partial class QuickAddViewModel : ObservableObject
 		var chosen = item ?? SelectedItem;
 
 		if (chosen is null)
-		{
 			return;
-		}
 
 		var from = FromPort;
 		var position = Position;
@@ -90,9 +88,7 @@ public sealed partial class QuickAddViewModel : ObservableObject
 	public void MoveSelection(int delta)
 	{
 		if (Results.Count == 0)
-		{
 			return;
-		}
 
 		var index = SelectedItem is null ? -1 : Results.IndexOf(SelectedItem);
 		SelectedItem = Results[Math.Clamp(index + delta, 0, Results.Count - 1)];
@@ -116,9 +112,7 @@ public sealed partial class QuickAddViewModel : ObservableObject
 		Results.Clear();
 
 		foreach (var match in matches)
-		{
 			Results.Add(match);
-		}
 
 		SelectedItem = Results.FirstOrDefault();
 		OnPropertyChanged(nameof(HasResults));

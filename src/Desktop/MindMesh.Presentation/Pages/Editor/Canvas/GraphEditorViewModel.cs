@@ -140,16 +140,12 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	public Rect2D GetContentBounds()
 	{
 		if (Nodes.Count == 0)
-		{
 			return default;
-		}
 
 		var bounds = Nodes[0].Bounds;
 
 		foreach (var node in Nodes.Skip(1))
-		{
 			bounds = bounds.Union(node.Bounds);
-		}
 
 		return bounds;
 	}
@@ -183,14 +179,10 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 		ClearSelectionState();
 
 		foreach (var node in Document.Graph.Nodes)
-		{
 			AddNodeViewModel(node);
-		}
 
 		foreach (var connection in Document.Graph.Connections)
-		{
 			AddConnectionViewModel(connection);
-		}
 
 		UpdateCulling();
 		Minimap.Refresh();
@@ -253,9 +245,7 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	private void OnLayoutChanged(object? sender, LayoutChangedEventArgs e)
 	{
 		if (e.Kind == LayoutChangeKind.Removed || FindNode(e.Node) is not { } node)
-		{
 			return;
-		}
 
 		if (e.Kind == LayoutChangeKind.Moved)
 		{
@@ -293,9 +283,7 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	private void RemoveNodeViewModel(NodeId id)
 	{
 		if (!_nodesById.Remove(id, out var node))
-		{
 			return;
-		}
 
 		_connectionsByNode.Remove(id);
 		Nodes.Remove(node);
@@ -338,18 +326,14 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	private void RemoveConnectionViewModel(Connection connection)
 	{
 		if (!_connectionsById.Remove(connection.Id, out var viewModel))
-		{
 			return;
-		}
 
 		_connectionsByNode.GetValueOrDefault(viewModel.Source.Owner.Id)?.Remove(viewModel);
 		_connectionsByNode.GetValueOrDefault(viewModel.Target.Owner.Id)?.Remove(viewModel);
 		Connections.Remove(viewModel);
 
 		if (ReferenceEquals(SelectedConnection, viewModel))
-		{
 			SelectedConnection = null;
-		}
 
 		viewModel.Source.IsConnected = Document.Graph.GetConnections(viewModel.Source.Reference).Count > 0;
 		viewModel.Target.IsConnected = Document.Graph.GetConnections(viewModel.Target.Reference).Count > 0;
@@ -361,17 +345,13 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	private void ValidateNode(NodeId id)
 	{
 		if (FindNode(id) is { } node)
-		{
 			node.SetIssues(NodeValidator.Validate(node.Node, Document.Graph));
-		}
 	}
 
 	private void UpdateConnectionsOf(NodeViewModel node)
 	{
 		if (!_connectionsByNode.TryGetValue(node.Id, out var connections))
-		{
 			return;
-		}
 
 		var visible = Viewport.VisibleWorld.Inflate(CullingMargin);
 
@@ -387,14 +367,10 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 		var visible = Viewport.VisibleWorld.Inflate(CullingMargin);
 
 		foreach (var node in Nodes)
-		{
 			node.IsInViewport = node.IsSelected || node.Bounds.Intersects(visible);
-		}
 
 		foreach (var connection in Connections)
-		{
 			connection.IsInViewport = connection.Curve.Bounds.Intersects(visible);
-		}
 	}
 
 	private void UpdateCulling(NodeViewModel node) =>

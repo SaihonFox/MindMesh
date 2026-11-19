@@ -13,9 +13,7 @@ public sealed class AvaloniaFilePickerService : IFilePickerService
 	public async Task<string?> PickFileAsync(string title, CancellationToken cancellationToken = default)
 	{
 		if (Avalonia.Application.Current?.ApplicationLifetime is not IClassicDesktopStyleApplicationLifetime { MainWindow: { } window })
-		{
 			return null;
-		}
 
 		var files = await TopLevel.GetTopLevel(window)!.StorageProvider.OpenFilePickerAsync(new FilePickerOpenOptions
 		{

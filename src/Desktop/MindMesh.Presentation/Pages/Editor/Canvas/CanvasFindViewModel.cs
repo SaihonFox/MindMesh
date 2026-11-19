@@ -50,9 +50,7 @@ public sealed partial class CanvasFindViewModel : ObservableObject
 	private void Refresh()
 	{
 		foreach (var node in _matches)
-		{
 			node.IsFindMatch = false;
-		}
 
 		var query = SearchText.Trim();
 
@@ -63,25 +61,19 @@ public sealed partial class CanvasFindViewModel : ObservableObject
 				|| _text.Matches(node.Definition, query))];
 
 		foreach (var node in _matches)
-		{
 			node.IsFindMatch = true;
-		}
 
 		_index = -1;
 		Notify();
 
 		if (_matches.Count > 0)
-		{
 			Move(1);
-		}
 	}
 
 	private void Move(int delta)
 	{
 		if (_matches.Count == 0)
-		{
 			return;
-		}
 
 		_index = (_index + delta + _matches.Count) % _matches.Count;
 

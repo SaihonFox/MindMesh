@@ -68,9 +68,7 @@ public class ExtensionCatalogTests
 		var inModes = catalog.ProjectKinds.SelectMany(kind => kind.Modes).SelectMany(mode => mode.Categories).ToHashSet();
 
 		foreach (var node in catalog.Nodes)
-		{
 			Assert.True(node.Categories.Any(inModes.Contains), $"{node.Id} is in no mode.");
-		}
 	}
 
 	[Fact]

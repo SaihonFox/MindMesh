@@ -22,9 +22,7 @@ public sealed partial class SelectFieldViewModel : ParameterFieldViewModel
 	partial void OnSelectedOptionChanged(ParameterOption? value)
 	{
 		if (value is not null)
-		{
 			Commit(ParameterValue.FromString(value.Value));
-		}
 	}
 
 	protected override void LoadValue()

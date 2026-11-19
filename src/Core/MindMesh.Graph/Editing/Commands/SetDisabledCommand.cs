@@ -17,9 +17,7 @@ public sealed class SetDisabledCommand(IEnumerable<NodeId> nodes, bool isDisable
 		foreach (var id in _ids)
 		{
 			if (document.Graph.FindNode(id) is not { } node)
-			{
 				continue;
-			}
 
 			_previous[id] = node.IsDisabled;
 			document.Graph.SetDisabled(id, isDisabled);
@@ -29,8 +27,6 @@ public sealed class SetDisabledCommand(IEnumerable<NodeId> nodes, bool isDisable
 	public void Undo(GraphDocument document)
 	{
 		foreach (var (id, wasDisabled) in _previous)
-		{
 			document.Graph.SetDisabled(id, wasDisabled);
-		}
 	}
 }

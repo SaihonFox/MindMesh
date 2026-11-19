@@ -22,9 +22,7 @@ public sealed class ConnectCommand(PortReference first, PortReference second) : 
 		var check = document.Graph.CheckConnection(first, second);
 
 		if (!check.IsAllowed)
-		{
 			throw new InvalidOperationException($"The connection is not allowed: {check.Rejection}.");
-		}
 
 		var source = document.Graph.FindNode(first.Node)?.Definition.FindPort(first.PortKey, PortDirection.Output) is not null
 			? first
@@ -43,15 +41,11 @@ public sealed class ConnectCommand(PortReference first, PortReference second) : 
 	public void Undo(GraphDocument document)
 	{
 		if (_created is null)
-		{
 			return;
-		}
 
 		document.Graph.RemoveConnection(_created.Id);
 
 		foreach (var replaced in _replaced)
-		{
 			document.Graph.AddConnection(replaced);
-		}
 	}
 }

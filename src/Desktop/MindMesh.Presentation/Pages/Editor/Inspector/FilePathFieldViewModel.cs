@@ -34,9 +34,7 @@ public sealed partial class FilePathFieldViewModel : ParameterFieldViewModel
 		var path = await _picker.PickFileAsync(Label);
 
 		if (!string.IsNullOrEmpty(path))
-		{
 			Text = path;
-		}
 	}
 
 	protected override void LoadValue() => Text = CurrentValue.AsString();

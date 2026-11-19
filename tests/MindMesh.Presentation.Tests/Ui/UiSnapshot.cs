@@ -34,7 +34,7 @@ internal sealed class UiSnapshot
 	{
 		var bitmap = window.CaptureRenderedFrame() ?? throw new InvalidOperationException("The window produced no frame.");
 		using var locked = bitmap.Lock();
-		var bytes = new byte[locked.RowBytes * locked.Size.Height];
+		byte[] bytes = new byte[locked.RowBytes * locked.Size.Height];
 		Marshal.Copy(locked.Address, bytes, 0, bytes.Length);
 
 		return new UiSnapshot(bitmap, bytes, locked.Size.Width, locked.Size.Height, locked.RowBytes);
@@ -45,17 +45,15 @@ internal sealed class UiSnapshot
 	{
 		using var stream = new MemoryStream();
 
-		_bitmap.Save(stream);
+		_bitmap.Save(stream, new PngBitmapEncoderOptions());
 
-		var text = Convert.ToBase64String(stream.ToArray());
+		string text = Convert.ToBase64String(stream.ToArray());
 		var builder = new StringBuilder();
 
 		builder.AppendLine("<<<PNG");
 
-		for (var index = 0; index < text.Length; index += 160)
-		{
+		for (int index = 0; index < text.Length; index += 160)
 			builder.AppendLine(text.Substring(index, Math.Min(160, text.Length - index)));
-		}
 
 		builder.AppendLine("PNG>>>");
 
@@ -65,9 +63,7 @@ internal sealed class UiSnapshot
 	public double Luminance(int x, int y)
 	{
 		if (x < 0 || y < 0 || x >= _width || y >= _height)
-		{
 			return 255;
-		}
 
 		var index = (y * _stride) + (x * 4);
 
@@ -77,16 +73,14 @@ internal sealed class UiSnapshot
 	/// <summary>Counts the pixels of a region that are clearly darker or more saturated than paper.</summary>
 	public int CountInk(Rect region, double threshold = 150)
 	{
-		var count = 0;
+		int count = 0;
 
 		for (var y = (int)region.Top; y < (int)region.Bottom; y++)
 		{
 			for (var x = (int)region.Left; x < (int)region.Right; x++)
 			{
 				if (Luminance(x, y) < threshold)
-				{
 					count++;
-				}
 			}
 		}
 
@@ -100,12 +94,12 @@ internal sealed class UiSnapshot
 		var cellWidth = region.Width / columns;
 		var cellHeight = region.Height / rows;
 
-		for (var row = 0; row < rows; row++)
+		for (int row = 0; row < rows; row++)
 		{
-			for (var column = 0; column < columns; column++)
+			for (int column = 0; column < columns; column++)
 			{
 				double sum = 0;
-				var samples = 0;
+				int samples = 0;
 
 				for (var y = (int)(region.Top + (row * cellHeight)); y < (int)(region.Top + ((row + 1) * cellHeight)); y += 2)
 				{
@@ -136,9 +130,7 @@ internal sealed class UiSnapshot
 			builder.Append(visual.GetType().Name);
 
 			if (visual is Control { Name: { Length: > 0 } name })
-			{
 				builder.Append($" '{name}'");
-			}
 
 			builder.AppendLine(
 				$" at ({origin?.X:0.#}, {origin?.Y:0.#}) size {visual.Bounds.Width:0.#}x{visual.Bounds.Height:0.#}"

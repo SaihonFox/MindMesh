@@ -71,9 +71,7 @@ public sealed class WorkflowSerializer
 			writer.WriteStartArray(WorkflowKeys.Nodes);
 
 			foreach (var node in content.Graph.Nodes)
-			{
 				WriteNode(writer, node, content.Layout);
-			}
 
 			writer.WriteEndArray();
 			writer.WriteStartArray(WorkflowKeys.Connections);
@@ -110,9 +108,7 @@ public sealed class WorkflowSerializer
 		}
 
 		if (parsed is not JsonObject root || GetString(root, WorkflowKeys.Format) != WorkflowFormat.Name)
-		{
 			return WorkflowLoadResult.Failure(Fatal(WorkflowProblemCode.NotAWorkflow));
-		}
 
 		if (root[WorkflowKeys.FormatVersion] is not JsonValue versionValue
 			|| !versionValue.TryGetValue<int>(out var version)
@@ -156,9 +152,7 @@ public sealed class WorkflowSerializer
 		if (root[WorkflowKeys.Nodes] is JsonArray nodes)
 		{
 			foreach (var item in nodes)
-			{
 				ReadNode(item as JsonObject, graph, layout, skippedNodes, problems);
-			}
 		}
 
 		if (root[WorkflowKeys.Connections] is JsonArray connections)
@@ -166,9 +160,7 @@ public sealed class WorkflowSerializer
 			var seen = new HashSet<ConnectionId>();
 
 			foreach (var item in connections)
-			{
 				ReadConnection(item as JsonObject, graph, seen, skippedNodes, problems);
-			}
 		}
 
 		var content = new WorkflowContent(
@@ -191,31 +183,23 @@ public sealed class WorkflowSerializer
 		writer.WriteString(WorkflowKeys.NodeTypeVersion, node.Definition.Version.ToString());
 
 		if (node.Title is not null)
-		{
 			writer.WriteString(WorkflowKeys.NodeTitle, node.Title);
-		}
 
 		if (node.IsDisabled)
-		{
 			writer.WriteBoolean(WorkflowKeys.NodeDisabled, true);
-		}
 
 		writer.WriteNumber(WorkflowKeys.NodeX, placement.X);
 		writer.WriteNumber(WorkflowKeys.NodeY, placement.Y);
 
 		if (layout.IsCollapsed(node.Id))
-		{
 			writer.WriteBoolean(WorkflowKeys.NodeCollapsed, true);
-		}
 
 		if (node.Parameters.Count > 0)
 		{
 			writer.WriteStartObject(WorkflowKeys.NodeParameters);
 
 			foreach (var (key, value) in node.Parameters.OrderBy(pair => pair.Key, StringComparer.Ordinal))
-			{
 				WriteParameter(writer, key, value);
-			}
 
 			writer.WriteEndObject();
 		}
@@ -311,14 +295,10 @@ public sealed class WorkflowSerializer
 			foreach (var (key, value) in parameterObject)
 			{
 				if (value is null)
-				{
 					continue;
-				}
 
 				if (definition.Parameters.All(parameter => parameter.Key != key))
-				{
 					problems.Add(new WorkflowProblem(WorkflowProblemCode.UnknownParameter, WorkflowProblemSeverity.Warning, rawId, key));
-				}
 
 				parameters.Add(new KeyValuePair<string, ParameterValue>(key, new ParameterValue(value.ToJsonString())));
 			}
@@ -335,9 +315,7 @@ public sealed class WorkflowSerializer
 		layout.SetPlacement(nodeId, new NodePlacement(GetDouble(item, WorkflowKeys.NodeX), GetDouble(item, WorkflowKeys.NodeY)));
 
 		if (GetBoolean(item, WorkflowKeys.NodeCollapsed))
-		{
 			layout.SetCollapsed(nodeId, true);
-		}
 	}
 
 	private static void ReadConnection(

@@ -57,14 +57,10 @@ public sealed class ExtensionCatalog : IExtensionCatalog
 
 		// Nodes and kinds are checked after all categories are known, so registration order does not matter.
 		foreach (var (owner, node) in pendingNodes)
-		{
 			AcceptNode(logger, owner, node);
-		}
 
 		foreach (var (owner, kind) in pendingKinds)
-		{
 			AcceptKind(logger, owner, kind);
-		}
 	}
 
 	public IReadOnlyList<ExtensionInfo> Extensions => _extensions;
@@ -142,9 +138,7 @@ public sealed class ExtensionCatalog : IExtensionCatalog
 		_nodes.Add(node);
 
 		foreach (var category in node.Categories.Distinct())
-		{
 			_nodesByCategory[category].Add(node);
-		}
 	}
 
 	private void AcceptKind(ILogger logger, string owner, ProjectKindDefinition kind)
@@ -188,9 +182,7 @@ public sealed class ExtensionCatalog : IExtensionCatalog
 		_kinds.Add(kind);
 
 		foreach (var mode in kind.Modes)
-		{
 			_modesById[mode.Id] = mode;
-		}
 	}
 
 	private sealed class Registrar(

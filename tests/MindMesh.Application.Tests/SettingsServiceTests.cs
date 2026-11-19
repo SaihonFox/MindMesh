@@ -66,7 +66,7 @@ public class SettingsServiceTests
 	{
 		var store = new InMemoryAppSettingsStore();
 		var service = CreateService(store);
-		var raised = false;
+		bool raised = false;
 		service.Changed += (_, _) => raised = true;
 
 		service.Update(settings => settings);

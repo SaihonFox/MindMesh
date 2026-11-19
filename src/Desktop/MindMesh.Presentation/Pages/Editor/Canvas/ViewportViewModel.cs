@@ -38,9 +38,7 @@ public sealed class ViewportViewModel : ObservableObject
 	public void SetViewSize(double width, double height)
 	{
 		if (width <= 0 || height <= 0 || (width == ViewWidth && height == ViewHeight))
-		{
 			return;
-		}
 
 		ViewWidth = width;
 		ViewHeight = height;

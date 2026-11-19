@@ -78,18 +78,14 @@ public sealed partial class TopBarViewModel : ViewModelBase
 	private async Task CommitRenameAsync()
 	{
 		if (!IsRenaming)
-		{
 			return;
-		}
 
 		IsRenaming = false;
 
 		var name = RenameText.Trim();
 
 		if (name.Length == 0 || name == ProjectDisplayName)
-		{
 			return;
-		}
 
 		SaveError = await _projects.RenameAsync(name) ? null : _projects.LastError;
 	}
@@ -117,9 +113,7 @@ public sealed partial class TopBarViewModel : ViewModelBase
 	private void OnNavigationPropertyChanged(object? sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName == nameof(INavigationService.CurrentPageKey))
-		{
 			OnPropertyChanged(nameof(IsEditorActive));
-		}
 	}
 
 	private void OnWorkspacePropertyChanged(object? sender, PropertyChangedEventArgs e)

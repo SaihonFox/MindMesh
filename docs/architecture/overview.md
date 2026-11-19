@@ -8,7 +8,7 @@
 
 ```
 MindMesh.slnx
-├─ Directory.Build.props          общие настройки сборки (net10.0, C# latest, nullable, версия 0.1.0-alpha.1)
+├─ Directory.Build.props          общие настройки сборки (net11.0, C# latest, nullable, версия 0.1.0-alpha.1)
 ├─ Directory.Packages.props       централизованные версии NuGet-пакетов
 ├─ global.json                    версия SDK
 ├─ .editorconfig / .gitattributes табы, CRLF, UTF-8

@@ -27,9 +27,7 @@ internal sealed class FakeSettingsService : ISettingsService
 		var updated = mutate(previous).Normalize();
 
 		if (updated == previous)
-		{
 			return;
-		}
 
 		Current = updated;
 		UpdateCount++;

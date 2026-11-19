@@ -74,8 +74,6 @@ public class PortCompatibilityTests
 	public void EveryPortTypeHasAKind()
 	{
 		foreach (var type in Enum.GetValues<PortType>())
-		{
 			Assert.True(Enum.IsDefined(PortTypes.GetKind(type)));
-		}
 	}
 }

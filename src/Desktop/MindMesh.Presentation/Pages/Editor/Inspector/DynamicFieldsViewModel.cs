@@ -31,9 +31,7 @@ public sealed partial class DynamicFieldsViewModel : ParameterFieldViewModel
 	private void RemoveRow(KeyValueRowViewModel? row)
 	{
 		if (row is null || !Rows.Remove(row))
-		{
 			return;
-		}
 
 		OnPropertyChanged(nameof(HasRows));
 		Save();
@@ -49,9 +47,7 @@ public sealed partial class DynamicFieldsViewModel : ParameterFieldViewModel
 		Rows.Clear();
 
 		foreach (var pair in CurrentValue.AsPairs())
-		{
 			Rows.Add(new KeyValueRowViewModel(this, pair.Key, pair.Value));
-		}
 
 		OnPropertyChanged(nameof(HasRows));
 	}

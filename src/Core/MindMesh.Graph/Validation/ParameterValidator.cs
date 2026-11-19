@@ -17,27 +17,19 @@ public static class ParameterValidator
 		ArgumentNullException.ThrowIfNull(definition);
 
 		if (IsEmpty(definition, value))
-		{
 			return definition.IsRequired ? (ValidationCode.RequiredParameterMissing, null) : null;
-		}
 
 		switch (definition.Type)
 		{
 			case ParameterType.Number:
 				if (value.AsDecimal() is not { } number)
-				{
 					return (ValidationCode.InvalidNumber, null);
-				}
 
 				if (definition.Minimum is { } minimum && number < minimum)
-				{
 					return (ValidationCode.NumberTooSmall, minimum.ToString(CultureInfo.InvariantCulture));
-				}
 
 				if (definition.Maximum is { } maximum && number > maximum)
-				{
 					return (ValidationCode.NumberTooLarge, maximum.ToString(CultureInfo.InvariantCulture));
-				}
 
 				return null;
 
@@ -58,9 +50,7 @@ public static class ParameterValidator
 	private static bool IsEmpty(ParameterDefinition definition, ParameterValue value)
 	{
 		if (value.IsNull)
-		{
 			return true;
-		}
 
 		return definition.Type switch
 		{

@@ -33,21 +33,15 @@ public static class PortCompatibility
 	public static bool IsCompatible(PortType source, PortType target)
 	{
 		if (source == target)
-		{
 			return true;
-		}
 
 		var kind = PortTypes.GetKind(source);
 
 		if (kind != PortTypes.GetKind(target) || kind != PortKind.Data)
-		{
 			return false;
-		}
 
 		if (source == PortType.Any || target == PortType.Any)
-		{
 			return true;
-		}
 
 		return Conversions.Contains((source, target));
 	}

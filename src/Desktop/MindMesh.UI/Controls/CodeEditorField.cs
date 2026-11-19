@@ -71,9 +71,7 @@ public sealed class CodeEditorField : Border
 	private void OnTextPropertyChanged(string? value)
 	{
 		if (_isUpdating)
-		{
 			return;
-		}
 
 		var text = value ?? string.Empty;
 
@@ -95,9 +93,7 @@ public sealed class CodeEditorField : Border
 	private void OnEditorTextChanged(object? sender, EventArgs e)
 	{
 		if (_isUpdating)
-		{
 			return;
-		}
 
 		_isUpdating = true;
 

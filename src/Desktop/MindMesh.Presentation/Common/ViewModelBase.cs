@@ -50,9 +50,7 @@ public abstract class ViewModelBase : ObservableObject
 		private void OnLocalizerPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName != "Item[]")
-			{
 				return;
-			}
 
 			if (_target.TryGetTarget(out var target))
 			{

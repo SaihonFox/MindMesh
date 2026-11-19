@@ -61,9 +61,7 @@ internal sealed class TestApp : IDisposable
 		_provider.Dispose();
 
 		if (Directory.Exists(_projectsDirectory))
-		{
 			Directory.Delete(_projectsDirectory, recursive: true);
-		}
 	}
 
 	private sealed class FakeAppInfo : IAppInfo

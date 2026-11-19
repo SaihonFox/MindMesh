@@ -35,9 +35,7 @@ public sealed partial class NumberFieldViewModel : ParameterFieldViewModel
 		var trimmed = text.Trim();
 
 		if (trimmed.Length == 0)
-		{
 			return ParameterValue.Null;
-		}
 
 		return decimal.TryParse(trimmed.Replace(',', '.'), NumberStyles.Number, CultureInfo.InvariantCulture, out var number)
 			? ParameterValue.FromNumber(number)

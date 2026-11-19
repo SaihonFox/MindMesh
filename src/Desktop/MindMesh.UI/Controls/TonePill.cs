@@ -46,9 +46,7 @@ public sealed class TonePill : Border
 	private void ApplyTone()
 	{
 		if (TopLevel.GetTopLevel(this) is null)
-		{
 			return;
-		}
 
 		_backgroundBinding?.Dispose();
 		_foregroundBinding?.Dispose();

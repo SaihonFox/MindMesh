@@ -56,21 +56,15 @@ public sealed class MinimapViewModel : ObservableObject
 		var bounds = visible;
 
 		foreach (var node in _editor.Nodes)
-		{
 			bounds = bounds.Union(node.Bounds);
-		}
 
 		bounds = bounds.Inflate(32);
 
 		if (bounds.Width < MinimumWorldWidth)
-		{
 			bounds = new Rect2D(bounds.X - ((MinimumWorldWidth - bounds.Width) / 2), bounds.Y, MinimumWorldWidth, bounds.Height);
-		}
 
 		if (bounds.Height < MinimumWorldHeight)
-		{
 			bounds = new Rect2D(bounds.X, bounds.Y - ((MinimumWorldHeight - bounds.Height) / 2), bounds.Width, MinimumWorldHeight);
-		}
 
 		var availableWidth = Width - (2 * Padding);
 		var availableHeight = Height - (2 * Padding);

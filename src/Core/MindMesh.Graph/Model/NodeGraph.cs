@@ -45,9 +45,7 @@ public sealed class NodeGraph
 		ArgumentNullException.ThrowIfNull(node);
 
 		if (!_nodesById.TryAdd(node.Id, node))
-		{
 			throw new InvalidOperationException($"Node {node.Id} is already in the graph.");
-		}
 
 		_nodes.Add(node);
 		Raise(new NodeAdded(node));
@@ -59,9 +57,7 @@ public sealed class NodeGraph
 		var node = GetNode(id);
 
 		foreach (var connection in GetConnections(id))
-		{
 			RemoveConnection(connection.Id);
-		}
 
 		_nodes.Remove(node);
 		_nodesById.Remove(id);
@@ -75,20 +71,14 @@ public sealed class NodeGraph
 		var check = CheckConnection(connection.Source, connection.Target);
 
 		if (!check.IsAllowed)
-		{
 			throw new InvalidOperationException($"The connection is not allowed: {check.Rejection}.");
-		}
 
 		// A port that accepts one connection loses the old one.
 		foreach (var replaced in check.ReplacedConnections)
-		{
 			RemoveConnection(replaced);
-		}
 
 		if (!_connectionsById.TryAdd(connection.Id, connection))
-		{
 			throw new InvalidOperationException($"Connection {connection.Id} is already in the graph.");
-		}
 
 		_connections.Add(connection);
 		AddToPort(connection.Source, connection);
@@ -99,9 +89,7 @@ public sealed class NodeGraph
 	public void RemoveConnection(ConnectionId id)
 	{
 		if (!_connectionsById.Remove(id, out var connection))
-		{
 			throw new KeyNotFoundException($"Connection {id} is not in the graph.");
-		}
 
 		_connections.Remove(connection);
 		RemoveFromPort(connection.Source, connection);
@@ -115,9 +103,7 @@ public sealed class NodeGraph
 		var old = node.GetParameter(key);
 
 		if (old == value)
-		{
 			return;
-		}
 
 		node.SetParameterCore(key, value);
 		Raise(new ParameterChanged(id, key, old, value));
@@ -129,9 +115,7 @@ public sealed class NodeGraph
 		var normalized = string.IsNullOrWhiteSpace(title) ? null : title;
 
 		if (node.Title == normalized)
-		{
 			return;
-		}
 
 		var old = node.Title;
 		node.Title = normalized;
@@ -143,9 +127,7 @@ public sealed class NodeGraph
 		var node = GetNode(id);
 
 		if (node.IsDisabled == isDisabled)
-		{
 			return;
-		}
 
 		node.IsDisabled = isDisabled;
 		Raise(new DisabledChanged(id, isDisabled));
@@ -158,58 +140,40 @@ public sealed class NodeGraph
 	public ConnectionCheck CheckConnection(PortReference first, PortReference second)
 	{
 		if (FindNode(first.Node) is not { } firstNode || FindNode(second.Node) is not { } secondNode)
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.UnknownPort);
-		}
 
 		var firstPort = FindAnyPort(firstNode, first.PortKey);
 		var secondPort = FindAnyPort(secondNode, second.PortKey);
 
 		if (firstPort is null || secondPort is null)
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.UnknownPort);
-		}
 
 		if (first.Node == second.Node)
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.SameNode);
-		}
 
 		if (firstPort.Direction == secondPort.Direction)
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.WrongDirection);
-		}
 
 		var (sourceRef, sourcePort, targetRef, targetPort) = firstPort.Direction == PortDirection.Output
 			? (first, firstPort, second, secondPort)
 			: (second, secondPort, first, firstPort);
 
 		if (!PortCompatibility.IsCompatible(sourcePort.Type, targetPort.Type))
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.TypeMismatch);
-		}
 
 		if (GetConnections(sourceRef).Any(connection => connection.Target == targetRef))
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.Duplicate);
-		}
 
 		if (IsReachable(targetRef.Node, sourceRef.Node))
-		{
 			return ConnectionCheck.Rejected(ConnectionRejection.Cycle);
-		}
 
 		var replaced = new List<ConnectionId>();
 
 		if (!targetPort.AllowMultiple)
-		{
 			replaced.AddRange(GetConnections(targetRef).Select(connection => connection.Id));
-		}
 
 		if (!sourcePort.AllowMultiple)
-		{
 			replaced.AddRange(GetConnections(sourceRef).Select(connection => connection.Id));
-		}
 
 		return new ConnectionCheck(
 			ConnectionRejection.None,
@@ -232,21 +196,15 @@ public sealed class NodeGraph
 			var current = stack.Pop();
 
 			if (current == to)
-			{
 				return true;
-			}
 
 			if (!visited.Add(current))
-			{
 				continue;
-			}
 
 			foreach (var connection in _connections)
 			{
 				if (connection.Source.Node == current)
-				{
 					stack.Push(connection.Target.Node);
-				}
 			}
 		}
 
@@ -270,16 +228,12 @@ public sealed class NodeGraph
 	private void RemoveFromPort(PortReference port, Connection connection)
 	{
 		if (!_connectionsByPort.TryGetValue(port, out var list))
-		{
 			return;
-		}
 
 		list.Remove(connection);
 
 		if (list.Count == 0)
-		{
 			_connectionsByPort.Remove(port);
-		}
 	}
 
 	private void Raise(GraphChange change) => Changed?.Invoke(this, new GraphChangedEventArgs(change));

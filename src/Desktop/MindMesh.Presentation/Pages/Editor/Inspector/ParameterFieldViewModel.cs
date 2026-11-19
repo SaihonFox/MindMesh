@@ -85,9 +85,7 @@ public abstract partial class ParameterFieldViewModel : ViewModelBase
 	protected void Commit(ParameterValue value)
 	{
 		if (!IsReloading)
-		{
 			Owner.CommitParameter(Key, value);
-		}
 	}
 
 	protected override void OnLanguageChanged()

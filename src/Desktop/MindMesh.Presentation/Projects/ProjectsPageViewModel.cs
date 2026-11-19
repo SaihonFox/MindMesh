@@ -47,9 +47,7 @@ public sealed partial class ProjectsPageViewModel : PageViewModel
 		Items.Clear();
 
 		foreach (var project in projects)
-		{
 			Items.Add(new ProjectItemViewModel(project, Loc["Project_Open"], Loc["Project_Rename"], OpenItemAsync, RenameItemAsync));
-		}
 
 		OnPropertyChanged(nameof(IsEmpty));
 	}
@@ -63,9 +61,7 @@ public sealed partial class ProjectsPageViewModel : PageViewModel
 		var path = await _picker.PickFileAsync(Loc["Project_PickTitle"]);
 
 		if (path is not null)
-		{
 			await OpenPathAsync(path);
-		}
 	}
 
 	private Task OpenItemAsync(ProjectItemViewModel item) => OpenPathAsync(item.Path);

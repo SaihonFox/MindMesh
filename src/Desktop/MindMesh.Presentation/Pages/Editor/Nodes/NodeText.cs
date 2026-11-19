@@ -25,9 +25,7 @@ public sealed class NodeText(ILocalizer localizer, IExtensionCatalog catalog)
 	public string GetCategoryTitle(NodeCategoryId id)
 	{
 		if (localizer.TryGet($"Category_{id}", out var text))
-		{
 			return text;
-		}
 
 		return catalog.FindCategory(id)?.Name ?? id.Value;
 	}
@@ -53,9 +51,7 @@ public sealed class NodeText(ILocalizer localizer, IExtensionCatalog catalog)
 		var text = query.Trim();
 
 		if (text.Length == 0)
-		{
 			return true;
-		}
 
 		var comparison = StringComparison.CurrentCultureIgnoreCase;
 
@@ -74,17 +70,13 @@ public sealed class NodeText(ILocalizer localizer, IExtensionCatalog catalog)
 		var text = query.Trim();
 
 		if (text.Length == 0)
-		{
 			return 0;
-		}
 
 		var comparison = StringComparison.CurrentCultureIgnoreCase;
 		var name = GetName(definition);
 
 		if (name.StartsWith(text, comparison) || definition.Name.StartsWith(text, comparison))
-		{
 			return 0;
-		}
 
 		return name.Contains(text, comparison) || definition.Name.Contains(text, comparison) ? 1 : 2;
 	}

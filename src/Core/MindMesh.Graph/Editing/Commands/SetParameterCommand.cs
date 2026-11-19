@@ -35,9 +35,7 @@ public sealed class SetParameterCommand(NodeId node, string key, ParameterValue 
 	public bool TryMerge(IGraphCommand next)
 	{
 		if (next is not SetParameterCommand other || other.Node != Node || other.Key != Key)
-		{
 			return false;
-		}
 
 		NewValue = other.NewValue;
 		return true;

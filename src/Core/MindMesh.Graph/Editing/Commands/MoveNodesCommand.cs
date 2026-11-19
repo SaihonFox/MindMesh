@@ -21,16 +21,12 @@ public sealed class MoveNodesCommand(IEnumerable<NodeMove> moves) : IGraphComman
 	public void Execute(GraphDocument document)
 	{
 		foreach (var move in _moves)
-		{
 			document.Layout.SetPlacement(move.Node, move.To);
-		}
 	}
 
 	public void Undo(GraphDocument document)
 	{
 		foreach (var move in _moves)
-		{
 			document.Layout.SetPlacement(move.Node, move.From);
-		}
 	}
 }

@@ -65,18 +65,14 @@ public partial class GraphCanvasView : UserControl
 		_editor = DataContext as GraphEditorViewModel;
 
 		if (_editor is null)
-		{
 			return;
-		}
 
 		_editor.Viewport.Changed += OnViewportChanged;
 		_editor.QuickAdd.PropertyChanged += OnQuickAddChanged;
 		_editor.Find.PropertyChanged += OnFindChanged;
 
 		if (HitLayer.Bounds.Width > 0)
-		{
 			_editor.Viewport.SetViewSize(HitLayer.Bounds.Width, HitLayer.Bounds.Height);
-		}
 
 		ApplyViewport();
 	}
@@ -88,9 +84,7 @@ public partial class GraphCanvasView : UserControl
 	private void ApplyViewport()
 	{
 		if (_editor is not { } editor)
-		{
 			return;
-		}
 
 		var viewport = editor.Viewport;
 
@@ -124,9 +118,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnPointerPressed(object? sender, PointerPressedEventArgs e)
 	{
 		if (_editor is not { } editor)
-		{
 			return;
-		}
 
 		Focus();
 
@@ -140,9 +132,7 @@ public partial class GraphCanvasView : UserControl
 		_lastWorld = world;
 
 		if (editor.QuickAdd.IsOpen)
-		{
 			editor.QuickAdd.Close();
-		}
 
 		var properties = point.Properties;
 
@@ -162,9 +152,7 @@ public partial class GraphCanvasView : UserControl
 		}
 
 		if (!properties.IsLeftButtonPressed)
-		{
 			return;
-		}
 
 		if (editor.HitTestPort(world) is { } port)
 		{
@@ -201,9 +189,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnPointerMoved(object? sender, PointerEventArgs e)
 	{
 		if (_editor is not { } editor)
-		{
 			return;
-		}
 
 		var screen = e.GetPosition(HitLayer);
 		var world = ToWorld(screen);
@@ -236,9 +222,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnPointerReleased(object? sender, PointerReleasedEventArgs e)
 	{
 		if (_editor is not { } editor || _gesture == Gesture.None)
-		{
 			return;
-		}
 
 		var world = ToWorld(e.GetPosition(HitLayer));
 		var gesture = _gesture;
@@ -269,9 +253,7 @@ public partial class GraphCanvasView : UserControl
 	{
 		// The capture is also released by OnPointerReleased, which clears the gesture first.
 		if (_editor is not { } editor || _gesture == Gesture.None)
-		{
 			return;
-		}
 
 		var gesture = _gesture;
 
@@ -297,9 +279,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
 	{
 		if (_editor is not { } editor)
-		{
 			return;
-		}
 
 		var viewport = editor.Viewport;
 
@@ -348,9 +328,7 @@ public partial class GraphCanvasView : UserControl
 	private static Control CreateMenuItem(MenuEntry entry)
 	{
 		if (entry.IsSeparator)
-		{
 			return new Separator();
-		}
 
 		var item = new MenuItem
 		{
@@ -359,14 +337,10 @@ public partial class GraphCanvasView : UserControl
 		};
 
 		if (entry.IconKey is { } iconKey)
-		{
 			item.Icon = new Icon { Key = iconKey, Width = 14, Height = 14 };
-		}
 
 		if (entry.Shortcut is { } shortcut && TryParseGesture(shortcut) is { } gesture)
-		{
 			item.InputGesture = gesture;
-		}
 
 		var execute = entry.Execute;
 
@@ -394,13 +368,11 @@ public partial class GraphCanvasView : UserControl
 		base.OnKeyDown(e);
 
 		if (_editor is not { } editor || e.Handled || e.Source is TextBox)
-		{
 			return;
-		}
 
 		var control = e.KeyModifiers.HasFlag(KeyModifiers.Control);
 		var shift = e.KeyModifiers.HasFlag(KeyModifiers.Shift);
-		var handled = true;
+		bool handled = true;
 
 		switch (e.Key)
 		{
@@ -493,17 +465,13 @@ public partial class GraphCanvasView : UserControl
 		base.OnKeyUp(e);
 
 		if (e.Key != Key.Space || !_isSpaceDown)
-		{
 			return;
-		}
 
 		_isSpaceDown = false;
 
 		// A tap on Space opens the quick-add box; holding it and dragging pans instead.
 		if (!_spaceUsedForPan && _editor is { } editor && e.Source is not TextBox)
-		{
 			editor.QuickAdd.Open(_lastWorld);
-		}
 
 		_spaceUsedForPan = false;
 	}
@@ -513,9 +481,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnQuickAddChanged(object? sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName != nameof(QuickAddViewModel.IsOpen) || _editor is not { } editor)
-		{
 			return;
-		}
 
 		if (!editor.QuickAdd.IsOpen)
 		{
@@ -539,9 +505,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnFindChanged(object? sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName != nameof(CanvasFindViewModel.IsOpen) || _editor is not { } editor)
-		{
 			return;
-		}
 
 		if (editor.Find.IsOpen)
 		{
@@ -560,9 +524,7 @@ public partial class GraphCanvasView : UserControl
 	private void OnQuickAddKeyDown(object? sender, KeyEventArgs e)
 	{
 		if (_editor is not { } editor)
-		{
 			return;
-		}
 
 		switch (e.Key)
 		{
@@ -592,17 +554,13 @@ public partial class GraphCanvasView : UserControl
 	private void OnQuickAddItemActivated(object? sender, RoutedEventArgs e)
 	{
 		if (_editor is { } editor && (e.Source as Control)?.DataContext is LibraryNodeViewModel item)
-		{
 			editor.QuickAdd.Confirm(item);
-		}
 	}
 
 	private void OnFindKeyDown(object? sender, KeyEventArgs e)
 	{
 		if (_editor is not { } editor)
-		{
 			return;
-		}
 
 		switch (e.Key)
 		{

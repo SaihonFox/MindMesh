@@ -117,9 +117,7 @@ public sealed partial class NodeViewModel : ViewModelBase
 		get
 		{
 			if (IsDisabled)
-			{
 				return NodeVisualState.Disabled;
-			}
 
 			return RunState switch
 			{
@@ -175,8 +173,6 @@ public sealed partial class NodeViewModel : ViewModelBase
 	private void NotifyAnchorsChanged()
 	{
 		foreach (var port in AllPorts)
-		{
 			port.NotifyAnchorChanged();
-		}
 	}
 }

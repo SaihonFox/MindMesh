@@ -234,9 +234,7 @@ public class CanvasTests
 		var dataInput = delay.Inputs.FirstOrDefault(port => port.Kind == PortKind.Data);
 
 		if (dataInput is not null)
-		{
 			Assert.Equal(PortHint.Incompatible, dataInput.Hint);
-		}
 
 		fixture.Editor.CancelConnection();
 
@@ -296,7 +294,7 @@ public class CanvasTests
 		var quickAdd = fixture.Editor.QuickAdd;
 
 		quickAdd.Open(new Point2D(400, 300));
-		var all = quickAdd.Results.Count;
+		int all = quickAdd.Results.Count;
 		quickAdd.SearchText = "webhook";
 
 		Assert.True(quickAdd.Results.Count < all);

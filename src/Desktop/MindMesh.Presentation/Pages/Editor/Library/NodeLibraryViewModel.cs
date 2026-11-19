@@ -41,9 +41,7 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 		workspace.PropertyChanged += (_, e) =>
 		{
 			if (e.PropertyName == nameof(EditorWorkspace.Mode))
-			{
 				Refresh();
-			}
 		};
 
 		Refresh();
@@ -60,9 +58,7 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 	private void AddToCanvas(LibraryNodeViewModel? item)
 	{
 		if (item is not null)
-		{
 			_editor.AddNodeAtViewCenter(item.Definition);
-		}
 	}
 
 	/// <summary>Adds a node at a world point of the canvas, as when a tile is dropped there.</summary>
@@ -84,14 +80,12 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 
 		Sections.Clear();
 
-		var first = true;
+		bool first = true;
 
 		foreach (var id in categories)
 		{
 			if (_catalog.FindCategory(id) is not { } category)
-			{
 				continue;
-			}
 
 			var items = _catalog.GetNodes(id)
 				.Where(node => _text.Matches(node, query))
@@ -125,13 +119,9 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 	private void RememberExpansion()
 	{
 		if (IsSearching)
-		{
 			return;
-		}
 
 		foreach (var section in Sections)
-		{
 			_expanded[section.Id] = section.IsExpanded;
-		}
 	}
 }

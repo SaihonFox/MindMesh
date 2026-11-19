@@ -34,9 +34,7 @@ public sealed class GraphLayout
 	public void SetPlacement(NodeId node, NodePlacement placement)
 	{
 		if (_placements.TryGetValue(node, out var current) && current == placement)
-		{
 			return;
-		}
 
 		_placements[node] = placement;
 		Changed?.Invoke(this, new LayoutChangedEventArgs(node, LayoutChangeKind.Moved));
@@ -47,9 +45,7 @@ public sealed class GraphLayout
 		var changed = collapsed ? _collapsed.Add(node) : _collapsed.Remove(node);
 
 		if (changed)
-		{
 			Changed?.Invoke(this, new LayoutChangedEventArgs(node, LayoutChangeKind.CollapsedChanged));
-		}
 	}
 
 	/// <summary>Forgets everything about a node that was removed from the graph.</summary>
@@ -59,8 +55,6 @@ public sealed class GraphLayout
 		removed |= _collapsed.Remove(node);
 
 		if (removed)
-		{
 			Changed?.Invoke(this, new LayoutChangedEventArgs(node, LayoutChangeKind.Removed));
-		}
 	}
 }

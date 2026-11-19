@@ -40,9 +40,7 @@ public sealed partial class GraphEditorViewModel
 		}
 
 		if (node.IsSelected)
-		{
 			BringToFront(node);
-		}
 	}
 
 	public void SelectAll() => SetSelection(Nodes);
@@ -57,14 +55,10 @@ public sealed partial class GraphEditorViewModel
 	public void SelectConnection(ConnectionViewModel? connection)
 	{
 		if (ReferenceEquals(SelectedConnection, connection))
-		{
 			return;
-		}
 
 		if (SelectedConnection is not null)
-		{
 			SelectedConnection.IsSelected = false;
-		}
 
 		SelectedConnection = connection;
 
@@ -89,19 +83,13 @@ public sealed partial class GraphEditorViewModel
 		}
 
 		if (next.Count == _selected.Count && next.All(_selected.Contains))
-		{
 			return;
-		}
 
 		foreach (var node in _selected.Where(node => !next.Contains(node)))
-		{
 			node.IsSelected = false;
-		}
 
 		foreach (var node in next)
-		{
 			node.IsSelected = true;
-		}
 
 		_selected.Clear();
 		_selected.AddRange(next);
@@ -131,9 +119,7 @@ public sealed partial class GraphEditorViewModel
 		foreach (var connection in Connections)
 		{
 			if (!connection.IsInViewport || !connection.Curve.Bounds.Inflate(tolerance).Contains(world))
-			{
 				continue;
-			}
 
 			var distance = connection.Curve.DistanceTo(world);
 
@@ -164,9 +150,7 @@ public sealed partial class GraphEditorViewModel
 	public void ToggleDisabled()
 	{
 		if (_selected.Count == 0)
-		{
 			return;
-		}
 
 		var disable = _selected.Any(node => !node.IsDisabled);
 		Document.Execute(new SetDisabledCommand(_selected.Select(node => node.Id).ToList(), disable));
@@ -176,16 +160,12 @@ public sealed partial class GraphEditorViewModel
 	public void ToggleCollapsed()
 	{
 		if (_selected.Count == 0)
-		{
 			return;
-		}
 
 		var collapse = _selected.Any(node => !node.IsCollapsed);
 
 		foreach (var node in _selected.ToList())
-		{
 			Document.Layout.SetCollapsed(node.Id, collapse);
-		}
 	}
 
 	public void BeginRubberBand(Point2D world, bool additive)
@@ -193,9 +173,7 @@ public sealed partial class GraphEditorViewModel
 		_rubberBandBase = additive ? [.. _selected] : [];
 
 		if (!additive)
-		{
 			ClearSelection();
-		}
 
 		RubberBand.IsActive = true;
 		RubberBand.Rect = new Rect2D(world.X, world.Y, 0, 0);
@@ -205,9 +183,7 @@ public sealed partial class GraphEditorViewModel
 	public void UpdateRubberBand(Point2D world)
 	{
 		if (!RubberBand.IsActive)
-		{
 			return;
-		}
 
 		var rect = Rect2D.FromPoints(_rubberBandStart, world);
 		RubberBand.Rect = rect;
@@ -227,16 +203,12 @@ public sealed partial class GraphEditorViewModel
 	private void ClearSelectionState()
 	{
 		foreach (var node in _selected)
-		{
 			node.IsSelected = false;
-		}
 
 		_selected.Clear();
 
 		if (SelectedConnection is not null)
-		{
 			SelectedConnection = null;
-		}
 
 		RaiseSelectionChanged();
 	}

@@ -56,9 +56,7 @@ public sealed class GraphDocument
 		_undo.Add(command);
 
 		if (_undo.Count > _historyLimit)
-		{
 			_undo.RemoveAt(0);
-		}
 
 		RaiseHistoryChanged();
 	}
@@ -66,9 +64,7 @@ public sealed class GraphDocument
 	public void Undo()
 	{
 		if (_undo.Count == 0)
-		{
 			return;
-		}
 
 		var command = _undo[^1];
 		_undo.RemoveAt(_undo.Count - 1);
@@ -80,9 +76,7 @@ public sealed class GraphDocument
 	public void Redo()
 	{
 		if (_redo.Count == 0)
-		{
 			return;
-		}
 
 		var command = _redo[^1];
 		_redo.RemoveAt(_redo.Count - 1);

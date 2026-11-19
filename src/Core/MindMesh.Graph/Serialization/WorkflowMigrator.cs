@@ -20,23 +20,17 @@ public sealed class WorkflowMigrator
 		foreach (var migration in migrations)
 		{
 			if (!_migrations.TryAdd(migration.FromVersion, migration))
-			{
 				throw new ArgumentException($"Two migrations read version {migration.FromVersion}.", nameof(migrations));
-			}
 		}
 
-		for (var version = 1; version < currentVersion; version++)
+		for (int version = 1; version < currentVersion; version++)
 		{
 			if (!_migrations.ContainsKey(version))
-			{
 				throw new ArgumentException($"There is no migration from version {version}.", nameof(migrations));
-			}
 		}
 
 		if (_migrations.Keys.Any(version => version < 1 || version >= currentVersion))
-		{
 			throw new ArgumentException("A migration reads a version outside of the chain.", nameof(migrations));
-		}
 
 		CurrentVersion = currentVersion;
 	}
@@ -53,9 +47,7 @@ public sealed class WorkflowMigrator
 		ArgumentNullException.ThrowIfNull(root);
 
 		if (fromVersion >= CurrentVersion)
-		{
 			return false;
-		}
 
 		for (var version = fromVersion; version < CurrentVersion; version++)
 		{

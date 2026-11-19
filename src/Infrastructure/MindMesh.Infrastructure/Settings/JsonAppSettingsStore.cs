@@ -49,14 +49,10 @@ public sealed class JsonAppSettingsStore : IAppSettingsStore
 				.ConfigureAwait(false);
 
 			if (node is null)
-			{
 				return new AppSettings();
-			}
 
 			if (node is not JsonObject loaded)
-			{
 				throw new JsonException("The settings file does not contain a JSON object.");
-			}
 
 			// Values missing from the file keep their defaults, so a file written by an older version stays valid.
 			var merged = JsonSerializer.SerializeToNode(new AppSettings(), SettingsJsonContext.Default.AppSettings)!.AsObject();

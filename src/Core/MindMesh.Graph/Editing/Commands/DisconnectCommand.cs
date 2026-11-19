@@ -27,8 +27,6 @@ public sealed class DisconnectCommand(IEnumerable<ConnectionId> connections) : I
 	public void Undo(GraphDocument document)
 	{
 		foreach (var connection in _removed)
-		{
 			document.Graph.AddConnection(connection);
-		}
 	}
 }

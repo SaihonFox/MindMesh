@@ -69,9 +69,7 @@ public sealed class SettingsService : ISettingsService
 			updated = mutate(previous).Normalize();
 
 			if (updated == previous)
-			{
 				return;
-			}
 
 			_current = updated;
 			_isDirty = true;
@@ -132,9 +130,7 @@ public sealed class SettingsService : ISettingsService
 			lock (_gate)
 			{
 				if (!_isDirty)
-				{
 					return;
-				}
 
 				snapshot = _current;
 				_isDirty = false;

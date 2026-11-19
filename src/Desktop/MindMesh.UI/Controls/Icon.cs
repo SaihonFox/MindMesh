@@ -54,16 +54,12 @@ public sealed class Icon : Control
 		var brush = Foreground;
 
 		if (geometry is null || brush is null)
-		{
 			return;
-		}
 
 		var size = Math.Min(Bounds.Width, Bounds.Height);
 
 		if (size <= 0)
-		{
 			return;
-		}
 
 		var scale = size / 24d;
 		var offsetX = (Bounds.Width - size) / 2;

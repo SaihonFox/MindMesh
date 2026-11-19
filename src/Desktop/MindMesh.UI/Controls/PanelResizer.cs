@@ -86,9 +86,7 @@ public sealed class PanelResizer : Border
 		base.OnPropertyChanged(change);
 
 		if (change.Property == EdgeProperty)
-		{
 			UpdateCursor();
-		}
 	}
 
 	protected override void OnPointerPressed(PointerPressedEventArgs e)
@@ -98,9 +96,7 @@ public sealed class PanelResizer : Border
 		var root = TopLevel.GetTopLevel(this);
 
 		if (root is null || !e.GetCurrentPoint(this).Properties.IsLeftButtonPressed)
-		{
 			return;
-		}
 
 		_startPoint = e.GetPosition(root);
 		_startSize = Size;
@@ -117,9 +113,7 @@ public sealed class PanelResizer : Border
 		var root = TopLevel.GetTopLevel(this);
 
 		if (!_isDragging || root is null)
-		{
 			return;
-		}
 
 		var current = e.GetPosition(root);
 
@@ -142,9 +136,7 @@ public sealed class PanelResizer : Border
 		base.OnPointerReleased(e);
 
 		if (!_isDragging)
-		{
 			return;
-		}
 
 		_isDragging = false;
 		e.Pointer.Capture(null);

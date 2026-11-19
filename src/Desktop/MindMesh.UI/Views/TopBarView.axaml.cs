@@ -17,9 +17,7 @@ public partial class TopBarView : UserControl
 	private void OnRenameLostFocus(object? sender, RoutedEventArgs e)
 	{
 		if (DataContext is TopBarViewModel { IsRenaming: true } topBar)
-		{
 			topBar.CommitRenameCommand.Execute(null);
-		}
 	}
 
 	/// <summary>The rename field gets the focus, with the whole name selected, whenever it appears.</summary>

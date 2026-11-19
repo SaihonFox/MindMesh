@@ -14,9 +14,7 @@ internal static class RepositoryPaths
 		for (var directory = new DirectoryInfo(AppContext.BaseDirectory); directory is not null; directory = directory.Parent)
 		{
 			if (File.Exists(Path.Combine(directory.FullName, "MindMesh.slnx")))
-			{
 				return directory.FullName;
-			}
 		}
 
 		throw new InvalidOperationException("MindMesh.slnx was not found above " + AppContext.BaseDirectory);

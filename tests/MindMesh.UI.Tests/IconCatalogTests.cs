@@ -11,9 +11,7 @@ public partial class IconCatalogTests
 	public void EveryIconKey_HasPathData()
 	{
 		foreach (var key in IconKeys.All)
-		{
 			Assert.True(IconCatalog.PathData.ContainsKey(key), $"Icon '{key}' has no path data.");
-		}
 	}
 
 	[Fact]
@@ -31,9 +29,7 @@ public partial class IconCatalogTests
 	public void NodeIconsDoNotShadowAppIcons()
 	{
 		foreach (var key in NodeIcons.PathData.Keys)
-		{
 			Assert.DoesNotContain(key, IconKeys.All);
-		}
 	}
 
 	[Fact]
@@ -47,9 +43,7 @@ public partial class IconCatalogTests
 		Assert.NotEmpty(keys);
 
 		foreach (var key in keys)
-		{
 			Assert.True(IconCatalog.PathData.ContainsKey(key), $"Icon '{key}' of a node or category has no path data.");
-		}
 	}
 
 	[Fact]

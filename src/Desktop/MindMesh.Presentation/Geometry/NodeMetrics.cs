@@ -19,9 +19,7 @@ public static class NodeMetrics
 	public static double GetHeight(INodeDefinition definition, bool collapsed)
 	{
 		if (collapsed)
-		{
 			return HeaderHeight;
-		}
 
 		var rows = Math.Max(definition.Inputs.Count, definition.Outputs.Count);
 

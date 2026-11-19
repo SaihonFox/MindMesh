@@ -29,9 +29,7 @@ public sealed class SetTitleCommand(NodeId node, string? title) : IMergeableComm
 	public bool TryMerge(IGraphCommand next)
 	{
 		if (next is not SetTitleCommand other || other.Node != Node)
-		{
 			return false;
-		}
 
 		Title = other.Title;
 		return true;

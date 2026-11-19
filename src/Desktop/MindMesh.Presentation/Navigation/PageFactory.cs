@@ -15,9 +15,7 @@ public sealed class PageFactory : IPageFactory
 		foreach (var registration in registrations)
 		{
 			if (!map.TryAdd(registration.Key, registration))
-			{
 				throw new InvalidOperationException($"Page '{registration.Key}' is registered more than once.");
-			}
 		}
 
 		_registrations = map;
@@ -26,9 +24,7 @@ public sealed class PageFactory : IPageFactory
 	public PageViewModel Create(PageKey key)
 	{
 		if (!_registrations.TryGetValue(key, out var registration))
-		{
 			throw new InvalidOperationException($"Page '{key}' is not registered.");
-		}
 
 		return registration.Create(_serviceProvider);
 	}

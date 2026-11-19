@@ -38,9 +38,7 @@ public sealed partial class EditorToolbarViewModel : ViewModelBase
 		workspace.PropertyChanged += (_, e) =>
 		{
 			if (e.PropertyName == nameof(EditorWorkspace.Mode))
-			{
 				SelectedMode = Modes.FirstOrDefault(option => option.Mode == _workspace.Mode);
-			}
 		};
 	}
 
@@ -60,8 +58,6 @@ public sealed partial class EditorToolbarViewModel : ViewModelBase
 	partial void OnSelectedModeChanged(EditorModeOptionViewModel? value)
 	{
 		if (value is not null)
-		{
 			_workspace.Mode = value.Mode;
-		}
 	}
 }

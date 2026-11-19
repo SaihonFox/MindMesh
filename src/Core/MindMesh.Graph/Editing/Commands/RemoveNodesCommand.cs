@@ -28,17 +28,13 @@ public sealed class RemoveNodesCommand(IEnumerable<NodeId> nodes) : IGraphComman
 		foreach (var id in _ids)
 		{
 			if (document.Graph.FindNode(id) is not { } node)
-			{
 				continue;
-			}
 
 			_removedNodes.Add((node, document.Layout.GetPlacement(id), document.Layout.IsCollapsed(id)));
 		}
 
 		foreach (var connection in _removedConnections)
-		{
 			document.Graph.RemoveConnection(connection.Id);
-		}
 
 		foreach (var (node, _, _) in _removedNodes)
 		{
@@ -57,8 +53,6 @@ public sealed class RemoveNodesCommand(IEnumerable<NodeId> nodes) : IGraphComman
 		}
 
 		foreach (var connection in _removedConnections)
-		{
 			document.Graph.AddConnection(connection);
-		}
 	}
 }

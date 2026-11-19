@@ -25,9 +25,7 @@ public sealed class MultiSelectFieldViewModel : ParameterFieldViewModel
 		var selected = CurrentValue.AsStringList();
 
 		foreach (var item in Items)
-		{
 			item.SetCheckedSilently(selected.Contains(item.Option.Value));
-		}
 	}
 }
 
@@ -69,8 +67,6 @@ public sealed partial class MultiSelectItemViewModel : ObservableObject
 	partial void OnIsCheckedChanged(bool value)
 	{
 		if (!_silent)
-		{
 			_owner.OnItemChanged();
-		}
 	}
 }

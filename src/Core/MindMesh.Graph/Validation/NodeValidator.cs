@@ -13,18 +13,14 @@ public static class NodeValidator
 	public static IReadOnlyList<ValidationIssue> ValidateParameters(INodeDefinition definition, NodeInstance node)
 	{
 		if (node.IsDisabled)
-		{
 			return [];
-		}
 
 		var issues = new List<ValidationIssue>();
 
 		foreach (var parameter in definition.Parameters)
 		{
 			if (!parameter.IsVisible(node.Parameters))
-			{
 				continue;
-			}
 
 			if (ParameterValidator.Validate(parameter, node.GetParameter(parameter.Key)) is { } problem)
 			{
@@ -47,9 +43,7 @@ public static class NodeValidator
 		ArgumentNullException.ThrowIfNull(graph);
 
 		if (node.IsDisabled)
-		{
 			return [];
-		}
 
 		var issues = new List<ValidationIssue>(node.Definition.Validate(node));
 

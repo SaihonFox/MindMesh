@@ -44,9 +44,7 @@ public readonly record struct ParameterValue
 			writer.WriteStartObject();
 
 			foreach (var (key, value) in pairs)
-			{
 				writer.WriteString(key, value);
-			}
 
 			writer.WriteEndObject();
 		}
@@ -58,9 +56,7 @@ public readonly record struct ParameterValue
 	public string AsString(string fallback = "")
 	{
 		if (IsNull)
-		{
 			return fallback;
-		}
 
 		try
 		{
@@ -82,9 +78,7 @@ public readonly record struct ParameterValue
 	public bool AsBoolean(bool fallback = false)
 	{
 		if (IsNull)
-		{
 			return fallback;
-		}
 
 		try
 		{
@@ -108,9 +102,7 @@ public readonly record struct ParameterValue
 	public decimal? AsDecimal()
 	{
 		if (IsNull)
-		{
 			return null;
-		}
 
 		try
 		{
@@ -137,18 +129,14 @@ public readonly record struct ParameterValue
 	public IReadOnlyList<string> AsStringList()
 	{
 		if (IsNull)
-		{
 			return [];
-		}
 
 		try
 		{
 			using var document = JsonDocument.Parse(Json);
 
 			if (document.RootElement.ValueKind != JsonValueKind.Array)
-			{
 				return [];
-			}
 
 			return
 			[
@@ -165,18 +153,14 @@ public readonly record struct ParameterValue
 	public IReadOnlyList<KeyValuePair<string, string>> AsPairs()
 	{
 		if (IsNull)
-		{
 			return [];
-		}
 
 		try
 		{
 			using var document = JsonDocument.Parse(Json);
 
 			if (document.RootElement.ValueKind != JsonValueKind.Object)
-			{
 				return [];
-			}
 
 			return
 			[

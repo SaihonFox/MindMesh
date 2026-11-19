@@ -29,9 +29,7 @@ public partial class ResourceCompletenessTests
 		var result = new Dictionary<string, string>(StringComparer.Ordinal);
 
 		foreach (DictionaryEntry entry in set)
-		{
 			result[(string)entry.Key] = entry.Value as string ?? string.Empty;
-		}
 
 		return result;
 	}
@@ -52,14 +50,10 @@ public partial class ResourceCompletenessTests
 	public void NoTextIsEmpty()
 	{
 		foreach (var (key, value) in English())
-		{
 			Assert.False(string.IsNullOrWhiteSpace(value), $"English text of '{key}' is empty.");
-		}
 
 		foreach (var (key, value) in Load(Russian, tryParents: false))
-		{
 			Assert.False(string.IsNullOrWhiteSpace(value), $"Russian text of '{key}' is empty.");
-		}
 	}
 
 	[Fact]
@@ -86,7 +80,7 @@ public partial class ResourceCompletenessTests
 
 		Assert.NotEmpty(files);
 
-		var used = 0;
+		int used = 0;
 
 		foreach (var file in files)
 		{
@@ -127,9 +121,7 @@ public partial class ResourceCompletenessTests
 		built.AddRange(["Sidebar_Workflows", "Workspace_UntitledProject", "Workspace_UntitledWorkflow"]);
 
 		foreach (var key in built)
-		{
 			Assert.True(keys.Contains(key), $"Resource key '{key}' is built in code but missing.");
-		}
 	}
 
 	[GeneratedRegex(@"\{[0-9]+(?::[^}]*)?\}")]

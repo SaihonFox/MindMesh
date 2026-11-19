@@ -50,16 +50,12 @@ public sealed class Localizer : ILocalizer
 	private void OnSettingsChanged(object? sender, SettingsChangedEventArgs e)
 	{
 		if (e.Previous.Language == e.Current.Language)
-		{
 			return;
-		}
 
 		var culture = ResolveCulture(e.Current.Language, CultureInfo.CurrentUICulture);
 
 		if (culture.Name == _culture.Name)
-		{
 			return;
-		}
 
 		_culture = culture;
 

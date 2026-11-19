@@ -69,17 +69,13 @@ public partial class App : Avalonia.Application
 	private void FollowThemeSetting()
 	{
 		if (_services?.GetService<ISettingsService>() is not { } settings)
-		{
 			return;
-		}
 
 		RequestedThemeVariant = ToVariant(settings.Current.Theme);
 		settings.Changed += (_, e) =>
 		{
 			if (e.Previous.Theme != e.Current.Theme)
-			{
 				RequestedThemeVariant = ToVariant(e.Current.Theme);
-			}
 		};
 	}
 

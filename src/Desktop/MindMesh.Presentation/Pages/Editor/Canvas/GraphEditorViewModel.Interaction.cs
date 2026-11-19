@@ -70,18 +70,14 @@ public sealed partial class GraphEditorViewModel
 	public void UpdateNodeDrag(Point2D world)
 	{
 		if (_drag is not { } drag)
-		{
 			return;
-		}
 
 		var delta = world - drag.StartWorld;
 
 		if (!drag.Moved)
 		{
 			if (Math.Abs(delta.X) * Viewport.Zoom < DragThreshold && Math.Abs(delta.Y) * Viewport.Zoom < DragThreshold)
-			{
 				return;
-			}
 
 			drag.Moved = true;
 		}
@@ -90,9 +86,7 @@ public sealed partial class GraphEditorViewModel
 		var dy = Snap(delta.Y);
 
 		foreach (var (node, start) in drag.Items)
-		{
 			Document.Layout.SetPlacement(node.Id, new NodePlacement(start.X + dx, start.Y + dy));
-		}
 	}
 
 	/// <summary>Finishes a drag; moved nodes become one undoable step.</summary>
@@ -102,9 +96,7 @@ public sealed partial class GraphEditorViewModel
 		_drag = null;
 
 		if (drag is null)
-		{
 			return;
-		}
 
 		if (drag.Moved)
 		{
@@ -116,9 +108,7 @@ public sealed partial class GraphEditorViewModel
 			var command = new MoveNodesCommand(moves);
 
 			if (!command.IsEmpty)
-			{
 				Document.Execute(command);
-			}
 		}
 		else if (!drag.Additive && _selected.Count > 1)
 		{
@@ -134,14 +124,10 @@ public sealed partial class GraphEditorViewModel
 		_drag = null;
 
 		if (drag is null)
-		{
 			return;
-		}
 
 		foreach (var (node, start) in drag.Items)
-		{
 			Document.Layout.SetPlacement(node.Id, start);
-		}
 	}
 
 	public bool IsDraggingNodes => _drag?.Moved == true;
@@ -176,9 +162,7 @@ public sealed partial class GraphEditorViewModel
 	public void UpdateConnection(Point2D world)
 	{
 		if (!Pending.IsActive || Pending.From is not { } from)
-		{
 			return;
-		}
 
 		var target = FindSnapTarget(from, world);
 		Pending.MoveTo(target?.Anchor ?? world, target);
@@ -191,9 +175,7 @@ public sealed partial class GraphEditorViewModel
 	public void CompleteConnection(Point2D world)
 	{
 		if (!Pending.IsActive || Pending.From is not { } from)
-		{
 			return;
-		}
 
 		var target = Pending.Target;
 		var reconnecting = _reconnecting;
@@ -203,16 +185,12 @@ public sealed partial class GraphEditorViewModel
 		if (target is not null)
 		{
 			if (reconnecting is not null && reconnecting.Target == target)
-			{
 				return;
-			}
 
 			var commands = new List<IGraphCommand>();
 
 			if (reconnecting is not null)
-			{
 				commands.Add(new DisconnectCommand([reconnecting.Connection.Id]));
-			}
 
 			commands.Add(new ConnectCommand(from.Reference, target.Reference));
 			Document.Execute(new CompositeCommand("Connect", commands));
@@ -233,9 +211,7 @@ public sealed partial class GraphEditorViewModel
 	public void CancelConnection()
 	{
 		if (Pending.IsActive)
-		{
 			EndConnectionState();
-		}
 	}
 
 	private void EndConnectionState()
@@ -247,9 +223,7 @@ public sealed partial class GraphEditorViewModel
 		}
 
 		foreach (var port in _hintedPorts)
-		{
 			port.Hint = PortHint.None;
-		}
 
 		_hintedPorts.Clear();
 		Pending.End();
@@ -298,16 +272,12 @@ public sealed partial class GraphEditorViewModel
 		foreach (var node in Nodes)
 		{
 			if (!node.IsInViewport || node.IsCollapsed)
-			{
 				continue;
-			}
 
 			foreach (var port in node.AllPorts)
 			{
 				if (port.Hint != PortHint.Compatible)
-				{
 					continue;
-				}
 
 				var distance = port.Anchor.DistanceTo(world);
 
@@ -378,9 +348,7 @@ public sealed partial class GraphEditorViewModel
 		var port = NodeGraphPorts.FindCompatiblePort(definition, from.Definition);
 
 		if (port is null)
-		{
 			return AddNode(definition, world);
-		}
 
 		var node = NodeInstance.Create(definition);
 		var portList = from.Direction == PortDirection.Output ? definition.Inputs : definition.Outputs;
@@ -410,9 +378,7 @@ public sealed partial class GraphEditorViewModel
 	public void Copy()
 	{
 		if (_selected.Count == 0)
-		{
 			return;
-		}
 
 		_clipboard.Set(GraphFragment.Capture(Document, _selected.Select(node => node.Id)));
 		OnPropertyChanged(nameof(CanPaste));
@@ -422,9 +388,7 @@ public sealed partial class GraphEditorViewModel
 	public void Paste()
 	{
 		if (_clipboard.Fragment is not { IsEmpty: false } fragment)
-		{
 			return;
-		}
 
 		var step = _clipboard.NextPasteIndex() * PasteStep;
 		ApplyPaste(fragment, step, step);
@@ -434,9 +398,7 @@ public sealed partial class GraphEditorViewModel
 	public void PasteAt(Point2D world)
 	{
 		if (_clipboard.Fragment is not { IsEmpty: false } fragment)
-		{
 			return;
-		}
 
 		var corner = fragment.TopLeft;
 		ApplyPaste(fragment, Snap(world.X - corner.X), Snap(world.Y - corner.Y));
@@ -446,9 +408,7 @@ public sealed partial class GraphEditorViewModel
 	public void Duplicate()
 	{
 		if (_selected.Count == 0)
-		{
 			return;
-		}
 
 		ApplyPaste(GraphFragment.Capture(Document, _selected.Select(node => node.Id)), PasteStep, PasteStep);
 	}
@@ -460,9 +420,7 @@ public sealed partial class GraphEditorViewModel
 		SetSelection(created.Select(id => _nodesById[id]));
 
 		foreach (var node in _selected)
-		{
 			BringToFront(node);
-		}
 	}
 
 	// ---- Settings (used by the inspector) ----------------------------------------------------------------------

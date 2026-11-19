@@ -17,7 +17,7 @@ public class BuiltInWorkflowTests
 	public void EveryBuiltInNode_SurvivesASaveAndLoadWithItsDefaults()
 	{
 		var content = WorkflowContent.CreateEmpty("Everything");
-		var x = 0;
+		int x = 0;
 
 		foreach (var definition in Catalog.Nodes)
 		{

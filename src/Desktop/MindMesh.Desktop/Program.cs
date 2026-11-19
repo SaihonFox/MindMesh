@@ -111,9 +111,7 @@ internal static class Program
 	private static void StopHost(IHost? host)
 	{
 		if (host is null)
-		{
 			return;
-		}
 
 		try
 		{

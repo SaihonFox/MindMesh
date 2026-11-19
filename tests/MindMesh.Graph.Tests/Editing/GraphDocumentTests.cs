@@ -193,12 +193,10 @@ public class GraphDocumentTests
 	{
 		var document = new GraphDocument(historyLimit: 3);
 
-		for (var index = 0; index < 5; index++)
-		{
+		for (int index = 0; index < 5; index++)
 			AddNode(document, Producer);
-		}
 
-		var undone = 0;
+		int undone = 0;
 
 		while (document.CanUndo)
 		{
@@ -214,7 +212,7 @@ public class GraphDocumentTests
 	public void HistoryChanged_IsRaisedForEveryStep()
 	{
 		var document = NewDocument();
-		var count = 0;
+		int count = 0;
 		document.HistoryChanged += (_, _) => count++;
 
 		AddNode(document, Producer);
@@ -247,7 +245,7 @@ public class GraphDocumentTests
 	{
 		var document = NewDocument();
 		var node = AddNode(document, Configurable);
-		var count = 0;
+		int count = 0;
 		document.Graph.Changed += (_, _) => count++;
 
 		document.Graph.SetParameter(node.Id, "count", ParameterValue.FromNumber(3));

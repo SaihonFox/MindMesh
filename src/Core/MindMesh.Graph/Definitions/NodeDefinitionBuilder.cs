@@ -112,16 +112,12 @@ public sealed class NodeDefinitionBuilder
 		var portKeys = _inputs.Concat(_outputs).Select(port => port.Key).ToList();
 
 		if (portKeys.Count != portKeys.Distinct(StringComparer.Ordinal).Count())
-		{
 			throw new InvalidOperationException($"Node '{_id}' has duplicate port keys.");
-		}
 
 		var parameterKeys = _parameters.Select(parameter => parameter.Key).ToList();
 
 		if (parameterKeys.Count != parameterKeys.Distinct(StringComparer.Ordinal).Count())
-		{
 			throw new InvalidOperationException($"Node '{_id}' has duplicate setting keys.");
-		}
 
 		return new NodeDefinition(
 			new NodeDefinitionId(_id),

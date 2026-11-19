@@ -161,7 +161,7 @@ public class ShellTests
 		using var app = new TestApp();
 		var topBar = app.Get<TopBarViewModel>();
 		var navigation = app.Get<INavigationService>();
-		var raised = false;
+		bool raised = false;
 		topBar.PropertyChanged += (_, e) => raised |= e.PropertyName == nameof(TopBarViewModel.IsEditorActive);
 
 		navigation.NavigateTo(PageKey.Welcome);

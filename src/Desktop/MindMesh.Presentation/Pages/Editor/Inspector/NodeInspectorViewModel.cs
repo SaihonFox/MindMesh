@@ -49,9 +49,7 @@ public sealed partial class NodeInspectorViewModel : ViewModelBase, IDisposable
 		_isDisabled = node.Node.IsDisabled;
 
 		foreach (var field in Fields)
-		{
 			field.Reload();
-		}
 
 		RefreshValidation();
 		editor.DocumentChanged += OnDocumentChanged;
@@ -99,9 +97,7 @@ public sealed partial class NodeInspectorViewModel : ViewModelBase, IDisposable
 	partial void OnTitleChanged(string value)
 	{
 		if (_isReloading)
-		{
 			return;
-		}
 
 		_isCommitting = true;
 
@@ -118,9 +114,7 @@ public sealed partial class NodeInspectorViewModel : ViewModelBase, IDisposable
 	partial void OnIsDisabledChanged(bool value)
 	{
 		if (_isReloading)
-		{
 			return;
-		}
 
 		_isCommitting = true;
 
@@ -151,9 +145,7 @@ public sealed partial class NodeInspectorViewModel : ViewModelBase, IDisposable
 		{
 			case ParameterChanged changed when changed.Node == Node.Id:
 				if (!_isCommitting)
-				{
 					Fields.FirstOrDefault(field => field.Key == changed.Key)?.Reload();
-				}
 
 				RefreshValidation();
 				break;
@@ -190,9 +182,7 @@ public sealed partial class NodeInspectorViewModel : ViewModelBase, IDisposable
 	private void RefreshValidation()
 	{
 		foreach (var field in Fields)
-		{
 			field.Revalidate();
-		}
 
 		Problems.Clear();
 

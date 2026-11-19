@@ -35,9 +35,7 @@ public sealed class CanvasOverlay : Control
 		base.OnPropertyChanged(change);
 
 		if (change.Property.Name == "ActualThemeVariant")
-		{
 			InvalidateVisual();
-		}
 	}
 
 	public override void Render(DrawingContext context)
@@ -45,21 +43,15 @@ public sealed class CanvasOverlay : Control
 		base.Render(context);
 
 		if (_attached is not { } editor)
-		{
 			return;
-		}
 
 		_palette.Refresh(this);
 
 		if (editor.Pending.IsActive)
-		{
 			DrawPending(context, editor);
-		}
 
 		if (editor.RubberBand.IsActive)
-		{
 			DrawRubberBand(context, editor);
-		}
 	}
 
 	private void DrawPending(DrawingContext context, GraphEditorViewModel editor)
@@ -68,9 +60,7 @@ public sealed class CanvasOverlay : Control
 		var brush = pending.IsValid ? _palette.SelectionBorder : _palette.ForKind(pending.Kind);
 
 		if (brush is null)
-		{
 			return;
-		}
 
 		var curve = pending.Curve;
 		var geometry = new StreamGeometry();

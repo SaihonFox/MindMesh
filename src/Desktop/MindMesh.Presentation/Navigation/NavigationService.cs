@@ -23,9 +23,7 @@ public sealed class NavigationService : ObservableObject, INavigationService
 		private set
 		{
 			if (SetProperty(ref _currentPage, value))
-			{
 				OnPropertyChanged(nameof(CurrentPageKey));
-			}
 		}
 	}
 
@@ -34,9 +32,7 @@ public sealed class NavigationService : ObservableObject, INavigationService
 	public void NavigateTo(PageKey key)
 	{
 		if (_currentPage?.Key == key)
-		{
 			return;
-		}
 
 		var next = _pageFactory.Create(key);
 

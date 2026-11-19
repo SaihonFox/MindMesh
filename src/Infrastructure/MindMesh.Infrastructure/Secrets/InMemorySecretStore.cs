@@ -31,8 +31,6 @@ public sealed class InMemorySecretStore : ISecretStore
 	public void Remove(string reference)
 	{
 		if (!string.IsNullOrEmpty(reference))
-		{
 			_values.TryRemove(reference, out _);
-		}
 	}
 }

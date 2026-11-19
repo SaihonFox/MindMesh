@@ -19,9 +19,7 @@ public readonly record struct ConnectionCurve(Point2D Start, Point2D Control1, P
 		var handle = Math.Clamp(distance * 0.5, MinimumHandle, MaximumHandle);
 
 		if (end.X < start.X)
-		{
 			handle = Math.Clamp(handle + ((start.X - end.X) * 0.25), MinimumHandle, MaximumHandle);
-		}
 
 		return new ConnectionCurve(
 			start,
@@ -62,14 +60,12 @@ public readonly record struct ConnectionCurve(Point2D Start, Point2D Control1, P
 	{
 		var best = double.MaxValue;
 
-		for (var index = 0; index <= samples; index++)
+		for (int index = 0; index <= samples; index++)
 		{
 			var distance = PointAt(index / (double)samples).DistanceTo(point);
 
 			if (distance < best)
-			{
 				best = distance;
-			}
 		}
 
 		return best;

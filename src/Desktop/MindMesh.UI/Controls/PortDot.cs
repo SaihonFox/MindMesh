@@ -34,9 +34,7 @@ public sealed class PortDot : Control
 		base.OnPropertyChanged(change);
 
 		if (change.Property.Name == "ActualThemeVariant")
-		{
 			InvalidateVisual();
-		}
 	}
 
 	public PortKind Kind
@@ -88,9 +86,7 @@ public sealed class PortDot : Control
 		}
 
 		if (hint == PortHint.Compatible && Find("MM.Brush.Accent") is { } accent)
-		{
 			context.DrawEllipse(null, new Pen(accent, 1.5), center, (size / 2) + 3, (size / 2) + 3);
-		}
 	}
 
 	private Geometry CreateShape(Point center, double half)
@@ -126,10 +122,8 @@ public sealed class PortDot : Control
 		{
 			context.BeginFigure(points[0], true);
 
-			for (var index = 1; index < points.Length; index++)
-			{
+			for (int index = 1; index < points.Length; index++)
 				context.LineTo(points[index]);
-			}
 
 			context.EndFigure(true);
 		}

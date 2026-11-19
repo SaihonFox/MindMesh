@@ -42,9 +42,7 @@ public sealed class MinimapControl : Control
 		base.OnPropertyChanged(change);
 
 		if (change.Property.Name == "ActualThemeVariant")
-		{
 			InvalidateVisual();
-		}
 	}
 
 	public override void Render(DrawingContext context)
@@ -55,9 +53,7 @@ public sealed class MinimapControl : Control
 		context.DrawRectangle(background, null, new Rect(Bounds.Size));
 
 		if (_attached is not { } editor)
-		{
 			return;
-		}
 
 		var map = editor.Minimap;
 
@@ -67,9 +63,7 @@ public sealed class MinimapControl : Control
 			var brush = Find($"MM.Brush.Tone.{node.Tone}");
 
 			if (brush is null)
-			{
 				continue;
-			}
 
 			using (context.PushOpacity(node.IsSelected ? 1 : 0.55))
 			{
@@ -123,9 +117,7 @@ public sealed class MinimapControl : Control
 	private void Navigate(PointerEventArgs e)
 	{
 		if (_attached is null)
-		{
 			return;
-		}
 
 		var point = e.GetPosition(this);
 		_attached.Minimap.NavigateTo(new Point2D(point.X, point.Y));
@@ -142,9 +134,7 @@ public sealed class MinimapControl : Control
 			oldEditor.Nodes.CollectionChanged -= OnNodesChanged;
 
 			foreach (var node in _watched)
-			{
 				node.PropertyChanged -= OnNodePropertyChanged;
-			}
 
 			_watched.Clear();
 		}
@@ -157,9 +147,7 @@ public sealed class MinimapControl : Control
 			newEditor.Nodes.CollectionChanged += OnNodesChanged;
 
 			foreach (var node in newEditor.Nodes)
-			{
 				Watch(node);
-			}
 		}
 
 		InvalidateVisual();
@@ -172,18 +160,14 @@ public sealed class MinimapControl : Control
 		if (e.Action == NotifyCollectionChangedAction.Reset)
 		{
 			foreach (var node in _watched)
-			{
 				node.PropertyChanged -= OnNodePropertyChanged;
-			}
 
 			_watched.Clear();
 
 			if (_attached is not null)
 			{
 				foreach (var node in _attached.Nodes)
-				{
 					Watch(node);
-				}
 			}
 		}
 
@@ -192,18 +176,14 @@ public sealed class MinimapControl : Control
 			foreach (NodeViewModel node in e.OldItems)
 			{
 				if (_watched.Remove(node))
-				{
 					node.PropertyChanged -= OnNodePropertyChanged;
-				}
 			}
 		}
 
 		if (e.NewItems is not null)
 		{
 			foreach (NodeViewModel node in e.NewItems)
-			{
 				Watch(node);
-			}
 		}
 
 		InvalidateVisual();
@@ -212,16 +192,12 @@ public sealed class MinimapControl : Control
 	private void Watch(NodeViewModel node)
 	{
 		if (_watched.Add(node))
-		{
 			node.PropertyChanged += OnNodePropertyChanged;
-		}
 	}
 
 	private void OnNodePropertyChanged(object? sender, PropertyChangedEventArgs e)
 	{
 		if (e.PropertyName is nameof(NodeViewModel.IsSelected) or nameof(NodeViewModel.Bounds))
-		{
 			InvalidateVisual();
-		}
 	}
 }

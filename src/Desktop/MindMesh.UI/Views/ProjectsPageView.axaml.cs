@@ -17,9 +17,7 @@ public partial class ProjectsPageView : UserControl
 	private void OnRenameLostFocus(object? sender, RoutedEventArgs e)
 	{
 		if (sender is Control { DataContext: ProjectItemViewModel { IsRenaming: true } item })
-		{
 			item.CommitRenameCommand.Execute(null);
-		}
 	}
 
 	/// <summary>The rename field gets the focus, with the whole name selected, whenever it appears.</summary>

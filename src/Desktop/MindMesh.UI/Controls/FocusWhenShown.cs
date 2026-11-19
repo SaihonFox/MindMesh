@@ -10,23 +10,17 @@ public static class FocusWhenShown
 	public static void Attach(object? sender, bool selectAll)
 	{
 		if (sender is not TextBox box)
-		{
 			return;
-		}
 
 		box.PropertyChanged += (_, e) =>
 		{
 			if (e.Property != Visual.IsVisibleProperty || !box.IsVisible)
-			{
 				return;
-			}
 
 			box.Focus();
 
 			if (selectAll)
-			{
 				box.SelectAll();
-			}
 		};
 	}
 }

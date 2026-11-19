@@ -18,7 +18,7 @@
 					<TextBlock Classes="secondary" Text="{Binding Loc[Project_Name]}" />
 					<TextBox x:Name="NameBox"
 							 MaxLength="120"
-							 Watermark="{Binding Loc[Project_NamePlaceholder]}"
+							 PlaceholderText="{Binding Loc[Project_NamePlaceholder]}"
 							 Text="{Binding Name, Mode=TwoWay}"
 							 AttachedToVisualTree="OnNameAttached">
 						<TextBox.KeyBindings>
@@ -34,7 +34,7 @@
 							 TextWrapping="Wrap"
 							 MinHeight="84"
 							 MaxLength="500"
-							 Watermark="{Binding Loc[Project_DescriptionPlaceholder]}"
+							 PlaceholderText="{Binding Loc[Project_DescriptionPlaceholder]}"
 							 Text="{Binding Description, Mode=TwoWay}" />
 				</StackPanel>
 

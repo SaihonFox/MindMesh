@@ -44,9 +44,7 @@ public sealed partial class PendingConnectionViewModel : ObservableObject
 		IsValid = target is not null;
 
 		if (From is null)
-		{
 			return;
-		}
 
 		var anchor = From.Anchor;
 		Curve = From.IsInput

@@ -55,9 +55,7 @@ public sealed class ConnectionsLayer : Control
 		base.Render(context);
 
 		if (_attached is not { } editor)
-		{
 			return;
-		}
 
 		_palette.Refresh(this);
 
@@ -68,9 +66,7 @@ public sealed class ConnectionsLayer : Control
 		foreach (var connection in editor.Connections)
 		{
 			if (!connection.IsInViewport)
-			{
 				continue;
-			}
 
 			if (connection.IsSelected)
 			{
@@ -82,18 +78,14 @@ public sealed class ConnectionsLayer : Control
 		}
 
 		foreach (var connection in selected)
-		{
 			DrawConnection(context, viewport, connection, zoom, isSelected: true);
-		}
 
 		if (zoom >= MinimumLabelZoom)
 		{
 			foreach (var connection in editor.Connections)
 			{
 				if (connection.IsInViewport && connection.HasLabel)
-				{
 					DrawLabel(context, viewport, connection);
-				}
 			}
 		}
 	}
@@ -103,9 +95,7 @@ public sealed class ConnectionsLayer : Control
 		var brush = isSelected ? _palette.SelectionBorder : _palette.ForKind(connection.Kind);
 
 		if (brush is null)
-		{
 			return;
-		}
 
 		var curve = connection.Curve;
 		var start = ToScreen(viewport, curve.Start);
@@ -135,9 +125,7 @@ public sealed class ConnectionsLayer : Control
 	private void DrawLabel(DrawingContext context, ViewportViewModel viewport, ConnectionViewModel connection)
 	{
 		if (_palette.PillText is null)
-		{
 			return;
-		}
 
 		var text = GetLabel(connection.Label);
 		var middle = ToScreen(viewport, connection.Curve.Midpoint);
@@ -158,9 +146,7 @@ public sealed class ConnectionsLayer : Control
 	private FormattedText GetLabel(string label)
 	{
 		if (_labels.TryGetValue(label, out var cached))
-		{
 			return cached;
-		}
 
 		var text = new FormattedText(
 			label,
@@ -188,9 +174,7 @@ public sealed class ConnectionsLayer : Control
 			oldEditor.Connections.CollectionChanged -= OnConnectionsChanged;
 
 			foreach (var connection in _watched)
-			{
 				connection.PropertyChanged -= OnConnectionPropertyChanged;
-			}
 
 			_watched.Clear();
 		}
@@ -203,9 +187,7 @@ public sealed class ConnectionsLayer : Control
 			newEditor.Connections.CollectionChanged += OnConnectionsChanged;
 
 			foreach (var connection in newEditor.Connections)
-			{
 				Watch(connection);
-			}
 		}
 
 		InvalidateVisual();
@@ -218,18 +200,14 @@ public sealed class ConnectionsLayer : Control
 		if (e.Action == NotifyCollectionChangedAction.Reset)
 		{
 			foreach (var connection in _watched)
-			{
 				connection.PropertyChanged -= OnConnectionPropertyChanged;
-			}
 
 			_watched.Clear();
 
 			if (_attached is not null)
 			{
 				foreach (var connection in _attached.Connections)
-				{
 					Watch(connection);
-				}
 			}
 		}
 
@@ -238,18 +216,14 @@ public sealed class ConnectionsLayer : Control
 			foreach (ConnectionViewModel connection in e.OldItems)
 			{
 				if (_watched.Remove(connection))
-				{
 					connection.PropertyChanged -= OnConnectionPropertyChanged;
-				}
 			}
 		}
 
 		if (e.NewItems is not null)
 		{
 			foreach (ConnectionViewModel connection in e.NewItems)
-			{
 				Watch(connection);
-			}
 		}
 
 		InvalidateVisual();
@@ -258,9 +232,7 @@ public sealed class ConnectionsLayer : Control
 	private void Watch(ConnectionViewModel connection)
 	{
 		if (_watched.Add(connection))
-		{
 			connection.PropertyChanged += OnConnectionPropertyChanged;
-		}
 	}
 
 	private void OnConnectionPropertyChanged(object? sender, PropertyChangedEventArgs e) => InvalidateVisual();

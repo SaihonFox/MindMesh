@@ -63,9 +63,7 @@ public static class IconCatalog
 		foreach (var source in sources)
 		{
 			foreach (var pair in source)
-			{
 				result.TryAdd(pair.Key, pair.Value);
-			}
 		}
 
 		return result;
@@ -78,19 +76,13 @@ public static class IconCatalog
 	public static Geometry? Get(string? key)
 	{
 		if (key is null)
-		{
 			return null;
-		}
 
 		if (Cache.TryGetValue(key, out var cached))
-		{
 			return cached;
-		}
 
 		if (!PathData.TryGetValue(key, out var data))
-		{
 			return null;
-		}
 
 		var geometry = Geometry.Parse(data);
 		Cache[key] = geometry;

@@ -19,9 +19,7 @@ public sealed class FileWorkflowStore(WorkflowSerializer serializer) : IWorkflow
 		var info = new FileInfo(path);
 
 		if (!info.Exists)
-		{
 			throw new FileNotFoundException("The workflow file does not exist.", path);
-		}
 
 		if (info.Length > MaxFileBytes)
 		{
@@ -64,9 +62,7 @@ public sealed class FileWorkflowStore(WorkflowSerializer serializer) : IWorkflow
 		finally
 		{
 			if (File.Exists(temporary))
-			{
 				File.Delete(temporary);
-			}
 		}
 	}
 }

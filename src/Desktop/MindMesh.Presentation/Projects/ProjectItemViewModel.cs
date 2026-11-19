@@ -67,17 +67,13 @@ public sealed partial class ProjectItemViewModel : ObservableObject
 	private async Task CommitRenameAsync()
 	{
 		if (!IsRenaming)
-		{
 			return;
-		}
 
 		IsRenaming = false;
 
 		var text = RenameText.Trim();
 
 		if (text.Length > 0 && text != Name)
-		{
 			await _rename(this, text);
-		}
 	}
 }

@@ -48,9 +48,7 @@ public class EditorRenderTests
 		report.AppendLine($"Viewport: zoom {fixture.Editor.Viewport.Zoom:0.###}, offset ({fixture.Editor.Viewport.OffsetX:0.#}, {fixture.Editor.Viewport.OffsetY:0.#}), view {fixture.Editor.Viewport.ViewWidth:0.#}x{fixture.Editor.Viewport.ViewHeight:0.#}");
 
 		foreach (var node in fixture.Editor.Nodes)
-		{
 			report.AppendLine($"  node {node.Title}: world ({node.X:0.#}, {node.Y:0.#}), inViewport={node.IsInViewport}");
-		}
 
 		report.AppendLine(UiSnapshot.Describe(window, typeof(NodeCard), typeof(ConnectionsLayer), typeof(MinimapControl), typeof(CanvasGridBackground), typeof(CanvasOverlay)));
 
@@ -93,7 +91,7 @@ public class EditorRenderTests
 	/// <summary>Layout and drawing take a few turns: new controls are created while measuring and drawn one tick later.</summary>
 	private static void Pump()
 	{
-		for (var turn = 0; turn < 4; turn++)
+		for (int turn = 0; turn < 4; turn++)
 		{
 			Dispatcher.UIThread.RunJobs();
 			AvaloniaHeadlessPlatform.ForceRenderTimerTick();
@@ -152,10 +150,7 @@ public class EditorRenderTests
 	[Fact]
 	public async Task TheScreenCanBeInspected_WhenAskedFor()
 	{
-		if (Environment.GetEnvironmentVariable("MM_UI_SNAPSHOT") != "1")
-		{
-			return;
-		}
+		Assert.SkipUnless(Environment.GetEnvironmentVariable("MM_UI_SNAPSHOT") == "1", "Set MM_UI_SNAPSHOT=1 to print the screen.");
 
 		var report = await UiSession.Run(() => Render());
 

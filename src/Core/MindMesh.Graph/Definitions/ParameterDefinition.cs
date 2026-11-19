@@ -40,9 +40,7 @@ public sealed record ParameterDefinition
 	public bool IsVisible(IReadOnlyDictionary<string, ParameterValue> values)
 	{
 		if (VisibleWhen is not { } condition)
-		{
 			return true;
-		}
 
 		var current = values.TryGetValue(condition.Key, out var value) ? value.AsString() : string.Empty;
 

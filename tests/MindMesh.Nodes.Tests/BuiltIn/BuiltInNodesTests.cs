@@ -41,9 +41,7 @@ public class BuiltInNodesTests
 		var known = BuiltInCategories.All.Select(category => category.Id).ToHashSet();
 
 		foreach (var node in Nodes)
-		{
 			Assert.All(node.Categories, category => Assert.True(known.Contains(category), $"{node.Id} uses unknown category {category}."));
-		}
 	}
 
 	[Fact]
@@ -116,9 +114,7 @@ public class BuiltInNodesTests
 		foreach (var parameter in Nodes.SelectMany(node => node.Parameters).Where(parameter => parameter.Type == ParameterType.Number))
 		{
 			if (parameter.Minimum is { } minimum && parameter.Maximum is { } maximum)
-			{
 				Assert.True(minimum <= maximum);
-			}
 
 			if (parameter.DefaultValue.AsDecimal() is { } number)
 			{
@@ -132,18 +128,14 @@ public class BuiltInNodesTests
 	public void CodeAndExpressionSettingsNameALanguage_OrNone()
 	{
 		foreach (var parameter in Nodes.SelectMany(node => node.Parameters).Where(parameter => parameter.Type == ParameterType.Code))
-		{
 			Assert.False(string.IsNullOrWhiteSpace(parameter.Language), $"Code setting '{parameter.Key}' names no language.");
-		}
 	}
 
 	[Fact]
 	public void SecretSettingsNeverHaveADefault()
 	{
 		foreach (var parameter in Nodes.SelectMany(node => node.Parameters).Where(parameter => parameter.Type == ParameterType.Secret))
-		{
 			Assert.True(parameter.DefaultValue.IsNull, $"Secret '{parameter.Key}' has a default value.");
-		}
 	}
 
 	[Fact]

@@ -49,18 +49,14 @@ public partial class NodeLibraryView : UserControl
 	private void OnTileMoved(object? sender, PointerEventArgs e)
 	{
 		if (_pressedItem is null || sender is not Border tile || !ReferenceEquals(e.Pointer.Captured, tile))
-		{
 			return;
-		}
 
 		var position = e.GetPosition(TopLevel.GetTopLevel(this));
 
 		if (!_isDragging)
 		{
 			if (Math.Abs(position.X - _pressPoint.X) < DragThreshold && Math.Abs(position.Y - _pressPoint.Y) < DragThreshold)
-			{
 				return;
-			}
 
 			_isDragging = true;
 			ShowGhost(_pressedItem);
@@ -79,9 +75,7 @@ public partial class NodeLibraryView : UserControl
 		e.Pointer.Capture(null);
 
 		if (item is not null && wasDragging)
-		{
 			NodeDropped?.Invoke(this, new NodeDroppedEventArgs(item, position));
-		}
 	}
 
 	private void OnTileCaptureLost(object? sender, PointerCaptureLostEventArgs e) => Reset();
@@ -89,9 +83,7 @@ public partial class NodeLibraryView : UserControl
 	private void OnTileDoubleTapped(object? sender, TappedEventArgs e)
 	{
 		if (sender is Border { Tag: LibraryNodeViewModel item } && DataContext is NodeLibraryViewModel library)
-		{
 			library.AddToCanvasCommand.Execute(item);
-		}
 	}
 
 	private void ShowGhost(LibraryNodeViewModel item)
@@ -99,9 +91,7 @@ public partial class NodeLibraryView : UserControl
 		_overlay = OverlayLayer.GetOverlayLayer(this);
 
 		if (_overlay is null)
-		{
 			return;
-		}
 
 		var pill = new TonePill
 		{
@@ -130,9 +120,7 @@ public partial class NodeLibraryView : UserControl
 	private void MoveGhost(Point windowPoint)
 	{
 		if (_ghost is null)
-		{
 			return;
-		}
 
 		Canvas.SetLeft(_ghost, windowPoint.X + 12);
 		Canvas.SetTop(_ghost, windowPoint.Y + 12);
@@ -141,9 +129,7 @@ public partial class NodeLibraryView : UserControl
 	private void Reset()
 	{
 		if (_ghost is not null)
-		{
 			_overlay?.Children.Remove(_ghost);
-		}
 
 		_ghost = null;
 		_overlay = null;

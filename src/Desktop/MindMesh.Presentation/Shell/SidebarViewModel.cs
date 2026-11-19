@@ -59,9 +59,7 @@ public sealed partial class SidebarViewModel : ViewModelBase
 		void OnNavigationPropertyChanged(object? sender, PropertyChangedEventArgs e)
 		{
 			if (e.PropertyName == nameof(INavigationService.CurrentPageKey))
-			{
 				UpdateSelection();
-			}
 		}
 	}
 
@@ -93,9 +91,7 @@ public sealed partial class SidebarViewModel : ViewModelBase
 	private void ApplyCompactToItems(bool isCompact)
 	{
 		foreach (var item in Items.Concat(FooterItems))
-		{
 			item.IsCompact = isCompact;
-		}
 	}
 
 	private void UpdateSelection()
@@ -108,8 +104,6 @@ public sealed partial class SidebarViewModel : ViewModelBase
 		OnPropertyChanged(nameof(Width));
 
 		foreach (var item in Items.Concat(FooterItems))
-		{
 			item.IsSelected = item.PageKey == current;
-		}
 	}
 }

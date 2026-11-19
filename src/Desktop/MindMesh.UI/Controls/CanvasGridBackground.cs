@@ -102,9 +102,7 @@ public sealed class CanvasGridBackground : Control
 		var majorEvery = Math.Max(1, MajorEvery);
 
 		if (step < MinimumVisibleStep || Bounds.Width <= 0 || Bounds.Height <= 0)
-		{
 			return;
-		}
 
 		if (UseDots)
 		{
@@ -122,9 +120,7 @@ public sealed class CanvasGridBackground : Control
 			var snapped = Math.Floor(x) + 0.5;
 
 			if (pen is not null)
-			{
 				context.DrawLine(pen, new Point(snapped, 0), new Point(snapped, Bounds.Height));
-			}
 		}
 
 		for (var y = Mod(Offset.Y, step); y <= Bounds.Height; y += step)
@@ -134,9 +130,7 @@ public sealed class CanvasGridBackground : Control
 			var snapped = Math.Floor(y) + 0.5;
 
 			if (pen is not null)
-			{
 				context.DrawLine(pen, new Point(0, snapped), new Point(Bounds.Width, snapped));
-			}
 		}
 	}
 
@@ -146,9 +140,7 @@ public sealed class CanvasGridBackground : Control
 		var major = MajorBrush ?? minor;
 
 		if (minor is null)
-		{
 			return;
-		}
 
 		// Dots keep their size when zooming out, but never get smaller than one pixel.
 		var radius = Math.Clamp(step / 16, 0.9, 1.6);

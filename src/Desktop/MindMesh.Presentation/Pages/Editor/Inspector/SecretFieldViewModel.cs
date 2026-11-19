@@ -37,18 +37,14 @@ public sealed partial class SecretFieldViewModel : ParameterFieldViewModel
 	partial void OnTextChanged(string value)
 	{
 		if (IsReloading)
-		{
 			return;
-		}
 
 		var reference = CurrentValue.AsString();
 
 		if (string.IsNullOrEmpty(value))
 		{
 			if (reference.Length > 0)
-			{
 				_secrets.Remove(reference);
-			}
 
 			Commit(ParameterValue.Null);
 			return;

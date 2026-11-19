@@ -68,7 +68,7 @@ public class LocalizerTests
 	public void ChangingUnrelatedSettings_DoesNotNotify()
 	{
 		var localizer = Create("en", out var settings);
-		var raised = false;
+		bool raised = false;
 		localizer.PropertyChanged += (_, _) => raised = true;
 
 		settings.Update(current => current with { ShowWelcomeOnStartup = false });
@@ -81,7 +81,7 @@ public class LocalizerTests
 	{
 		var localizer = Create("auto", out var settings);
 		var effective = localizer.Culture.Name;
-		var raised = false;
+		bool raised = false;
 		localizer.PropertyChanged += (_, _) => raised = true;
 
 		settings.Update(current => current with { Language = effective });

@@ -44,9 +44,7 @@ public sealed partial class GraphEditorViewModel
 	public IReadOnlyList<MenuEntry> BuildNodeMenu(NodeViewModel node)
 	{
 		if (!node.IsSelected)
-		{
 			SelectNode(node, additive: false);
-		}
 
 		var allDisabled = _selected.All(item => item.IsDisabled);
 		var allCollapsed = _selected.All(item => item.IsCollapsed);

@@ -19,9 +19,7 @@ public static class LayoutLimits
 	public static double Sanitize(double value, double min, double max, double fallback)
 	{
 		if (!double.IsFinite(value))
-		{
 			return fallback;
-		}
 
 		return Math.Clamp(value, min, max);
 	}

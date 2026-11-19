@@ -52,9 +52,7 @@ public sealed class ProjectService
 		name = name.Trim();
 
 		if (name.Length == 0 || !await SaveChangesAsync(cancellationToken).ConfigureAwait(true))
-		{
 			return false;
-		}
 
 		var content = new WorkflowContent(Guid.CreateVersion7(), name, CleanDescription(description), new NodeGraph(), new GraphLayout());
 		var path = NewPath(name);
@@ -82,9 +80,7 @@ public sealed class ProjectService
 	public async Task<WorkflowLoadResult?> OpenAsync(string path, CancellationToken cancellationToken = default)
 	{
 		if (!await SaveChangesAsync(cancellationToken).ConfigureAwait(true))
-		{
 			return null;
-		}
 
 		WorkflowLoadResult result;
 
@@ -148,9 +144,7 @@ public sealed class ProjectService
 		name = name.Trim();
 
 		if (name.Length == 0)
-		{
 			return Task.FromResult(false);
-		}
 
 		_workspace.ProjectName = name;
 
@@ -163,14 +157,10 @@ public sealed class ProjectService
 		name = name.Trim();
 
 		if (name.Length == 0)
-		{
 			return false;
-		}
 
 		if (string.Equals(path, CurrentPath, StringComparison.OrdinalIgnoreCase))
-		{
 			return await RenameAsync(name, cancellationToken).ConfigureAwait(true);
-		}
 
 		try
 		{
@@ -204,9 +194,7 @@ public sealed class ProjectService
 		var directory = _paths.ProjectsDirectory;
 
 		if (!Directory.Exists(directory))
-		{
 			return [];
-		}
 
 		var projects = new List<ProjectInfo>();
 
@@ -257,18 +245,14 @@ public sealed class ProjectService
 		var safe = new string([.. name.Select(character => invalid.Contains(character) ? '_' : character)]).Trim().TrimEnd('.');
 
 		if (safe.Length == 0)
-		{
 			safe = "project";
-		}
 
 		Directory.CreateDirectory(_paths.ProjectsDirectory);
 
 		var path = Path.Combine(_paths.ProjectsDirectory, safe + FileExtension);
 
-		for (var number = 2; File.Exists(path); number++)
-		{
+		for (int number = 2; File.Exists(path); number++)
 			path = Path.Combine(_paths.ProjectsDirectory, $"{safe} ({number}){FileExtension}");
-		}
 
 		return path;
 	}

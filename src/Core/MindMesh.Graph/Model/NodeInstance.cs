@@ -28,16 +28,12 @@ public sealed class NodeInstance
 		if (parameters is null)
 		{
 			foreach (var parameter in definition.Parameters.Where(item => !item.DefaultValue.IsNull))
-			{
 				_parameters[parameter.Key] = parameter.DefaultValue;
-			}
 		}
 		else
 		{
 			foreach (var (key, value) in parameters.Where(item => !item.Value.IsNull))
-			{
 				_parameters[key] = value;
-			}
 		}
 	}
 

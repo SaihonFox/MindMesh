@@ -44,9 +44,7 @@ public static class AppLanguages
 	public static string Resolve(string? setting, string? systemTwoLetterCode)
 	{
 		if (IsSupported(setting))
-		{
 			return setting!;
-		}
 
 		return IsSupported(systemTwoLetterCode) ? systemTwoLetterCode! : Fallback;
 	}

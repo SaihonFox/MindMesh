@@ -28,14 +28,10 @@ public sealed class BuiltInExtension : IMindMeshExtension
 		ArgumentNullException.ThrowIfNull(registrar);
 
 		foreach (var category in BuiltInCategories.All)
-		{
 			registrar.AddNodeCategory(category);
-		}
 
 		foreach (var node in CreateNodes())
-		{
 			registrar.AddNode(node);
-		}
 
 		registrar.AddProjectKind(CreateWorkflowKind());
 	}
