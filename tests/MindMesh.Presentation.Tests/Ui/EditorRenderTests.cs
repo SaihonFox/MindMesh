@@ -6,6 +6,7 @@ using Avalonia.Threading;
 using Avalonia.VisualTree;
 using MindMesh.Application.Settings;
 using MindMesh.Graph.Ports;
+using MindMesh.Presentation.Geometry;
 using MindMesh.Presentation.Shell;
 using MindMesh.Presentation.Tests.Support;
 using MindMesh.UI.Controls;
@@ -126,18 +127,26 @@ public class EditorRenderTests
 			fixture.Add("http.request", 1500, 1000);
 			fixture.Add("logic.if", -900, -600);
 			Pump();
-			fixture.Editor.FitToViewCommand.Execute(null);
-			Pump();
+			// Look at each node at 100%, with the view centred on it, and count the dark pixels of its card.
+			var counts = new List<int>();
 
-			var snapshot = UiSnapshot.Capture(window);
+			foreach (var node in fixture.Editor.Nodes)
+			{
+				fixture.Editor.Viewport.ResetZoom();
+				fixture.Editor.Viewport.CenterOn(new Point2D(node.X + (node.Bounds.Width / 2), node.Y + (node.Bounds.Height / 2)));
+				Pump();
 
-			return window.GetVisualDescendants().OfType<NodeCard>()
-				.Select(card => snapshot.CountInk(new Rect(card.TranslatePoint(default, window) ?? default, card.Bounds.Size)))
-				.ToList();
+				var snapshot = UiSnapshot.Capture(window);
+				var card = window.GetVisualDescendants().OfType<NodeCard>().Single(candidate => ReferenceEquals(candidate.DataContext, node));
+
+				counts.Add(snapshot.CountInk(new Rect(card.TranslatePoint(default, window) ?? default, card.Bounds.Size)));
+			}
+
+			return counts;
 		});
 
 		Assert.Equal(3, inks.Count);
-		Assert.All(inks, ink => Assert.True(ink > 8, $"A node is not drawn; dark pixels per card: {string.Join(", ", inks)}."));
+		Assert.All(inks, ink => Assert.True(ink > 30, $"A node is not drawn; dark pixels per card: {string.Join(", ", inks)}."));
 	}
 
 	[Fact]
