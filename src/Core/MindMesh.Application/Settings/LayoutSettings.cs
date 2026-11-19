@@ -5,13 +5,13 @@ namespace MindMesh.Application.Settings;
 /// </summary>
 public sealed record LayoutSettings
 {
-	public const double DefaultNodeLibraryWidth = 260;
+	public const double DefaultNodeLibraryWidth = 232;
 
-	public const double DefaultInspectorWidth = 300;
+	public const double DefaultInspectorWidth = 264;
 
 	public const double DefaultAssistantWidth = 340;
 
-	public const double DefaultConsoleHeight = 220;
+	public const double DefaultConsoleHeight = 170;
 
 	public bool IsSidebarCompact { get; init; }
 

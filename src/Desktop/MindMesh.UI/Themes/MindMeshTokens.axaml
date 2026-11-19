@@ -18,7 +18,7 @@
 	<x:Double x:Key="MM.FontSize.Headline">22</x:Double>
 	<x:Double x:Key="MM.FontSize.Display">30</x:Double>
 
-	<x:Double x:Key="MM.Size.TopBarHeight">48</x:Double>
-	<x:Double x:Key="MM.Size.PanelHeaderHeight">36</x:Double>
+	<x:Double x:Key="MM.Size.TopBarHeight">40</x:Double>
+	<x:Double x:Key="MM.Size.PanelHeaderHeight">32</x:Double>
 
 </ResourceDictionary>

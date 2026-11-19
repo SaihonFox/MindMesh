@@ -7,12 +7,11 @@
 			 x:Class="MindMesh.UI.Views.EditorPageView"
 			 x:DataType="editor:EditorPageViewModel">
 
-	<Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto">
+	<Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto" Margin="6,6,6,6">
 
 		<!-- Node library -->
 		<Border Grid.Column="0"
-				Classes="panel"
-				BorderThickness="0,0,1,0"
+				Classes="panel dock"
 				Width="{Binding Layout.NodeLibraryWidth}"
 				IsVisible="{Binding Layout.IsNodeLibraryVisible}">
 			<DockPanel>
@@ -38,7 +37,7 @@
 		</Border>
 
 		<ctl:PanelResizer Grid.Column="1"
-						  Width="4"
+						  Width="6"
 						  Edge="Right"
 						  Size="{Binding Layout.NodeLibraryWidth}"
 						  MinSize="{x:Static limits:LayoutLimits.SidePanelMinWidth}"
@@ -48,12 +47,12 @@
 		<!-- Center: canvas and console -->
 		<Grid Grid.Column="2" MinWidth="320" RowDefinitions="*,Auto,Auto">
 
-			<Border Grid.Row="0" Classes="canvas" MinHeight="120">
+			<Border Grid.Row="0" Classes="canvas dock" MinHeight="120">
 				<views:GraphCanvasView x:Name="CanvasView" DataContext="{Binding Editor}" />
 			</Border>
 
 			<ctl:PanelResizer Grid.Row="1"
-							  Height="4"
+							  Height="6"
 							  Edge="Top"
 							  Size="{Binding Layout.ConsoleHeight}"
 							  MinSize="{x:Static limits:LayoutLimits.ConsoleMinHeight}"
@@ -61,8 +60,7 @@
 							  IsVisible="{Binding Layout.IsConsoleVisible}" />
 
 			<Border Grid.Row="2"
-					Classes="panel"
-					BorderThickness="0,1,0,0"
+					Classes="panel dock"
 					Height="{Binding Layout.ConsoleHeight}"
 					IsVisible="{Binding Layout.IsConsoleVisible}">
 				<DockPanel>
@@ -105,7 +103,7 @@
 
 		<!-- Inspector -->
 		<ctl:PanelResizer Grid.Column="3"
-						  Width="4"
+						  Width="6"
 						  Edge="Left"
 						  Size="{Binding Layout.InspectorWidth}"
 						  MinSize="{x:Static limits:LayoutLimits.SidePanelMinWidth}"
@@ -113,8 +111,7 @@
 						  IsVisible="{Binding Layout.IsInspectorVisible}" />
 
 		<Border Grid.Column="4"
-				Classes="panel"
-				BorderThickness="1,0,0,0"
+				Classes="panel dock"
 				Width="{Binding Layout.InspectorWidth}"
 				IsVisible="{Binding Layout.IsInspectorVisible}">
 			<DockPanel>
@@ -141,7 +138,7 @@
 
 		<!-- AI Assistant -->
 		<ctl:PanelResizer Grid.Column="5"
-						  Width="4"
+						  Width="6"
 						  Edge="Left"
 						  Size="{Binding Layout.AssistantWidth}"
 						  MinSize="{x:Static limits:LayoutLimits.SidePanelMinWidth}"
@@ -149,8 +146,7 @@
 						  IsVisible="{Binding Layout.IsAssistantVisible}" />
 
 		<Border Grid.Column="6"
-				Classes="panel"
-				BorderThickness="1,0,0,0"
+				Classes="panel dock"
 				Width="{Binding Layout.AssistantWidth}"
 				IsVisible="{Binding Layout.IsAssistantVisible}">
 			<DockPanel>

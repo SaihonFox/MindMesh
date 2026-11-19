@@ -14,9 +14,9 @@ namespace MindMesh.Presentation.Shell;
 /// </summary>
 public sealed partial class SidebarViewModel : ViewModelBase
 {
-	public const double ExpandedWidth = 200;
+	public const double ExpandedWidth = 184;
 
-	public const double CompactWidth = 56;
+	public const double CompactWidth = 52;
 
 	private readonly ISettingsService _settings;
 	private readonly INavigationService _navigation;
