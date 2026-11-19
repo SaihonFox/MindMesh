@@ -5,7 +5,7 @@ namespace MindMesh.Application.Settings;
 /// </summary>
 public sealed record LayoutSettings
 {
-	public const double DefaultNodeLibraryWidth = 232;
+	public const double DefaultNodeLibraryWidth = 248;
 
 	public const double DefaultInspectorWidth = 264;
 

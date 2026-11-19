@@ -304,7 +304,7 @@
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="CornerRadius" Value="12" />
-		<Setter Property="Padding" Value="8" />
+		<Setter Property="Padding" Value="7" />
 		<Setter Property="Margin" Value="2" />
 		<Setter Property="Cursor" Value="Hand" />
 	</Style>
