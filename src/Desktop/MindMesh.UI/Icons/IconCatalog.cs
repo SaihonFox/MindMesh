@@ -53,7 +53,7 @@ public static class IconCatalog
 		[IconKeys.Node] = "M4 5h16v14H4zM4 10h16",
 		[IconKeys.Edit] = "M4 20h4L19 9l-4-4L4 16zM13.5 6.5l4 4",
 		[IconKeys.Image] = "M4 5h16v14H4zM4 16l5-5 4 4 3-3 4 4M15.5 9.5v.01",
-		[IconKeys.Shuffle] = "M5 5h14v14H5zM9 9v.01M15 9v.01M12 12v.01M9 15v.01M15 15v.01",
+		[IconKeys.Dice] = "M5 5h14v14H5zM9 9v.01M15 9v.01M12 12v.01M9 15v.01M15 15v.01",
 	};
 
 	/// <summary>Path data by icon key: the application icons plus the icons of nodes and categories.</summary>

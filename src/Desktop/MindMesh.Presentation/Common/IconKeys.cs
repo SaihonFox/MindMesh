@@ -48,7 +48,7 @@ public static class IconKeys
 
 	public const string Image = "image";
 
-	public const string Shuffle = "shuffle";
+	public const string Dice = "dice";
 
 	/// <summary>All keys, for tests and tooling.</summary>
 	public static IReadOnlyList<string> All { get; } =
@@ -57,6 +57,6 @@ public static class IconKeys
 		Undo, Redo, AutoLayout, Validate, Run, Debug, Assistant,
 		PanelLeft, PanelRight, PanelBottom, Terminal, Search, Close, User, Info,
 		List, Alert, Braces, Database,
-		ChevronDown, ChevronRight, Plus, Minus, Fit, Eye, EyeOff, Trash, Folder, Map, Node,
+		ChevronDown, ChevronRight, Plus, Minus, Fit, Eye, EyeOff, Trash, Folder, Map, Node, Edit, Image, Dice,
 	];
 }

@@ -104,7 +104,7 @@
 										Margin="8">
 								<Button Classes="cover-action" Command="{Binding RerollCoverCommand}"
 										ToolTip.Tip="{Binding RerollLabel}">
-									<ctl:Icon Key="shuffle" Width="14" Height="14" />
+									<ctl:Icon Key="dice" Width="14" Height="14" />
 								</Button>
 								<Button Classes="cover-action" Command="{Binding ChooseCoverCommand}"
 										ToolTip.Tip="{Binding CoverLabel}">
