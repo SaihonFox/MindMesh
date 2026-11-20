@@ -50,6 +50,9 @@ public sealed partial class TopBarViewModel : ViewModelBase
 	/// <summary>The editor toolbar is only shown while the editor is the current page.</summary>
 	public bool IsEditorActive => _navigation.CurrentPageKey == PageKey.Editor;
 
+	/// <summary>False until a project is created or opened: there is nothing to rename or save before that.</summary>
+	public bool HasProject => !string.IsNullOrWhiteSpace(_workspace.ProjectName);
+
 	public string ProjectDisplayName =>
 		string.IsNullOrWhiteSpace(_workspace.ProjectName) ? Loc["Workspace_UntitledProject"] : _workspace.ProjectName;
 
@@ -121,6 +124,7 @@ public sealed partial class TopBarViewModel : ViewModelBase
 		switch (e.PropertyName)
 		{
 			case nameof(EditorWorkspace.ProjectName):
+				OnPropertyChanged(nameof(HasProject));
 				OnPropertyChanged(nameof(ProjectDisplayName));
 				OnPropertyChanged(nameof(ShowWorkflow));
 				break;

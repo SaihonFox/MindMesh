@@ -19,6 +19,7 @@ public sealed partial class SettingsPageViewModel : PageViewModel
 
 	private readonly ISettingsService _settings;
 	private readonly EditorLayoutViewModel _editorLayout;
+	private readonly INavigationService _navigation;
 
 	[ObservableProperty]
 	private LanguageOptionViewModel? _selectedLanguage;
@@ -31,9 +32,11 @@ public sealed partial class SettingsPageViewModel : PageViewModel
 		ISettingsService settings,
 		IAppPaths paths,
 		SidebarViewModel sidebar,
-		EditorLayoutViewModel editorLayout)
+		EditorLayoutViewModel editorLayout,
+		INavigationService navigation)
 		: base(PageKey.Settings, localizer)
 	{
+		_navigation = navigation;
 		_settings = settings;
 		_editorLayout = editorLayout;
 
@@ -63,6 +66,9 @@ public sealed partial class SettingsPageViewModel : PageViewModel
 	public string DataDirectory { get; }
 
 	public string LogsDirectory { get; }
+
+	[RelayCommand]
+	private void GoBack() => _navigation.GoBack();
 
 	[RelayCommand]
 	private void ResetLayout()

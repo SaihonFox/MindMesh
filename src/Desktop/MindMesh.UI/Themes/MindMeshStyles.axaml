@@ -243,6 +243,14 @@
 		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.Accent}" />
 	</Style>
 
+	<!-- Small, compact button for secondary actions. -->
+	<Style Selector="Button.small">
+		<Setter Property="Padding" Value="10,5" />
+		<Setter Property="MinHeight" Value="0" />
+		<Setter Property="FontSize" Value="{DynamicResource MM.FontSize.Small}" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+
 	<!-- Right-click menus: rounded, with rounded rows that sit inside the corners instead of past them. -->
 	<Style Selector="ContextMenu">
 		<Setter Property="Padding" Value="5" />

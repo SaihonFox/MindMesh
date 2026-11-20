@@ -48,6 +48,11 @@
 			</Border>
 
 			<TextBlock Classes="caption muted" Text="{Binding Copyright}" />
+
+			<Button Classes="small"
+					HorizontalAlignment="Left"
+					Command="{Binding GoBackCommand}"
+					Content="{Binding Loc[Common_Back]}" />
 		</StackPanel>
 	</ScrollViewer>
 

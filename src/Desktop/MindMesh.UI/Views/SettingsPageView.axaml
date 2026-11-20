@@ -95,6 +95,11 @@
 					</StackPanel>
 				</StackPanel>
 			</Border>
+
+			<Button Classes="small"
+					HorizontalAlignment="Left"
+					Command="{Binding GoBackCommand}"
+					Content="{Binding Loc[Common_Back]}" />
 		</StackPanel>
 	</ScrollViewer>
 

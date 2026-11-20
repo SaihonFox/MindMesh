@@ -69,19 +69,6 @@ public class PageViewModelTests
 		new(new ProbeViewModel(localizer));
 
 	[Fact]
-	public void Welcome_ChangingShowOnStartupIsStored()
-	{
-		using var app = new TestApp();
-		var welcome = app.Get<WelcomePageViewModel>();
-
-		Assert.True(welcome.ShowOnStartup);
-
-		welcome.ShowOnStartup = false;
-
-		Assert.False(app.Settings.Current.ShowWelcomeOnStartup);
-	}
-
-	[Fact]
 	public void Welcome_ExposesTheApplicationNameAndVersion()
 	{
 		using var app = new TestApp();

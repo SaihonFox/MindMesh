@@ -31,6 +31,54 @@ public class ProjectTests
 	}
 
 	[Fact]
+	public void TheDialog_OffersWorkflowAndPlaceholdersThatCannotBeCreated()
+	{
+		using var fixture = new EditorFixture();
+		var dialog = fixture.App.Get<NewProjectDialogViewModel>();
+
+		dialog.OpenCommand.Execute(null);
+		dialog.Name = "Idea";
+
+		Assert.True(dialog.SelectedKind is { IsAvailable: true });
+		Assert.Equal(1, dialog.Kinds.Count(kind => kind.IsAvailable));
+		Assert.True(dialog.Kinds.Count > 1);
+
+		dialog.SelectedKind = dialog.Kinds.First(kind => !kind.IsAvailable);
+
+		Assert.False(dialog.CreateCommand.CanExecute(null));
+	}
+
+	[Fact]
+	public void TheTopBar_HidesTheProjectNameAndStatus_UntilAProjectIsOpen()
+	{
+		using var fixture = new EditorFixture();
+		var topBar = fixture.App.Get<TopBarViewModel>();
+		var workspace = fixture.App.Get<EditorWorkspace>();
+
+		Assert.False(topBar.HasProject);
+
+		workspace.ProjectName = "Report";
+
+		Assert.True(topBar.HasProject);
+	}
+
+	[Fact]
+	public void GoBack_ReturnsToThePreviousPage()
+	{
+		using var fixture = new EditorFixture();
+		var navigation = fixture.App.Get<INavigationService>();
+
+		navigation.NavigateTo(PageKey.Welcome);
+		navigation.NavigateTo(PageKey.About);
+
+		Assert.True(navigation.CanGoBack);
+
+		navigation.GoBack();
+
+		Assert.Equal(PageKey.Welcome, navigation.CurrentPageKey);
+	}
+
+	[Fact]
 	public void TheDialog_CannotCreateWithoutAName_AndCancelLeavesNothingBehind()
 	{
 		using var fixture = new EditorFixture();

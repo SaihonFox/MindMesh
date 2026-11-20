@@ -12,4 +12,10 @@ public interface INavigationService : INotifyPropertyChanged
 	PageKey? CurrentPageKey { get; }
 
 	void NavigateTo(PageKey key);
+
+	/// <summary>True when there is a page to return to.</summary>
+	bool CanGoBack { get; }
+
+	/// <summary>Returns to the page that was open before the current one, or to the welcome page.</summary>
+	void GoBack();
 }

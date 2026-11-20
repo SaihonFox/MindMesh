@@ -28,11 +28,27 @@ public sealed partial class NewProjectDialogViewModel : ViewModelBase
 	[ObservableProperty]
 	private string? _error;
 
+	[ObservableProperty]
+	private ProjectKindOption? _selectedKind;
+
 	public NewProjectDialogViewModel(ILocalizer localizer, ProjectService projects, INavigationService navigation)
 		: base(localizer)
 	{
 		_projects = projects;
 		_navigation = navigation;
+
+		Kinds = BuildKinds();
+		_selectedKind = Kinds[0];
+	}
+
+	/// <summary>The kinds of project: Workflow is built, the others are placeholders for what comes later.</summary>
+	public IReadOnlyList<ProjectKindOption> Kinds { get; private set; }
+
+	protected override void OnLanguageChanged()
+	{
+		Kinds = BuildKinds();
+		OnPropertyChanged(nameof(Kinds));
+		SelectedKind = Kinds[0];
 	}
 
 	[RelayCommand]
@@ -41,6 +57,7 @@ public sealed partial class NewProjectDialogViewModel : ViewModelBase
 		Name = string.Empty;
 		Description = string.Empty;
 		Error = null;
+		SelectedKind = Kinds[0];
 		IsOpen = true;
 	}
 
@@ -61,5 +78,21 @@ public sealed partial class NewProjectDialogViewModel : ViewModelBase
 		}
 	}
 
-	private bool CanCreate() => !string.IsNullOrWhiteSpace(Name);
+	private bool CanCreate() => !string.IsNullOrWhiteSpace(Name) && SelectedKind is { IsAvailable: true };
+
+	partial void OnSelectedKindChanged(ProjectKindOption? value) => CreateCommand.NotifyCanExecuteChanged();
+
+	private List<ProjectKindOption> BuildKinds()
+	{
+		string soon = Loc["ProjectKind_Soon"];
+
+		return
+		[
+			new ProjectKindOption(Loc["ProjectKind_Workflow"], Loc["ProjectKind_WorkflowHint"], IconKeys.Workflows, true),
+			new ProjectKindOption(Loc["ProjectKind_Agent"], soon, IconKeys.Assistant, false),
+			new ProjectKindOption(Loc["ProjectKind_Design"], soon, IconKeys.Templates, false),
+			new ProjectKindOption(Loc["ProjectKind_Minecraft"], soon, IconKeys.Plugins, false),
+			new ProjectKindOption(Loc["ProjectKind_Document"], soon, IconKeys.List, false),
+		];
+	}
 }

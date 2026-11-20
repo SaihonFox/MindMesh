@@ -1,4 +1,5 @@
 using System.Runtime.InteropServices;
+using CommunityToolkit.Mvvm.Input;
 using MindMesh.Application.AppInfo;
 using MindMesh.Application.Paths;
 using MindMesh.Presentation.Localization;
@@ -9,11 +10,14 @@ namespace MindMesh.Presentation.Pages.About;
 /// <summary>
 /// About screen: version and diagnostic information.
 /// </summary>
-public sealed class AboutPageViewModel : PageViewModel
+public sealed partial class AboutPageViewModel : PageViewModel
 {
-	public AboutPageViewModel(ILocalizer localizer, IAppInfo appInfo, IAppPaths paths)
+	private readonly INavigationService _navigation;
+
+	public AboutPageViewModel(ILocalizer localizer, IAppInfo appInfo, IAppPaths paths, INavigationService navigation)
 		: base(PageKey.About, localizer)
 	{
+		_navigation = navigation;
 		AppName = appInfo.Name;
 		Version = appInfo.Version;
 		Copyright = appInfo.Copyright;
@@ -33,4 +37,7 @@ public sealed class AboutPageViewModel : PageViewModel
 	public string OperatingSystem { get; }
 
 	public string DataDirectory { get; }
+
+	[RelayCommand]
+	private void GoBack() => _navigation.GoBack();
 }

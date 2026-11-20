@@ -306,6 +306,33 @@
   <data name="Welcome_Subtitle" xml:space="preserve">
     <value>Создавайте автоматизации, AI-агентов и потоки данных визуально.</value>
   </data>
+  <data name="Common_Back" xml:space="preserve">
+    <value>Назад</value>
+  </data>
+  <data name="ProjectKind_Title" xml:space="preserve">
+    <value>Тип проекта</value>
+  </data>
+  <data name="ProjectKind_Workflow" xml:space="preserve">
+    <value>Workflow</value>
+  </data>
+  <data name="ProjectKind_WorkflowHint" xml:space="preserve">
+    <value>Граф узлов, который автоматизирует работу</value>
+  </data>
+  <data name="ProjectKind_Agent" xml:space="preserve">
+    <value>ИИ-агент</value>
+  </data>
+  <data name="ProjectKind_Design" xml:space="preserve">
+    <value>UI-дизайн</value>
+  </data>
+  <data name="ProjectKind_Minecraft" xml:space="preserve">
+    <value>Мод Minecraft</value>
+  </data>
+  <data name="ProjectKind_Document" xml:space="preserve">
+    <value>Документ</value>
+  </data>
+  <data name="ProjectKind_Soon" xml:space="preserve">
+    <value>Скоро</value>
+  </data>
   <data name="Welcome_OpenEditor" xml:space="preserve">
     <value>Открыть редактор</value>
   </data>

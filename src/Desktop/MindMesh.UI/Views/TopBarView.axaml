@@ -31,7 +31,8 @@
 						Orientation="Horizontal"
 						Spacing="8"
 						Margin="20,0,0,0"
-						VerticalAlignment="Center">
+						VerticalAlignment="Center"
+						IsVisible="{Binding HasProject}">
 				<Button Classes="crumb"
 						Command="{Binding BeginRenameCommand}"
 						IsVisible="{Binding !IsRenaming}"

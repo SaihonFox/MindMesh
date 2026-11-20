@@ -10,6 +10,7 @@ public sealed class NavigationService : ObservableObject, INavigationService
 	private readonly ILogger<NavigationService> _logger;
 
 	private PageViewModel? _currentPage;
+	private PageKey? _previousKey;
 
 	public NavigationService(IPageFactory pageFactory, ILogger<NavigationService> logger)
 	{
@@ -29,15 +30,22 @@ public sealed class NavigationService : ObservableObject, INavigationService
 
 	public PageKey? CurrentPageKey => _currentPage?.Key;
 
+	public bool CanGoBack => _previousKey is not null;
+
+	public void GoBack() => NavigateTo(_previousKey ?? PageKey.Welcome);
+
 	public void NavigateTo(PageKey key)
 	{
 		if (_currentPage?.Key == key)
 			return;
 
+		_previousKey = _currentPage?.Key;
+
 		var next = _pageFactory.Create(key);
 
 		_currentPage?.OnNavigatedFrom();
 		CurrentPage = next;
+		OnPropertyChanged(nameof(CanGoBack));
 		next.OnNavigatedTo();
 
 		_logger.LogInformation("Navigated to {PageKey}.", key);

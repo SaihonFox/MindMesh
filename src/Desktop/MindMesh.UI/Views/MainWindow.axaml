@@ -11,6 +11,7 @@
 		x:Class="MindMesh.UI.Views.MainWindow"
 		x:DataType="shell:MainWindowViewModel"
 		Title="{Binding WindowTitle}"
+		WindowState="Maximized"
 		Width="1440"
 		Height="860"
 		MinWidth="960"
