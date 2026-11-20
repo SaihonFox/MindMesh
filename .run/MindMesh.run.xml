@@ -1,0 +1,12 @@
+<component name="ProjectRunConfigurationManager">
+	<configuration default="false" name="MindMesh" type="DotNetProject" factoryName=".NET Project">
+		<option name="EXE_PATH" value="" />
+		<option name="PROGRAM_PARAMETERS" value="" />
+		<option name="PROJECT_PATH" value="$PROJECT_DIR$/src/Desktop/MindMesh.Desktop/MindMesh.Desktop.csproj" />
+		<option name="PROJECT_KIND" value="DotNetCore" />
+		<option name="PROJECT_TFM" value="net11.0" />
+		<method v="2">
+			<option name="Build" />
+		</method>
+	</configuration>
+</component>

@@ -12,6 +12,7 @@
 		<File Path="docs/architecture/overview.md" />
 		<File Path="docs/architecture/phase-1-report.md" />
 		<File Path="docs/architecture/phase-2-report.md" />
+		<File Path="docs/architecture/phase-3-report.md" />
 	</Folder>
 	<Folder Name="/src/Core/">
 		<Project Path="src/Core/MindMesh.Domain/MindMesh.Domain.csproj" />
