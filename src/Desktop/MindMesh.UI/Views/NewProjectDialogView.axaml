@@ -32,7 +32,7 @@
 								<Setter Property="Margin" Value="0,0,6,6" />
 								<Setter Property="Padding" Value="10,8" />
 								<Setter Property="CornerRadius" Value="10" />
-								<Setter Property="IsEnabled" Value="{Binding IsAvailable}" />
+								<Setter Property="IsEnabled" Value="{ReflectionBinding IsAvailable}" />
 							</ControlTheme>
 						</ListBox.ItemContainerTheme>
 						<ListBox.ItemTemplate>
