@@ -135,7 +135,9 @@ public class ValidationTests
 
 		var issues = GraphValidator.Validate(document.Graph);
 
-		Assert.Equal(4, issues.Count);
-		Assert.Equal(2, issues.Select(issue => issue.Node).Distinct().Count());
+		// two required inputs per node, two nodes with no connection, and no trigger for the graph
+		Assert.Equal(4, issues.Count(issue => issue.Code == ValidationCode.RequiredInputNotConnected));
+		Assert.Equal(2, issues.Count(issue => issue.Code == ValidationCode.NodeNotConnected));
+		Assert.Single(issues, issue => issue.Code == ValidationCode.GraphHasNoTrigger && issue.IsGraphLevel);
 	}
 }

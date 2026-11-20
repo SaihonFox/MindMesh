@@ -942,6 +942,15 @@
   <data name="Validation_RequiredInputNotConnected" xml:space="preserve">
     <value>The input “{0}” is not connected.</value>
   </data>
+  <data name="Validation_GraphHasNoTrigger" xml:space="preserve">
+    <value>The workflow has no enabled trigger, so nothing can start it.</value>
+  </data>
+  <data name="Validation_NodeNotConnected" xml:space="preserve">
+    <value>This node is not connected to anything.</value>
+  </data>
+  <data name="Validation_GraphHasCycle" xml:space="preserve">
+    <value>This node is part of a loop.</value>
+  </data>
   <data name="Project_New" xml:space="preserve">
     <value>New project</value>
   </data>

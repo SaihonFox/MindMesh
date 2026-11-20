@@ -942,6 +942,15 @@
   <data name="Validation_RequiredInputNotConnected" xml:space="preserve">
     <value>Вход «{0}» не подключён.</value>
   </data>
+  <data name="Validation_GraphHasNoTrigger" xml:space="preserve">
+    <value>В workflow нет включённого триггера — запускать нечего.</value>
+  </data>
+  <data name="Validation_NodeNotConnected" xml:space="preserve">
+    <value>Этот узел ни с чем не соединён.</value>
+  </data>
+  <data name="Validation_GraphHasCycle" xml:space="preserve">
+    <value>Этот узел входит в цикл.</value>
+  </data>
   <data name="Project_New" xml:space="preserve">
     <value>Новый проект</value>
   </data>
