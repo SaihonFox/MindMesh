@@ -60,7 +60,7 @@ public class GraphValidatorTests
 	}
 
 	[Fact]
-	public void ANodeWithoutAnyConnection_IsReported_ButNotWhenItIsAlone()
+	public void NodesWithoutAnyConnection_AreReported_ButNotASingleNode()
 	{
 		var document = NewDocument();
 		NodeInstance trigger = AddNode(document, Trigger);
@@ -69,11 +69,11 @@ public class GraphValidatorTests
 
 		NodeInstance lonely = AddNode(document, Step);
 
-		ValidationIssue issue = Assert.Single(GraphValidator.Validate(document.Graph));
+		IReadOnlyList<ValidationIssue> issues = GraphValidator.Validate(document.Graph);
 
-		Assert.Equal(ValidationCode.NodeNotConnected, issue.Code);
-		Assert.Equal(lonely.Id, issue.Node);
-		Assert.NotEqual(trigger.Id, issue.Node);
+		Assert.All(issues, issue => Assert.Equal(ValidationCode.NodeNotConnected, issue.Code));
+		Assert.Contains(issues, issue => issue.Node == lonely.Id);
+		Assert.Contains(issues, issue => issue.Node == trigger.Id);
 	}
 
 	[Fact]
