@@ -10,6 +10,7 @@
 		xmlns:views="using:MindMesh.UI.Views"
 		x:Class="MindMesh.UI.Views.MainWindow"
 		x:DataType="shell:MainWindowViewModel"
+		Icon="avares://MindMesh.UI/Assets/mindmesh.png"
 		Title="{Binding WindowTitle}"
 		WindowState="Maximized"
 		Width="1440"

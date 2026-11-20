@@ -4,6 +4,7 @@
 		<OutputType>WinExe</OutputType>
 		<RootNamespace>MindMesh.Desktop</RootNamespace>
 		<AssemblyName>MindMesh</AssemblyName>
+		<ApplicationIcon>..\MindMesh.UI\Assets\mindmesh.ico</ApplicationIcon>
 		<ApplicationManifest>app.manifest</ApplicationManifest>
 		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
 		<BuiltInComInteropSupport>false</BuiltInComInteropSupport>
