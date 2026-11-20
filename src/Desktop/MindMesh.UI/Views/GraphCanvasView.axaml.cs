@@ -48,8 +48,8 @@ public partial class GraphCanvasView : UserControl
 		HitLayer.PointerCaptureLost += OnPointerCaptureLost;
 		HitLayer.PointerWheelChanged += OnPointerWheelChanged;
 		HitLayer.GestureRecognizers.Add(new PinchGestureRecognizer());
-		HitLayer.AddHandler(Gestures.PinchEvent, OnPinch);
-		HitLayer.AddHandler(Gestures.PinchEndedEvent, (_, _) => _lastPinchScale = 1);
+		HitLayer.AddHandler(InputElement.PinchEvent, OnPinch);
+		HitLayer.AddHandler(InputElement.PinchEndedEvent, (_, _) => _lastPinchScale = 1);
 		HitLayer.SizeChanged += (_, e) => _editor?.Viewport.SetViewSize(e.NewSize.Width, e.NewSize.Height);
 
 		QuickAddBox.KeyDown += OnQuickAddKeyDown;
