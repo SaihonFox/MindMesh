@@ -51,11 +51,10 @@ public sealed class HotkeyService
 	public bool IsCustom(HotkeyAction action) => _settings.Current.Hotkeys.ContainsKey(action.ToString());
 
 	/// <summary>The action a pressed key triggers, or null.</summary>
-	public HotkeyAction? Match(HotkeyGesture pressed)
-	{
-		if (IsCapturing)
-			return null;
+	public HotkeyAction? Match(HotkeyGesture pressed) => IsCapturing ? null : FindOwner(pressed);
 
+	private HotkeyAction? FindOwner(HotkeyGesture pressed)
+	{
 		foreach (HotkeyDefinition definition in Definitions)
 		{
 			if (GesturesOf(definition.Action).Contains(pressed))
@@ -70,7 +69,7 @@ public sealed class HotkeyService
 	/// </summary>
 	public HotkeyAction? Assign(HotkeyAction action, HotkeyGesture gesture)
 	{
-		if (Match(gesture) is { } owner && owner != action)
+		if (FindOwner(gesture) is { } owner && owner != action)
 			return owner;
 
 		_settings.Update(settings => settings with

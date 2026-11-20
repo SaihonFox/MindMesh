@@ -9,9 +9,9 @@ using Avalonia.Threading;
 using MindMesh.Presentation.Geometry;
 using MindMesh.Presentation.Hotkeys;
 using MindMesh.Presentation.Pages.Editor.Canvas;
-using MindMesh.UI.Input;
 using MindMesh.Presentation.Pages.Editor.Library;
 using MindMesh.UI.Controls;
+using MindMesh.UI.Input;
 
 namespace MindMesh.UI.Views;
 

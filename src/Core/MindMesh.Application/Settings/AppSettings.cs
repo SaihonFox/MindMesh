@@ -33,6 +33,20 @@ public sealed record AppSettings
 	/// <summary>Shortcuts the user changed: action name to gesture text. Actions that are missing keep their defaults.</summary>
 	public Dictionary<string, string> Hotkeys { get; init; } = [];
 
+	/// <summary>Two settings are equal when every value is equal; the hotkey dictionaries are compared by content.</summary>
+	public bool Equals(AppSettings? other) =>
+		other is not null
+		&& SchemaVersion == other.SchemaVersion
+		&& Language == other.Language
+		&& Theme == other.Theme
+		&& ShowWelcomeOnStartup == other.ShowWelcomeOnStartup
+		&& Layout == other.Layout
+		&& ProjectsDirectory == other.ProjectsDirectory
+		&& Hotkeys.Count == other.Hotkeys.Count
+		&& Hotkeys.All(pair => other.Hotkeys.TryGetValue(pair.Key, out string? value) && value == pair.Value);
+
+	public override int GetHashCode() => HashCode.Combine(SchemaVersion, Language, Theme, ShowWelcomeOnStartup, Layout, ProjectsDirectory, Hotkeys.Count);
+
 	/// <summary>
 	/// Returns a copy in which every value is valid. Used after loading and after every update.
 	/// </summary>
