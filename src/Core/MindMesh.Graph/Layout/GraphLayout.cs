@@ -6,6 +6,7 @@ public enum LayoutChangeKind
 {
 	Moved,
 	CollapsedChanged,
+	Resized,
 	Removed,
 }
 
@@ -22,12 +23,16 @@ public sealed class LayoutChangedEventArgs(NodeId node, LayoutChangeKind kind) :
 public sealed class GraphLayout
 {
 	private readonly Dictionary<NodeId, NodePlacement> _placements = [];
+	private readonly Dictionary<NodeId, NodeSize> _sizes = [];
 	private readonly HashSet<NodeId> _collapsed = [];
 
 	public event EventHandler<LayoutChangedEventArgs>? Changed;
 
 	public NodePlacement GetPlacement(NodeId node) =>
 		_placements.TryGetValue(node, out var placement) ? placement : default;
+
+	/// <summary>The size the user gave the node, or null for the default size.</summary>
+	public NodeSize? GetSize(NodeId node) => _sizes.TryGetValue(node, out var size) ? size : null;
 
 	public bool IsCollapsed(NodeId node) => _collapsed.Contains(node);
 
@@ -38,6 +43,19 @@ public sealed class GraphLayout
 
 		_placements[node] = placement;
 		Changed?.Invoke(this, new LayoutChangedEventArgs(node, LayoutChangeKind.Moved));
+	}
+
+	public void SetSize(NodeId node, NodeSize? size)
+	{
+		bool changed = size is { } value
+			? !_sizes.TryGetValue(node, out var current) || current != value
+			: _sizes.Remove(node);
+
+		if (size is { } newSize)
+			_sizes[node] = newSize;
+
+		if (changed)
+			Changed?.Invoke(this, new LayoutChangedEventArgs(node, LayoutChangeKind.Resized));
 	}
 
 	public void SetCollapsed(NodeId node, bool collapsed)
@@ -53,6 +71,7 @@ public sealed class GraphLayout
 	{
 		var removed = _placements.Remove(node);
 		removed |= _collapsed.Remove(node);
+		removed |= _sizes.Remove(node);
 
 		if (removed)
 			Changed?.Invoke(this, new LayoutChangedEventArgs(node, LayoutChangeKind.Removed));

@@ -46,7 +46,7 @@ public sealed partial class PortViewModel : ObservableObject
 	public PortReference Reference => new(Owner.Id, Definition.Key);
 
 	/// <summary>Position relative to the top-left corner of the card: inputs on the left edge, outputs on the right.</summary>
-	public Point2D LocalAnchor => new(IsInput ? 0 : NodeMetrics.Width, NodeMetrics.GetPortY(Index, Owner.IsCollapsed));
+	public Point2D LocalAnchor => new(IsInput ? 0 : Owner.Width, NodeMetrics.GetPortY(Index, Owner.IsCollapsed));
 
 	/// <summary>Diameter of the port dot the view draws.</summary>
 	public const double DotSize = 14;

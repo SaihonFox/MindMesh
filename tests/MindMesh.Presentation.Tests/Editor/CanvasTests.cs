@@ -83,6 +83,41 @@ public class CanvasTests
 	}
 
 	[Fact]
+	public void ResizingACard_ChangesItsSize_KeepsItAboveTheMinimum_AndIsOneUndoStep()
+	{
+		using var fixture = new EditorFixture();
+		var node = fixture.Add("logic.if", 100, 100);
+		double minimumHeight = node.MinimumHeight;
+		var corner = new Point2D(node.X + node.Width - 4, node.Y + node.Height - 4);
+
+		Assert.Same(node, fixture.Editor.HitTestResizeHandle(corner));
+		Assert.Null(fixture.Editor.HitTestResizeHandle(new Point2D(node.X + 20, node.Y + 20)));
+
+		fixture.Editor.BeginNodeResize(node, corner);
+		fixture.Editor.UpdateNodeResize(new Point2D(corner.X + 104, corner.Y + 200));
+		fixture.Editor.EndNodeResize();
+
+		Assert.Equal(NodeMetrics.Width + 104, node.Width);
+		Assert.True(node.Height >= minimumHeight + 190, $"Height {node.Height} after a drag of 200 from {minimumHeight}.");
+
+		fixture.Editor.BeginNodeResize(node, corner);
+		fixture.Editor.UpdateNodeResize(new Point2D(corner.X - 5000, corner.Y - 5000));
+		fixture.Editor.EndNodeResize();
+
+		Assert.Equal(NodeMetrics.MinimumWidth, node.Width);
+		Assert.Equal(minimumHeight, node.Height);
+
+		fixture.Editor.UndoCommand.Execute(null);
+
+		Assert.Equal(NodeMetrics.Width + 104, node.Width);
+
+		fixture.Editor.UndoCommand.Execute(null);
+
+		Assert.Equal(NodeMetrics.Width, node.Width);
+		Assert.Equal(minimumHeight, node.Height);
+	}
+
+	[Fact]
 	public void AClickWithoutMovement_DoesNotMoveOrCreateAnUndoStep()
 	{
 		using var fixture = new EditorFixture();
@@ -549,6 +584,29 @@ public class CanvasTests
 		viewport.ResetZoom();
 		Assert.Equal(1, viewport.Zoom);
 		Assert.Equal("100%", viewport.ZoomText);
+	}
+
+	[Fact]
+	public void ZoomButtons_StepThroughRoundPercentages()
+	{
+		using var fixture = new EditorFixture();
+		var viewport = fixture.Editor.Viewport;
+		var seen = new List<string>();
+
+		for (int step = 0; step < 4; step++)
+		{
+			viewport.ZoomIn();
+			seen.Add(viewport.ZoomText);
+		}
+
+		Assert.Equal(["150%", "200%", "300%", "400%"], seen);
+
+		viewport.SetZoom(0.17);
+		viewport.ZoomIn();
+		Assert.Equal("25%", viewport.ZoomText);
+
+		viewport.ZoomOut();
+		Assert.Equal("10%", viewport.ZoomText);
 	}
 
 	[Fact]

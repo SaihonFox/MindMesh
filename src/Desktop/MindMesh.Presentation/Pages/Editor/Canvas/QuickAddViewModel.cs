@@ -2,7 +2,9 @@ using System.Collections.ObjectModel;
 using CommunityToolkit.Mvvm.ComponentModel;
 using MindMesh.Application.Extensions;
 using MindMesh.Graph.Definitions;
+using MindMesh.Graph.Identifiers;
 using MindMesh.Graph.Ports;
+using MindMesh.Plugins.Abstractions.Projects;
 using MindMesh.Presentation.Geometry;
 using MindMesh.Presentation.Pages.Editor.Library;
 using MindMesh.Presentation.Pages.Editor.Nodes;
@@ -20,9 +22,15 @@ public sealed partial class QuickAddViewModel : ObservableObject
 	private readonly GraphEditorViewModel _editor;
 	private readonly IExtensionCatalog _catalog;
 	private readonly NodeText _text;
+	private readonly EditorWorkspace _workspace;
 
 	[ObservableProperty]
 	private bool _isOpen;
+
+	/// <summary>The category whose nodes are shown in the side menu; its <c>IsExpanded</c> marks the highlighted row.</summary>
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(HasActiveCategory))]
+	private LibrarySectionViewModel? _activeCategory;
 
 	[ObservableProperty]
 	private string _searchText = string.Empty;
@@ -30,14 +38,26 @@ public sealed partial class QuickAddViewModel : ObservableObject
 	[ObservableProperty]
 	private LibraryNodeViewModel? _selectedItem;
 
-	public QuickAddViewModel(GraphEditorViewModel editor, IExtensionCatalog catalog, NodeText text)
+	public QuickAddViewModel(GraphEditorViewModel editor, IExtensionCatalog catalog, NodeText text, EditorWorkspace workspace)
 	{
 		_editor = editor;
 		_catalog = catalog;
 		_text = text;
+		_workspace = workspace;
 	}
 
+	/// <summary>Matches of the search text, best first.</summary>
 	public ObservableCollection<LibraryNodeViewModel> Results { get; } = [];
+
+	/// <summary>The categories offered while nothing is typed; each opens a menu with its nodes.</summary>
+	public ObservableCollection<LibrarySectionViewModel> Categories { get; } = [];
+
+	public bool IsSearching => SearchText.Trim().Length > 0;
+
+	/// <summary>The category list is shown instead of search results while the search box is empty.</summary>
+	public bool ShowCategories => !IsSearching && Categories.Count > 0;
+
+	public bool HasActiveCategory => ActiveCategory is not null;
 
 	/// <summary>Where the node will be added, in world coordinates.</summary>
 	public Point2D Position { get; private set; }
@@ -85,8 +105,31 @@ public sealed partial class QuickAddViewModel : ObservableObject
 		}
 	}
 
+	/// <summary>Opens the side menu of a category, closing the previous one.</summary>
+	public void OpenCategory(LibrarySectionViewModel? category)
+	{
+		if (ReferenceEquals(category, ActiveCategory))
+			return;
+
+		if (ActiveCategory is not null)
+			ActiveCategory.IsExpanded = false;
+
+		ActiveCategory = category;
+
+		if (category is not null)
+			category.IsExpanded = true;
+	}
+
 	public void MoveSelection(int delta)
 	{
+		if (ShowCategories)
+		{
+			int current = ActiveCategory is null ? -1 : Categories.IndexOf(ActiveCategory);
+
+			OpenCategory(Categories[Math.Clamp(current + delta, 0, Categories.Count - 1)]);
+			return;
+		}
+
 		if (Results.Count == 0)
 			return;
 
@@ -96,13 +139,16 @@ public sealed partial class QuickAddViewModel : ObservableObject
 
 	partial void OnSearchTextChanged(string value) => Refresh();
 
+	private bool Offers(INodeDefinition node) =>
+		FromPort is null || NodeGraphPorts.FindCompatiblePort(node, FromPort.Definition) is not null;
+
 	private void Refresh()
 	{
 		var query = SearchText;
 
 		var matches = _catalog.Nodes
 			.Where(node => _text.Matches(node, query))
-			.Where(node => FromPort is null || NodeGraphPorts.FindCompatiblePort(node, FromPort.Definition) is not null)
+			.Where(Offers)
 			.OrderBy(node => _text.Rank(node, query))
 			.ThenBy(node => _text.GetName(node), StringComparer.CurrentCultureIgnoreCase)
 			.Take(MaximumResults)
@@ -114,8 +160,38 @@ public sealed partial class QuickAddViewModel : ObservableObject
 		foreach (var match in matches)
 			Results.Add(match);
 
-		SelectedItem = Results.FirstOrDefault();
+		BuildCategories();
+
+		SelectedItem = IsSearching ? Results.FirstOrDefault() : null;
 		OnPropertyChanged(nameof(HasResults));
+		OnPropertyChanged(nameof(IsSearching));
+		OnPropertyChanged(nameof(ShowCategories));
+	}
+
+	private void BuildCategories()
+	{
+		OpenCategory(null);
+		Categories.Clear();
+
+		if (IsSearching)
+			return;
+
+		EditorModeDefinition? mode = _catalog.FindMode(_workspace.Mode);
+
+		foreach (NodeCategoryId id in mode?.Categories ?? [])
+		{
+			if (_catalog.FindCategory(id) is not { } category)
+				continue;
+
+			List<LibraryNodeViewModel> items = _catalog.GetNodes(id)
+				.Where(Offers)
+				.Select(node => new LibraryNodeViewModel(node, _text))
+				.OrderBy(item => item.Title, StringComparer.CurrentCultureIgnoreCase)
+				.ToList();
+
+			if (items.Count > 0)
+				Categories.Add(new LibrarySectionViewModel(id, _text.GetCategoryTitle(id), category.IconKey, category.Tone, items, false));
+		}
 	}
 }
 

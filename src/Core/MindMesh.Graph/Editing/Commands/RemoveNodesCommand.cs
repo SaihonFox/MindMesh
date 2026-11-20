@@ -10,7 +10,7 @@ namespace MindMesh.Graph.Editing.Commands;
 public sealed class RemoveNodesCommand(IEnumerable<NodeId> nodes) : IGraphCommand
 {
 	private readonly List<NodeId> _ids = [.. nodes];
-	private readonly List<(NodeInstance Node, NodePlacement Placement, bool Collapsed)> _removedNodes = [];
+	private readonly List<(NodeInstance Node, NodePlacement Placement, bool Collapsed, NodeSize? Size)> _removedNodes = [];
 	private readonly List<Connection> _removedConnections = [];
 
 	public string Name => "Delete";
@@ -30,13 +30,13 @@ public sealed class RemoveNodesCommand(IEnumerable<NodeId> nodes) : IGraphComman
 			if (document.Graph.FindNode(id) is not { } node)
 				continue;
 
-			_removedNodes.Add((node, document.Layout.GetPlacement(id), document.Layout.IsCollapsed(id)));
+			_removedNodes.Add((node, document.Layout.GetPlacement(id), document.Layout.IsCollapsed(id), document.Layout.GetSize(id)));
 		}
 
 		foreach (var connection in _removedConnections)
 			document.Graph.RemoveConnection(connection.Id);
 
-		foreach (var (node, _, _) in _removedNodes)
+		foreach (var (node, _, _, _) in _removedNodes)
 		{
 			document.Graph.RemoveNode(node.Id);
 			document.Layout.Remove(node.Id);
@@ -45,10 +45,11 @@ public sealed class RemoveNodesCommand(IEnumerable<NodeId> nodes) : IGraphComman
 
 	public void Undo(GraphDocument document)
 	{
-		foreach (var (node, placement, collapsed) in _removedNodes)
+		foreach (var (node, placement, collapsed, size) in _removedNodes)
 		{
 			document.Layout.SetPlacement(node.Id, placement);
 			document.Layout.SetCollapsed(node.Id, collapsed);
+			document.Layout.SetSize(node.Id, size);
 			document.Graph.AddNode(node);
 		}
 

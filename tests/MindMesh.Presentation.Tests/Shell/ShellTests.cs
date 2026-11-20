@@ -95,7 +95,7 @@ public class ShellTests
 	}
 
 	[Fact]
-	public void Sidebar_IsCompactWhileTheEditorIsOpen_WithoutChangingTheStoredChoice()
+	public void Sidebar_OpensCompactInTheEditor_CanBeExpanded_AndKeepsTheStoredChoice()
 	{
 		using var app = new TestApp();
 		var sidebar = app.Get<SidebarViewModel>();
@@ -105,12 +105,16 @@ public class ShellTests
 
 		Assert.Equal(SidebarViewModel.CompactWidth, sidebar.Width);
 		Assert.All(sidebar.Items, item => Assert.False(item.ShowLabel));
-		Assert.False(sidebar.IsCompact);
+
+		sidebar.ToggleCompactCommand.Execute(null);
+
+		Assert.Equal(SidebarViewModel.ExpandedWidth, sidebar.Width);
+		Assert.All(sidebar.Items, item => Assert.True(item.ShowLabel));
+		Assert.False(app.Settings.Current.Layout.IsSidebarCompact);
 
 		navigation.NavigateTo(PageKey.Projects);
 
 		Assert.Equal(SidebarViewModel.ExpandedWidth, sidebar.Width);
-		Assert.All(sidebar.Items, item => Assert.True(item.ShowLabel));
 	}
 
 	[Fact]

@@ -21,6 +21,9 @@ public sealed class MinimapViewModel : ObservableObject
 	private double _scale = 1;
 	private double _originX;
 	private double _originY;
+	private bool _isDragging;
+	private double _grabX;
+	private double _grabY;
 
 	public MinimapViewModel(GraphEditorViewModel editor)
 	{
@@ -49,10 +52,64 @@ public sealed class MinimapViewModel : ObservableObject
 	/// <summary>Centers the canvas on the world point that corresponds to a point of the minimap.</summary>
 	public void NavigateTo(Point2D minimapPoint) => _editor.Viewport.CenterOn(MinimapToWorld(minimapPoint));
 
+	/// <summary>
+	/// Starts dragging the camera. The map stops rescaling while the drag lasts, so the camera follows
+	/// the pointer one to one. Grabbing the frame keeps the grab point; pressing elsewhere centers the camera there.
+	/// </summary>
+	public void BeginDrag(Point2D minimapPoint)
+	{
+		_isDragging = true;
+		_grabX = 0;
+		_grabY = 0;
+
+		Rect2D frame = ViewportRect;
+		bool insideFrame = minimapPoint.X >= frame.X && minimapPoint.X <= frame.X + frame.Width
+			&& minimapPoint.Y >= frame.Y && minimapPoint.Y <= frame.Y + frame.Height;
+
+		Point2D world = MinimapToWorld(minimapPoint);
+
+		if (insideFrame)
+		{
+			Point2D center = _editor.Viewport.ViewCenterWorld;
+
+			_grabX = world.X - center.X;
+			_grabY = world.Y - center.Y;
+		}
+		else
+		{
+			_editor.Viewport.CenterOn(world);
+		}
+	}
+
+	public void DragTo(Point2D minimapPoint)
+	{
+		if (!_isDragging)
+			return;
+
+		Point2D world = MinimapToWorld(minimapPoint);
+
+		_editor.Viewport.CenterOn(new Point2D(world.X - _grabX, world.Y - _grabY));
+	}
+
+	public void EndDrag()
+	{
+		_isDragging = false;
+		Refresh();
+	}
+
 	/// <summary>Recomputes the transform. Called when nodes or the viewport change.</summary>
 	public void Refresh()
 	{
 		var visible = _editor.Viewport.VisibleWorld;
+
+		if (_isDragging)
+		{
+			ViewportRect = WorldToMinimap(visible);
+			OnPropertyChanged(nameof(ViewportRect));
+			Changed?.Invoke(this, EventArgs.Empty);
+			return;
+		}
+
 		var bounds = visible;
 
 		foreach (var node in _editor.Nodes)

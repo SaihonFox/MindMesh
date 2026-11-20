@@ -8,7 +8,10 @@ namespace MindMesh.Presentation.Pages.Editor.Canvas;
 /// </summary>
 public sealed class ViewportViewModel : ObservableObject
 {
-	private const double ButtonZoomStep = 1.2;
+	/// <summary>The zoom levels the buttons and the wheel step through: round numbers a person can name.</summary>
+	public static readonly IReadOnlyList<double> ZoomPresets = [0.05, 0.1, 0.25, 0.5, 0.75, 1, 1.5, 2, 3, 4];
+
+	private const double PresetTolerance = 0.005;
 
 	private readonly ViewportState _state = new();
 
@@ -58,9 +61,22 @@ public sealed class ViewportViewModel : ObservableObject
 		NotifyChanged();
 	}
 
-	public void ZoomIn() => ZoomAt(new Point2D(ViewWidth / 2, ViewHeight / 2), ButtonZoomStep);
+	public void ZoomIn() => StepAt(new Point2D(ViewWidth / 2, ViewHeight / 2), zoomIn: true);
 
-	public void ZoomOut() => ZoomAt(new Point2D(ViewWidth / 2, ViewHeight / 2), 1 / ButtonZoomStep);
+	public void ZoomOut() => StepAt(new Point2D(ViewWidth / 2, ViewHeight / 2), zoomIn: false);
+
+	/// <summary>Moves to the next round zoom level above or below the current one, around a screen point.</summary>
+	public void StepAt(Point2D screenAnchor, bool zoomIn)
+	{
+		double target = zoomIn
+			? ZoomPresets.FirstOrDefault(preset => preset > Zoom + PresetTolerance, ViewportState.MaximumZoom)
+			: ZoomPresets.LastOrDefault(preset => preset < Zoom - PresetTolerance, ViewportState.MinimumZoom);
+
+		ZoomAt(screenAnchor, target / Zoom);
+	}
+
+	/// <summary>Sets an exact zoom around the middle of the view.</summary>
+	public void SetZoom(double zoom) => ZoomAt(new Point2D(ViewWidth / 2, ViewHeight / 2), zoom / Zoom);
 
 	/// <summary>Back to 100% around the middle of the view.</summary>
 	public void ResetZoom()

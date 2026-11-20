@@ -191,6 +191,12 @@ public sealed class WorkflowSerializer
 		writer.WriteNumber(WorkflowKeys.NodeX, placement.X);
 		writer.WriteNumber(WorkflowKeys.NodeY, placement.Y);
 
+		if (layout.GetSize(node.Id) is { } size)
+		{
+			writer.WriteNumber(WorkflowKeys.NodeWidth, size.Width);
+			writer.WriteNumber(WorkflowKeys.NodeHeight, size.Height);
+		}
+
 		if (layout.IsCollapsed(node.Id))
 			writer.WriteBoolean(WorkflowKeys.NodeCollapsed, true);
 
@@ -313,6 +319,12 @@ public sealed class WorkflowSerializer
 
 		graph.AddNode(node);
 		layout.SetPlacement(nodeId, new NodePlacement(GetDouble(item, WorkflowKeys.NodeX), GetDouble(item, WorkflowKeys.NodeY)));
+
+		double width = GetDouble(item, WorkflowKeys.NodeWidth);
+		double height = GetDouble(item, WorkflowKeys.NodeHeight);
+
+		if (width > 0 && height > 0)
+			layout.SetSize(nodeId, new NodeSize(width, height));
 
 		if (GetBoolean(item, WorkflowKeys.NodeCollapsed))
 			layout.SetCollapsed(nodeId, true);

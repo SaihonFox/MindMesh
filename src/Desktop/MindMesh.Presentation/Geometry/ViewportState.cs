@@ -6,8 +6,8 @@ namespace MindMesh.Presentation.Geometry;
 /// </summary>
 public sealed class ViewportState
 {
-	public const double MinimumZoom = 0.1;
-	public const double MaximumZoom = 3.0;
+	public const double MinimumZoom = 0.05;
+	public const double MaximumZoom = 4.0;
 
 	public double Zoom { get; private set; } = 1;
 
@@ -60,7 +60,8 @@ public sealed class ViewportState
 		var zoom = Math.Min(availableWidth / Math.Max(world.Width, 1), availableHeight / Math.Max(world.Height, 1));
 
 		// Fitting should not magnify a small graph beyond its natural size.
-		zoom = Math.Clamp(Math.Min(zoom, 1), MinimumZoom, MaximumZoom);
+		// and it is rounded down to a whole percent, so the number on screen is the real one.
+		zoom = Math.Clamp(Math.Floor(Math.Min(zoom, 1) * 100) / 100, MinimumZoom, MaximumZoom);
 
 		var center = world.Center;
 		Set(zoom, (viewWidth / 2) - (center.X * zoom), (viewHeight / 2) - (center.Y * zoom));

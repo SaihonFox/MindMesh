@@ -10,7 +10,7 @@ namespace MindMesh.Presentation.Shell;
 
 /// <summary>
 /// Left sidebar: navigation between the main sections, with an expanded and a compact mode.
-/// Inside the editor it is always compact, so the canvas gets the room.
+/// The editor opens it compact, so the canvas gets the room; the user can still expand it there.
 /// </summary>
 public sealed partial class SidebarViewModel : ViewModelBase
 {
@@ -20,11 +20,14 @@ public sealed partial class SidebarViewModel : ViewModelBase
 
 	private readonly ISettingsService _settings;
 	private readonly INavigationService _navigation;
+	private readonly bool _isConstructed;
 	private bool _isEditorOpen;
+	private bool _preferredCompact;
+	private bool _isRestoring;
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(Width))]
-	[NotifyPropertyChangedFor(nameof(IsShownCompact))]
+	[NotifyPropertyChangedFor(nameof(ToggleTitle))]
 	private bool _isCompact;
 
 	public SidebarViewModel(
@@ -51,8 +54,10 @@ public sealed partial class SidebarViewModel : ViewModelBase
 			CreateItem(PageKey.Settings, "Sidebar_Settings", IconKeys.Settings),
 		];
 
-		_isCompact = settings.Current.Layout.IsSidebarCompact;
+		_preferredCompact = settings.Current.Layout.IsSidebarCompact;
+		_isCompact = _preferredCompact;
 		UpdateSelection();
+		_isConstructed = true;
 
 		navigation.PropertyChanged += OnNavigationPropertyChanged;
 
@@ -67,23 +72,33 @@ public sealed partial class SidebarViewModel : ViewModelBase
 
 	public IReadOnlyList<NavigationItemViewModel> FooterItems { get; }
 
-	/// <summary>The sidebar shows icons only: by the user's choice, or because the editor is open.</summary>
-	public bool IsShownCompact => IsCompact || _isEditorOpen;
+	public double Width => IsCompact ? CompactWidth : ExpandedWidth;
 
-	public double Width => IsShownCompact ? CompactWidth : ExpandedWidth;
+	/// <summary>Text of the collapse button: what pressing it will do.</summary>
+	public string ToggleTitle => Loc[IsCompact ? "Sidebar_Expand" : "Sidebar_Collapse"];
 
 	[RelayCommand]
 	private void ToggleCompact() => IsCompact = !IsCompact;
 
 	partial void OnIsCompactChanged(bool value)
 	{
-		ApplyCompactToItems(IsShownCompact);
+		ApplyCompactToItems(value);
 
+		if (!_isConstructed || _isRestoring)
+			return;
+
+		// Inside the editor the choice is temporary: the stored preference is for the other pages.
+		if (_isEditorOpen)
+			return;
+
+		_preferredCompact = value;
 		_settings.Update(settings => settings with
 		{
 			Layout = settings.Layout with { IsSidebarCompact = value },
 		});
 	}
+
+	protected override void OnLanguageChanged() => OnPropertyChanged(nameof(ToggleTitle));
 
 	private NavigationItemViewModel CreateItem(PageKey key, string titleKey, string iconKey) =>
 		new(Loc, key, titleKey, iconKey, _navigation.NavigateTo);
@@ -96,12 +111,19 @@ public sealed partial class SidebarViewModel : ViewModelBase
 
 	private void UpdateSelection()
 	{
-		var current = _navigation.CurrentPageKey;
+		PageKey current = _navigation.CurrentPageKey;
 
-		_isEditorOpen = current == PageKey.Editor;
-		ApplyCompactToItems(IsShownCompact);
-		OnPropertyChanged(nameof(IsShownCompact));
-		OnPropertyChanged(nameof(Width));
+		bool isEditor = current == PageKey.Editor;
+
+		if (isEditor != _isEditorOpen)
+		{
+			_isEditorOpen = isEditor;
+			_isRestoring = true;
+			IsCompact = isEditor || _preferredCompact;
+			_isRestoring = false;
+		}
+
+		ApplyCompactToItems(IsCompact);
 
 		foreach (var item in Items.Concat(FooterItems))
 			item.IsSelected = item.PageKey == current;

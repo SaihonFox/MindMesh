@@ -9,6 +9,12 @@ namespace MindMesh.Presentation.Geometry;
 public static class NodeMetrics
 {
 	public const double Width = 272;
+	public const double MinimumWidth = 200;
+	public const double MaximumWidth = 640;
+	public const double MaximumHeight = 800;
+
+	/// <summary>Side of the square in the bottom-right corner that resizes a card, in screen units.</summary>
+	public const double ResizeHandleSize = 16;
 	public const double HeaderHeight = 68;
 	public const double BodyPaddingTop = 8;
 	public const double BodyPaddingBottom = 12;

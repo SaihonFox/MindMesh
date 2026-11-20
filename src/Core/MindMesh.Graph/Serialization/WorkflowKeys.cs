@@ -17,6 +17,8 @@ public static class WorkflowKeys
 	public const string NodeDisabled = "disabled";
 	public const string NodeX = "x";
 	public const string NodeY = "y";
+	public const string NodeWidth = "width";
+	public const string NodeHeight = "height";
 	public const string NodeCollapsed = "collapsed";
 	public const string NodeParameters = "parameters";
 

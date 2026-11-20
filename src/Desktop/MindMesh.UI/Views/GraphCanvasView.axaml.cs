@@ -23,6 +23,7 @@ public partial class GraphCanvasView : UserControl
 		None,
 		Pan,
 		Node,
+		Resize,
 		Connect,
 		RubberBand,
 	}
@@ -33,6 +34,7 @@ public partial class GraphCanvasView : UserControl
 	private Point2D _lastWorld;
 	private bool _isSpaceDown;
 	private bool _spaceUsedForPan;
+	private Point _quickAddAnchor;
 
 	public GraphCanvasView()
 	{
@@ -48,6 +50,10 @@ public partial class GraphCanvasView : UserControl
 		QuickAddBox.KeyDown += OnQuickAddKeyDown;
 		QuickAddList.DoubleTapped += OnQuickAddItemActivated;
 		QuickAddList.Tapped += OnQuickAddItemActivated;
+		QuickAddSubList.DoubleTapped += OnQuickAddItemActivated;
+		QuickAddSubList.Tapped += OnQuickAddItemActivated;
+		QuickAddMenu.SizeChanged += (_, _) => PlaceQuickAdd();
+		QuickAddSubmenu.SizeChanged += (_, _) => PlaceQuickAdd();
 		FindBox.KeyDown += OnFindKeyDown;
 	}
 
@@ -162,6 +168,14 @@ public partial class GraphCanvasView : UserControl
 			return;
 		}
 
+		if (editor.HitTestResizeHandle(world) is { } resizing)
+		{
+			editor.BeginNodeResize(resizing, world);
+			BeginGesture(Gesture.Resize, e);
+			HitLayer.Cursor = new Cursor(StandardCursorType.BottomRightCorner);
+			return;
+		}
+
 		if (editor.HitTestNode(world) is { } node)
 		{
 			editor.BeginNodeDrag(node, world, additive);
@@ -207,6 +221,14 @@ public partial class GraphCanvasView : UserControl
 				editor.UpdateNodeDrag(world);
 				break;
 
+			case Gesture.Resize:
+				editor.UpdateNodeResize(world);
+				break;
+
+			case Gesture.None:
+				HitLayer.Cursor = editor.HitTestResizeHandle(world) is null ? Cursor.Default : new Cursor(StandardCursorType.BottomRightCorner);
+				break;
+
 			case Gesture.Connect:
 				editor.UpdateConnection(world);
 				break;
@@ -237,6 +259,10 @@ public partial class GraphCanvasView : UserControl
 				editor.EndNodeDrag();
 				break;
 
+			case Gesture.Resize:
+				editor.EndNodeResize();
+				break;
+
 			case Gesture.Connect:
 				editor.CompleteConnection(world);
 				break;
@@ -264,6 +290,10 @@ public partial class GraphCanvasView : UserControl
 		{
 			case Gesture.Node:
 				editor.CancelNodeDrag();
+				break;
+
+			case Gesture.Resize:
+				editor.CancelNodeResize();
 				break;
 
 			case Gesture.Connect:
@@ -489,17 +519,71 @@ public partial class GraphCanvasView : UserControl
 			return;
 		}
 
-		var screen = editor.Viewport.WorldToScreen(editor.QuickAdd.Position);
-		var x = Math.Clamp(screen.X, 8, Math.Max(8, Bounds.Width - QuickAddHost.Width - 8));
-		var y = Math.Clamp(screen.Y, 8, Math.Max(8, Bounds.Height - 120));
+		Point2D screen = editor.Viewport.WorldToScreen(editor.QuickAdd.Position);
 
-		QuickAddHost.Margin = new Thickness(x, y, 0, 0);
+		_quickAddAnchor = new Point(screen.X, screen.Y);
+		PlaceQuickAdd();
 
 		Dispatcher.UIThread.Post(() =>
 		{
 			QuickAddBox.Focus();
 			QuickAddBox.SelectAll();
 		});
+	}
+
+	/// <summary>
+	/// Puts the quick-add menus where they were opened, moved just enough to be fully visible: up when the
+	/// menu would run past the bottom, and the side menu goes to the left when there is no room on the right.
+	/// </summary>
+	private void PlaceQuickAdd()
+	{
+		if (_editor is null || !_editor.QuickAdd.IsOpen)
+			return;
+
+		const double gap = 6;
+		const double edge = 8;
+
+		QuickAddMenu.MaxHeight = Math.Max(160, Math.Min(Bounds.Height - (2 * edge), 460));
+		QuickAddSubmenu.MaxHeight = QuickAddMenu.MaxHeight;
+
+		double menuWidth = QuickAddMenu.Width;
+		double subWidth = _editor.QuickAdd.HasActiveCategory ? QuickAddSubmenu.Width + gap : 0;
+		double x = _quickAddAnchor.X;
+		bool subOnLeft = false;
+
+		if (x + menuWidth + subWidth > Bounds.Width - edge)
+		{
+			if (x - subWidth >= edge && x + menuWidth <= Bounds.Width - edge)
+			{
+				subOnLeft = true;
+				x -= subWidth;
+			}
+			else
+			{
+				x = Bounds.Width - edge - menuWidth - subWidth;
+			}
+		}
+
+		Grid.SetColumn(QuickAddMenu, subOnLeft ? 1 : 0);
+		Grid.SetColumn(QuickAddSubmenu, subOnLeft ? 0 : 1);
+		QuickAddSubmenu.Margin = subOnLeft ? new Thickness(0, 0, gap, 0) : new Thickness(gap, 0, 0, 0);
+
+		double height = Math.Max(QuickAddMenu.Bounds.Height, QuickAddSubmenu.Bounds.Height);
+		double y = Math.Clamp(_quickAddAnchor.Y, edge, Math.Max(edge, Bounds.Height - height - edge));
+
+		QuickAddHost.Margin = new Thickness(Math.Max(edge, x), y, 0, 0);
+	}
+
+	private void OnQuickAddCategoryEntered(object? sender, PointerEventArgs e)
+	{
+		if (_editor is { } editor && (sender as Control)?.DataContext is LibrarySectionViewModel category)
+			editor.QuickAdd.OpenCategory(category);
+	}
+
+	private void OnQuickAddCategoryClick(object? sender, RoutedEventArgs e)
+	{
+		if (_editor is { } editor && (sender as Control)?.DataContext is LibrarySectionViewModel category)
+			editor.QuickAdd.OpenCategory(category);
 	}
 
 	private void OnFindChanged(object? sender, PropertyChangedEventArgs e)
@@ -537,7 +621,7 @@ public partial class GraphCanvasView : UserControl
 				break;
 
 			case Key.Enter:
-				editor.QuickAdd.Confirm();
+				editor.QuickAdd.Confirm(editor.QuickAdd.ShowCategories ? editor.QuickAdd.ActiveCategory?.Items.FirstOrDefault() : null);
 				break;
 
 			case Key.Escape:

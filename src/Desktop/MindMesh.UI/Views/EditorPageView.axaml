@@ -10,8 +10,7 @@
 	<Grid ColumnDefinitions="Auto,Auto,*,Auto,Auto,Auto,Auto" Margin="6,6,6,6">
 
 		<!-- Node library -->
-		<Border Grid.Column="0"
-				Classes="panel dock"
+		<ctl:RoundedFrame Grid.Column="0"
 				Width="{Binding Layout.NodeLibraryWidth}"
 				IsVisible="{Binding Layout.IsNodeLibraryVisible}">
 			<DockPanel>
@@ -34,7 +33,7 @@
 
 				<views:NodeLibraryView x:Name="LibraryView" DataContext="{Binding Library}" />
 			</DockPanel>
-		</Border>
+		</ctl:RoundedFrame>
 
 		<ctl:PanelResizer Grid.Column="1"
 						  Width="6"
@@ -47,9 +46,9 @@
 		<!-- Center: canvas and console -->
 		<Grid Grid.Column="2" MinWidth="320" RowDefinitions="*,Auto,Auto">
 
-			<Border Grid.Row="0" Classes="canvas dock" MinHeight="120">
+			<ctl:RoundedFrame Grid.Row="0" Classes="canvas" MinHeight="120">
 				<views:GraphCanvasView x:Name="CanvasView" DataContext="{Binding Editor}" />
-			</Border>
+			</ctl:RoundedFrame>
 
 			<ctl:PanelResizer Grid.Row="1"
 							  Height="6"
@@ -59,8 +58,7 @@
 							  MaxSize="{x:Static limits:LayoutLimits.ConsoleMaxHeight}"
 							  IsVisible="{Binding Layout.IsConsoleVisible}" />
 
-			<Border Grid.Row="2"
-					Classes="panel dock"
+			<ctl:RoundedFrame Grid.Row="2"
 					Height="{Binding Layout.ConsoleHeight}"
 					IsVisible="{Binding Layout.IsConsoleVisible}">
 				<DockPanel>
@@ -98,7 +96,7 @@
 						</TabControl.ContentTemplate>
 					</TabControl>
 				</DockPanel>
-			</Border>
+			</ctl:RoundedFrame>
 		</Grid>
 
 		<!-- Inspector -->
@@ -110,8 +108,7 @@
 						  MaxSize="{x:Static limits:LayoutLimits.SidePanelMaxWidth}"
 						  IsVisible="{Binding Layout.IsInspectorVisible}" />
 
-		<Border Grid.Column="4"
-				Classes="panel dock"
+		<ctl:RoundedFrame Grid.Column="4"
 				Width="{Binding Layout.InspectorWidth}"
 				IsVisible="{Binding Layout.IsInspectorVisible}">
 			<DockPanel>
@@ -134,7 +131,7 @@
 
 				<views:InspectorView DataContext="{Binding Inspector}" />
 			</DockPanel>
-		</Border>
+		</ctl:RoundedFrame>
 
 		<!-- AI Assistant -->
 		<ctl:PanelResizer Grid.Column="5"
@@ -145,8 +142,7 @@
 						  MaxSize="{x:Static limits:LayoutLimits.SidePanelMaxWidth}"
 						  IsVisible="{Binding Layout.IsAssistantVisible}" />
 
-		<Border Grid.Column="6"
-				Classes="panel dock"
+		<ctl:RoundedFrame Grid.Column="6"
 				Width="{Binding Layout.AssistantWidth}"
 				IsVisible="{Binding Layout.IsAssistantVisible}">
 			<DockPanel>
@@ -176,7 +172,7 @@
 								Title="{Binding Loc[Assistant_EmptyTitle]}"
 								Description="{Binding Loc[Assistant_EmptyDescription]}" />
 			</DockPanel>
-		</Border>
+		</ctl:RoundedFrame>
 	</Grid>
 
 </UserControl>

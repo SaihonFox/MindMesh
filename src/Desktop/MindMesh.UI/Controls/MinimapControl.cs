@@ -86,7 +86,7 @@ public sealed class MinimapControl : Control
 		{
 			_isDragging = true;
 			e.Pointer.Capture(this);
-			Navigate(e);
+			_attached?.Minimap.BeginDrag(ToMapPoint(e));
 			e.Handled = true;
 		}
 	}
@@ -97,7 +97,7 @@ public sealed class MinimapControl : Control
 
 		if (_isDragging)
 		{
-			Navigate(e);
+			_attached?.Minimap.DragTo(ToMapPoint(e));
 			e.Handled = true;
 		}
 	}
@@ -109,18 +109,28 @@ public sealed class MinimapControl : Control
 		if (_isDragging)
 		{
 			_isDragging = false;
+			_attached?.Minimap.EndDrag();
 			e.Pointer.Capture(null);
 			e.Handled = true;
 		}
 	}
 
-	private void Navigate(PointerEventArgs e)
+	protected override void OnPointerCaptureLost(PointerCaptureLostEventArgs e)
 	{
-		if (_attached is null)
-			return;
+		base.OnPointerCaptureLost(e);
 
-		var point = e.GetPosition(this);
-		_attached.Minimap.NavigateTo(new Point2D(point.X, point.Y));
+		if (_isDragging)
+		{
+			_isDragging = false;
+			_attached?.Minimap.EndDrag();
+		}
+	}
+
+	private Point2D ToMapPoint(PointerEventArgs e)
+	{
+		Point point = e.GetPosition(this);
+
+		return new Point2D(point.X, point.Y);
 	}
 
 	private IBrush? Find(string key) =>

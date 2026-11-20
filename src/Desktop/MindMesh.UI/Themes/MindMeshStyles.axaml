@@ -43,26 +43,45 @@
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="0,0,0,1" />
 	</Style>
-	<!-- The navigation sidebar floats: rounded, with a gap to the window edge and to what is below the top bar. -->
-	<Style Selector="Border.sidebar">
+	<!-- A floating panel (docked panels, the sidebar): rounded, clipped, the border drawn over the content. -->
+	<Style Selector="ctl|RoundedFrame">
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
 		<Setter Property="CornerRadius" Value="14" />
+		<Setter Property="Template">
+			<ControlTemplate>
+				<Panel>
+					<Border BoxShadow="{TemplateBinding Shadow}"
+							CornerRadius="{TemplateBinding CornerRadius}" />
+					<Border Background="{TemplateBinding Background}"
+							CornerRadius="{TemplateBinding CornerRadius}"
+							ClipToBounds="True">
+						<ContentPresenter Padding="{TemplateBinding Padding}"
+										  Content="{TemplateBinding Content}"
+										  ContentTemplate="{TemplateBinding ContentTemplate}" />
+					</Border>
+					<Border IsHitTestVisible="False"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="{TemplateBinding CornerRadius}" />
+				</Panel>
+			</ControlTemplate>
+		</Setter>
+	</Style>
+	<Style Selector="ctl|RoundedFrame.sidebar">
 		<Setter Property="Margin" Value="6,6,0,6" />
-		<Setter Property="ClipToBounds" Value="True" />
+	</Style>
+	<Style Selector="Border.canvas">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Canvas}" />
+	</Style>
+	<Style Selector="ctl|RoundedFrame.canvas">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Canvas}" />
 	</Style>
 	<Style Selector="Border.panel">
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="1" />
-	</Style>
-	<!-- A docked panel that floats: rounded corners, a border all around, nothing glued to the window edges. -->
-	<Style Selector="Border.dock">
-		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
-		<Setter Property="BorderThickness" Value="1" />
-		<Setter Property="CornerRadius" Value="14" />
-		<Setter Property="ClipToBounds" Value="True" />
 	</Style>
 	<Style Selector="Border.panel-header">
 		<Setter Property="Height" Value="{DynamicResource MM.Size.PanelHeaderHeight}" />
@@ -70,9 +89,6 @@
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
 		<Setter Property="BorderThickness" Value="0,0,0,1" />
 		<Setter Property="Padding" Value="12,0,6,0" />
-	</Style>
-	<Style Selector="Border.canvas">
-		<Setter Property="Background" Value="{DynamicResource MM.Brush.Background}" />
 	</Style>
 	<Style Selector="Border.card">
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
@@ -97,17 +113,28 @@
 	</Style>
 
 	<!-- Panel resize handle -->
-	<Style Selector="ctl|PanelResizer.resizer:pointerover">
-		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
+	<Style Selector="ctl|PanelResizer.resizer > Border.grip">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.TextMuted}" />
+		<Setter Property="CornerRadius" Value="2" />
+		<Setter Property="Opacity" Value="0" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<DoubleTransition Property="Opacity" Duration="0:0:0.12" />
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="ctl|PanelResizer.resizer:pointerover > Border.grip">
+		<Setter Property="Opacity" Value="0.55" />
+	</Style>
+	<Style Selector="ctl|PanelResizer.resizer.dragging > Border.grip">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Accent}" />
+		<Setter Property="Opacity" Value="0.9" />
 	</Style>
 
 	<!-- Canvas grid and empty states -->
 	<Style Selector="ctl|CanvasGridBackground">
 		<Setter Property="MinorBrush" Value="{DynamicResource MM.Brush.GridMinor}" />
 		<Setter Property="MajorBrush" Value="{DynamicResource MM.Brush.GridMajor}" />
-	</Style>
-	<Style Selector="Border.canvas">
-		<Setter Property="Background" Value="{DynamicResource MM.Brush.Canvas}" />
 	</Style>
 	<Style Selector="ctl|Icon.empty-icon">
 		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextMuted}" />
@@ -199,6 +226,14 @@
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
 	</Style>
+	<!-- Compact sidebar: every button is the same square with its icon exactly in the middle. -->
+	<Style Selector="Button.nav.compact">
+		<Setter Property="Width" Value="40" />
+		<Setter Property="Margin" Value="0,2" />
+		<Setter Property="Padding" Value="0" />
+		<Setter Property="HorizontalAlignment" Value="Center" />
+		<Setter Property="HorizontalContentAlignment" Value="Center" />
+	</Style>
 	<Style Selector="Button.nav:pointerover /template/ ContentPresenter#PART_ContentPresenter">
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
 		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextPrimary}" />
@@ -206,6 +241,33 @@
 	<Style Selector="Button.nav.selected /template/ ContentPresenter#PART_ContentPresenter">
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
 		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.Accent}" />
+	</Style>
+
+	<!-- Right-click menus: rounded, with rounded rows that sit inside the corners instead of past them. -->
+	<Style Selector="ContextMenu">
+		<Setter Property="Padding" Value="5" />
+		<Setter Property="CornerRadius" Value="14" />
+	</Style>
+	<Style Selector="ContextMenu MenuItem">
+		<Setter Property="CornerRadius" Value="8" />
+		<Setter Property="Padding" Value="10,6" />
+	</Style>
+	<Style Selector="ContextMenu Separator">
+		<Setter Property="Margin" Value="8,4" />
+	</Style>
+
+	<!-- A plain row in a small menu: rounded, so its highlight stays inside the rounded popup. -->
+	<Style Selector="Button.menu-item">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="Padding" Value="12,6" />
+		<Setter Property="MinWidth" Value="96" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+	<Style Selector="Button.menu-item:pointerover /template/ ContentPresenter#PART_ContentPresenter, Button.menu-item.selected /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
 	</Style>
 
 	<!-- Card button (welcome screen) -->

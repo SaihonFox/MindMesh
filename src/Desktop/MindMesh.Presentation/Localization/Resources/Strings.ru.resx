@@ -123,6 +123,12 @@
   <data name="Sidebar_Toggle" xml:space="preserve">
     <value>Свернуть или развернуть боковую панель</value>
   </data>
+  <data name="Sidebar_Collapse" xml:space="preserve">
+    <value>Свернуть</value>
+  </data>
+  <data name="Sidebar_Expand" xml:space="preserve">
+    <value>Развернуть</value>
+  </data>
   <data name="Panel_NodeLibrary" xml:space="preserve">
     <value>Библиотека узлов</value>
   </data>
@@ -698,6 +704,9 @@
   </data>
   <data name="Canvas_ZoomOut" xml:space="preserve">
     <value>Отдалить</value>
+  </data>
+  <data name="Canvas_ZoomMenu" xml:space="preserve">
+    <value>Выбрать масштаб</value>
   </data>
   <data name="Canvas_ResetZoom" xml:space="preserve">
     <value>Сбросить масштаб до 100%</value>

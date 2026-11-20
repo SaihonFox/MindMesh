@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Data;
 using Avalonia.Input;
+using Avalonia.Layout;
 using Avalonia.Media;
 
 namespace MindMesh.UI.Controls;
@@ -42,6 +43,7 @@ public sealed class PanelResizer : Border
 		AvaloniaProperty.Register<PanelResizer, ResizeEdge>(nameof(Edge), ResizeEdge.Right);
 
 	private Point _startPoint;
+	private readonly Border _grip = new() { Classes = { "grip" }, IsHitTestVisible = false };
 	private double _startSize;
 	private bool _isDragging;
 
@@ -53,6 +55,7 @@ public sealed class PanelResizer : Border
 	public PanelResizer()
 	{
 		Classes.Add("resizer");
+		Child = _grip;
 		UpdateCursor();
 	}
 
@@ -101,6 +104,7 @@ public sealed class PanelResizer : Border
 		_startPoint = e.GetPosition(root);
 		_startSize = Size;
 		_isDragging = true;
+		Classes.Set("dragging", true);
 
 		e.Pointer.Capture(this);
 		e.Handled = true;
@@ -139,6 +143,7 @@ public sealed class PanelResizer : Border
 			return;
 
 		_isDragging = false;
+		Classes.Set("dragging", false);
 		e.Pointer.Capture(null);
 		e.Handled = true;
 	}
@@ -147,11 +152,20 @@ public sealed class PanelResizer : Border
 	{
 		base.OnPointerCaptureLost(e);
 		_isDragging = false;
+		Classes.Set("dragging", false);
 	}
 
 	private void UpdateCursor()
 	{
 		var type = Edge == ResizeEdge.Top ? StandardCursorType.SizeNorthSouth : StandardCursorType.SizeWestEast;
 		Cursor = new Cursor(type);
+
+		// The visible grip is a short thin pill in the middle of the gutter, never a bar to the edges.
+		bool horizontal = Edge == ResizeEdge.Top;
+
+		_grip.Width = horizontal ? 44 : 3;
+		_grip.Height = horizontal ? 3 : 44;
+		_grip.HorizontalAlignment = HorizontalAlignment.Center;
+		_grip.VerticalAlignment = VerticalAlignment.Center;
 	}
 }

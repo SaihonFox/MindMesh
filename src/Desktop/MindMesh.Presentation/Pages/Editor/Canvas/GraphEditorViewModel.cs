@@ -55,7 +55,7 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 
 		Viewport = new ViewportViewModel();
 		Minimap = new MinimapViewModel(this);
-		QuickAdd = new QuickAddViewModel(this, catalog, text);
+		QuickAdd = new QuickAddViewModel(this, catalog, text, workspace);
 		Find = new CanvasFindViewModel(this, text);
 
 		Viewport.Changed += (_, _) =>
@@ -97,6 +97,10 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 
 	public bool CanPaste => _clipboard.HasContent;
 
+	/// <summary>The zoom levels offered when the percentage on the canvas is clicked.</summary>
+	public IReadOnlyList<ZoomPreset> ZoomPresets { get; } =
+		[.. ViewportViewModel.ZoomPresets.Select(zoom => new ZoomPreset(zoom, $"{Math.Round(zoom * 100):0}%"))];
+
 	public NodeViewModel? FindNode(NodeId id) => _nodesById.GetValueOrDefault(id);
 
 	public NodeViewModel GetNode(NodeId id) => _nodesById[id];
@@ -126,6 +130,9 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 
 	[RelayCommand]
 	private void ResetZoom() => Viewport.ResetZoom();
+
+	[RelayCommand]
+	private void SetZoom(double zoom) => Viewport.SetZoom(zoom);
 
 	[RelayCommand]
 	private void FitToView() => Viewport.Fit(GetContentBounds());
@@ -252,6 +259,10 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 			var placement = Document.Layout.GetPlacement(e.Node);
 			node.SetPosition(placement.X, placement.Y);
 		}
+		else if (e.Kind == LayoutChangeKind.Resized)
+		{
+			node.SetSize(Document.Layout.GetSize(e.Node));
+		}
 		else
 		{
 			node.SetCollapsed(Document.Layout.IsCollapsed(e.Node));
@@ -269,6 +280,7 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 
 		node.SetPosition(placement.X, placement.Y);
 		node.SetCollapsed(Document.Layout.IsCollapsed(instance.Id));
+		node.SetSize(Document.Layout.GetSize(instance.Id));
 		node.ZIndex = ++_zCounter;
 
 		_nodesById[instance.Id] = node;

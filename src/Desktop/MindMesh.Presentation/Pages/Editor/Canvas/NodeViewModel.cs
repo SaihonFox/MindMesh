@@ -1,6 +1,7 @@
 using CommunityToolkit.Mvvm.ComponentModel;
 using MindMesh.Graph.Definitions;
 using MindMesh.Graph.Identifiers;
+using MindMesh.Graph.Layout;
 using MindMesh.Graph.Model;
 using MindMesh.Graph.Validation;
 using MindMesh.Plugins.Abstractions.Nodes;
@@ -32,8 +33,16 @@ public sealed partial class NodeViewModel : ViewModelBase
 
 	[ObservableProperty]
 	[NotifyPropertyChangedFor(nameof(Height))]
+	[NotifyPropertyChangedFor(nameof(MinimumHeight))]
 	[NotifyPropertyChangedFor(nameof(Bounds))]
 	private bool _isCollapsed;
+
+	/// <summary>The size the user gave the card; null means the default size.</summary>
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(Width))]
+	[NotifyPropertyChangedFor(nameof(Height))]
+	[NotifyPropertyChangedFor(nameof(Bounds))]
+	private NodeSize? _customSize;
 
 	[ObservableProperty]
 	private int _zIndex;
@@ -91,9 +100,12 @@ public sealed partial class NodeViewModel : ViewModelBase
 
 	public bool HasIssues => IssueLevel != NodeIssueLevel.None;
 
-	public double Width => NodeMetrics.Width;
+	public double Width => Math.Clamp(CustomSize?.Width ?? NodeMetrics.Width, NodeMetrics.MinimumWidth, NodeMetrics.MaximumWidth);
 
-	public double Height => NodeMetrics.GetHeight(Definition, IsCollapsed);
+	/// <summary>The height a card needs for its header and ports; it cannot be made smaller than this.</summary>
+	public double MinimumHeight => NodeMetrics.GetHeight(Definition, IsCollapsed);
+
+	public double Height => Math.Clamp(CustomSize?.Height ?? 0, MinimumHeight, Math.Max(MinimumHeight, NodeMetrics.MaximumHeight));
 
 	public double HeaderHeight => NodeMetrics.HeaderHeight;
 
@@ -139,6 +151,12 @@ public sealed partial class NodeViewModel : ViewModelBase
 	{
 		X = x;
 		Y = y;
+		NotifyAnchorsChanged();
+	}
+
+	internal void SetSize(NodeSize? size)
+	{
+		CustomSize = size;
 		NotifyAnchorsChanged();
 	}
 

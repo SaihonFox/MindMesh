@@ -77,6 +77,19 @@ public class WorkflowSerializerTests
 	}
 
 	[Fact]
+	public void ACustomNodeSize_SurvivesARoundTrip_AndNodesWithoutOneStayDefault()
+	{
+		var content = Sample(out var document, out var first, out var second);
+		document.Layout.SetSize(first.Id, new NodeSize(400, 260));
+		var serializer = CreateSerializer();
+
+		var loaded = serializer.Deserialize(serializer.Serialize(content)).Content!;
+
+		Assert.Equal(new NodeSize(400, 260), loaded.Layout.GetSize(first.Id));
+		Assert.Null(loaded.Layout.GetSize(second.Id));
+	}
+
+	[Fact]
 	public void TheOutput_IsTheSameEveryTime_AndUsesUnixNewlines()
 	{
 		var content = Sample(out _, out _, out _);

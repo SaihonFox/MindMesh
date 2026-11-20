@@ -8,6 +8,32 @@
 			 Focusable="True"
 			 ClipToBounds="True">
 
+	<UserControl.Resources>
+		<DataTemplate x:Key="QuickAddNodeTemplate" x:DataType="library:LibraryNodeViewModel">
+			<Grid ColumnDefinitions="Auto,*">
+				<ctl:TonePill Width="30"
+							  Height="30"
+							  CornerRadius="8"
+							  VerticalAlignment="Center"
+							  Tone="{Binding Tone}">
+					<ctl:Icon Key="{Binding IconKey}"
+							  Width="16"
+							  Height="16"
+							  HorizontalAlignment="Center"
+							  VerticalAlignment="Center" />
+				</ctl:TonePill>
+				<StackPanel Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+					<TextBlock FontWeight="SemiBold"
+							   TextTrimming="CharacterEllipsis"
+							   Text="{Binding Title}" />
+					<TextBlock Classes="caption muted"
+							   TextTrimming="CharacterEllipsis"
+							   Text="{Binding Description}" />
+				</StackPanel>
+			</Grid>
+		</DataTemplate>
+	</UserControl.Resources>
+
 	<Border Classes="canvas" ClipToBounds="True">
 		<Grid>
 
@@ -44,7 +70,7 @@
 
 				<ItemsControl.ItemTemplate>
 					<DataTemplate x:DataType="canvas:NodeViewModel">
-						<Grid Width="272" Height="{Binding Height}">
+						<Grid Width="{Binding Width}" Height="{Binding Height}">
 
 							<ctl:NodeCard Classes="node-card"
 										  VisualState="{Binding VisualState}"
@@ -127,6 +153,23 @@
 									</Grid>
 								</Grid>
 							</ctl:NodeCard>
+
+							<!-- Resize handle: shown on the selected card, grabbed by the canvas at the bottom-right corner. -->
+							<Path Data="M0,10 L10,0 M4,10 L10,4"
+								  Stroke="{DynamicResource MM.Brush.TextMuted}"
+								  StrokeThickness="1.5"
+								  StrokeLineCap="Round"
+								  HorizontalAlignment="Right"
+								  VerticalAlignment="Bottom"
+								  Margin="0,0,6,6"
+								  IsHitTestVisible="False">
+								<Path.IsVisible>
+									<MultiBinding Converter="{x:Static BoolConverters.And}">
+										<Binding Path="IsSelected" />
+										<Binding Path="!IsCollapsed" />
+									</MultiBinding>
+								</Path.IsVisible>
+							</Path>
 
 							<!-- Port dots, centred on the card edges. -->
 							<ItemsControl ItemsSource="{Binding Ports}">
@@ -224,69 +267,120 @@
 				</StackPanel>
 			</Border>
 
-			<!-- Quick add: search box that places a node where it was opened -->
-			<Border x:Name="QuickAddHost"
-					Classes="floating"
-					Width="360"
-					Padding="8"
-					HorizontalAlignment="Left"
-					VerticalAlignment="Top"
-					IsVisible="{Binding QuickAdd.IsOpen}">
-				<StackPanel Spacing="8">
-					<TextBox x:Name="QuickAddBox"
-							 PlaceholderText="{Binding Loc[QuickAdd_Placeholder]}"
-							 Text="{Binding QuickAdd.SearchText}" />
+			<!-- Quick add: categories that open a side menu of nodes, or search results once something is typed -->
+			<Grid x:Name="QuickAddHost"
+				  ColumnDefinitions="Auto,Auto"
+				  HorizontalAlignment="Left"
+				  VerticalAlignment="Top"
+				  IsVisible="{Binding QuickAdd.IsOpen}">
+				<ctl:RoundedFrame x:Name="QuickAddMenu"
+								  Grid.Column="0"
+								  Width="340"
+								  CornerRadius="16"
+								  Shadow="{DynamicResource MM.Shadow.Node}">
+					<DockPanel>
+						<TextBox x:Name="QuickAddBox"
+								 DockPanel.Dock="Top"
+								 Margin="8"
+								 PlaceholderText="{Binding Loc[QuickAdd_Placeholder]}"
+								 Text="{Binding QuickAdd.SearchText}" />
 
-					<ListBox x:Name="QuickAddList"
-							 MaxHeight="320"
-							 Background="Transparent"
-							 BorderThickness="0"
-							 ItemsSource="{Binding QuickAdd.Results}"
-							 SelectedItem="{Binding QuickAdd.SelectedItem}"
-							 IsVisible="{Binding QuickAdd.HasResults}">
-						<ListBox.ItemContainerTheme>
-							<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-								<Setter Property="Padding" Value="8,6" />
-								<Setter Property="CornerRadius" Value="8" />
-							</ControlTheme>
-						</ListBox.ItemContainerTheme>
-						<ListBox.ItemTemplate>
-							<DataTemplate x:DataType="library:LibraryNodeViewModel">
-								<Grid ColumnDefinitions="Auto,*,Auto">
-									<ctl:TonePill Width="30"
-												  Height="30"
-												  CornerRadius="8"
-												  VerticalAlignment="Center"
-												  Tone="{Binding Tone}">
-										<ctl:Icon Key="{Binding IconKey}"
-												  Width="16"
-												  Height="16"
-												  HorizontalAlignment="Center"
-												  VerticalAlignment="Center" />
-									</ctl:TonePill>
-									<StackPanel Grid.Column="1" Margin="10,0" VerticalAlignment="Center">
-										<TextBlock FontWeight="SemiBold"
-												   TextTrimming="CharacterEllipsis"
-												   Text="{Binding Title}" />
-										<TextBlock Classes="caption muted"
-												   TextTrimming="CharacterEllipsis"
-												   Text="{Binding Description}" />
-									</StackPanel>
-									<TextBlock Grid.Column="2"
-											   Classes="caption muted"
-											   VerticalAlignment="Center"
-											   Text="{Binding CategoryTitle}" />
-								</Grid>
-							</DataTemplate>
-						</ListBox.ItemTemplate>
-					</ListBox>
+						<ScrollViewer VerticalScrollBarVisibility="Auto"
+									  IsVisible="{Binding QuickAdd.ShowCategories}">
+							<ItemsControl Margin="6,0,6,6" ItemsSource="{Binding QuickAdd.Categories}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate x:DataType="library:LibrarySectionViewModel">
+										<Button Classes="menu-item"
+												Classes.selected="{Binding IsExpanded}"
+												Click="OnQuickAddCategoryClick"
+												PointerEntered="OnQuickAddCategoryEntered">
+											<Grid ColumnDefinitions="Auto,*,Auto">
+												<ctl:TonePill Width="28"
+															  Height="28"
+															  CornerRadius="8"
+															  VerticalAlignment="Center"
+															  Tone="{Binding Tone}">
+													<ctl:Icon Key="{Binding IconKey}"
+															  Width="15"
+															  Height="15"
+															  HorizontalAlignment="Center"
+															  VerticalAlignment="Center" />
+												</ctl:TonePill>
+												<TextBlock Grid.Column="1"
+														   Margin="10,0"
+														   VerticalAlignment="Center"
+														   Text="{Binding Title}" />
+												<ctl:Icon Grid.Column="2"
+														  Key="chevron-right"
+														  Width="14"
+														  Height="14"
+														  VerticalAlignment="Center"
+														  Foreground="{DynamicResource MM.Brush.TextMuted}" />
+											</Grid>
+										</Button>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</ScrollViewer>
 
-					<TextBlock Classes="secondary"
-							   Margin="4,2"
-							   IsVisible="{Binding !QuickAdd.HasResults}"
-							   Text="{Binding Loc[QuickAdd_NoResults]}" />
-				</StackPanel>
-			</Border>
+						<ScrollViewer VerticalScrollBarVisibility="Auto"
+									  IsVisible="{Binding QuickAdd.IsSearching}">
+							<StackPanel>
+								<ListBox x:Name="QuickAddList"
+										 Margin="6,0,6,6"
+										 Background="Transparent"
+										 BorderThickness="0"
+										 ItemsSource="{Binding QuickAdd.Results}"
+										 SelectedItem="{Binding QuickAdd.SelectedItem}"
+										 ItemTemplate="{StaticResource QuickAddNodeTemplate}"
+										 IsVisible="{Binding QuickAdd.HasResults}">
+									<ListBox.ItemContainerTheme>
+										<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+											<Setter Property="Padding" Value="8,6" />
+											<Setter Property="CornerRadius" Value="8" />
+										</ControlTheme>
+									</ListBox.ItemContainerTheme>
+								</ListBox>
+								<TextBlock Classes="secondary"
+										   Margin="14,2,14,12"
+										   IsVisible="{Binding !QuickAdd.HasResults}"
+										   Text="{Binding Loc[QuickAdd_NoResults]}" />
+							</StackPanel>
+						</ScrollViewer>
+					</DockPanel>
+				</ctl:RoundedFrame>
+
+				<ctl:RoundedFrame x:Name="QuickAddSubmenu"
+								  Grid.Column="1"
+								  Width="300"
+								  Margin="6,0,0,0"
+								  VerticalAlignment="Top"
+								  CornerRadius="16"
+								  Shadow="{DynamicResource MM.Shadow.Node}"
+								  IsVisible="{Binding QuickAdd.HasActiveCategory}">
+					<DockPanel>
+						<TextBlock DockPanel.Dock="Top"
+								   Classes="caption muted"
+								   Margin="16,12,16,6"
+								   Text="{Binding QuickAdd.ActiveCategory.Title}" />
+						<ScrollViewer VerticalScrollBarVisibility="Auto">
+							<ListBox x:Name="QuickAddSubList"
+									 Margin="6,0,6,6"
+									 Background="Transparent"
+									 BorderThickness="0"
+									 ItemsSource="{Binding QuickAdd.ActiveCategory.Items}"
+									 ItemTemplate="{StaticResource QuickAddNodeTemplate}">
+								<ListBox.ItemContainerTheme>
+									<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+										<Setter Property="Padding" Value="8,6" />
+										<Setter Property="CornerRadius" Value="8" />
+									</ControlTheme>
+								</ListBox.ItemContainerTheme>
+							</ListBox>
+						</ScrollViewer>
+					</DockPanel>
+				</ctl:RoundedFrame>
+			</Grid>
 
 			<!-- Canvas toolbar -->
 			<Border Classes="floating"
@@ -302,10 +396,23 @@
 					</Button>
 					<Button Classes="icon"
 							MinWidth="52"
-							Command="{Binding ResetZoomCommand}"
-							ToolTip.Tip="{Binding Loc[Canvas_ResetZoom]}">
+							ToolTip.Tip="{Binding Loc[Canvas_ZoomMenu]}">
 						<TextBlock FontSize="{DynamicResource MM.FontSize.Small}"
 								   Text="{Binding Viewport.ZoomText}" />
+						<Button.Flyout>
+							<Flyout Placement="TopEdgeAlignedLeft" ShowMode="Standard">
+								<ItemsControl ItemsSource="{Binding ZoomPresets}">
+									<ItemsControl.ItemTemplate>
+										<DataTemplate x:DataType="canvas:ZoomPreset">
+											<Button Classes="menu-item"
+													Command="{Binding $parent[ItemsControl].((canvas:GraphEditorViewModel)DataContext).SetZoomCommand}"
+													CommandParameter="{Binding Zoom}"
+													Content="{Binding Text}" />
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</ItemsControl>
+							</Flyout>
+						</Button.Flyout>
 					</Button>
 					<Button Classes="icon"
 							Command="{Binding ZoomInCommand}"

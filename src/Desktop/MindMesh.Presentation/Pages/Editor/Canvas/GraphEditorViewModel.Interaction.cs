@@ -19,6 +19,7 @@ public sealed partial class GraphEditorViewModel
 	private const double PasteStep = 32;
 
 	private DragSession? _drag;
+	private ResizeSession? _resize;
 	private ConnectionViewModel? _reconnecting;
 	private readonly List<PortViewModel> _hintedPorts = [];
 
@@ -131,6 +132,65 @@ public sealed partial class GraphEditorViewModel
 	}
 
 	public bool IsDraggingNodes => _drag?.Moved == true;
+
+	// ---- Resizing nodes ----------------------------------------------------------------------------------------
+
+	private sealed record ResizeSession(NodeViewModel Node, Point2D StartWorld, double StartWidth, double StartHeight, NodeSize? OriginalSize);
+
+	/// <summary>The node whose bottom-right resize handle is under a world point.</summary>
+	public NodeViewModel? HitTestResizeHandle(Point2D world)
+	{
+		double reach = NodeMetrics.ResizeHandleSize / Viewport.Zoom;
+
+		return Nodes
+			.Where(node => node.IsInViewport && !node.IsCollapsed)
+			.OrderByDescending(node => node.ZIndex)
+			.FirstOrDefault(node =>
+				world.X <= node.X + node.Width && world.X >= node.X + node.Width - reach
+				&& world.Y <= node.Y + node.Height && world.Y >= node.Y + node.Height - reach);
+	}
+
+	public void BeginNodeResize(NodeViewModel node, Point2D world)
+	{
+		SetSelection([node]);
+		BringToFront(node);
+		_resize = new ResizeSession(node, world, node.Width, node.Height, Document.Layout.GetSize(node.Id));
+	}
+
+	public void UpdateNodeResize(Point2D world)
+	{
+		if (_resize is not { } resize)
+			return;
+
+		double width = Math.Clamp(Snap(resize.StartWidth + (world.X - resize.StartWorld.X)), NodeMetrics.MinimumWidth, NodeMetrics.MaximumWidth);
+		double height = Math.Clamp(Snap(resize.StartHeight + (world.Y - resize.StartWorld.Y)), resize.Node.MinimumHeight, Math.Max(resize.Node.MinimumHeight, NodeMetrics.MaximumHeight));
+
+		Document.Layout.SetSize(resize.Node.Id, new NodeSize(width, height));
+	}
+
+	/// <summary>Finishes resizing; a changed size becomes one undoable step.</summary>
+	public void EndNodeResize()
+	{
+		ResizeSession? resize = _resize;
+		_resize = null;
+
+		if (resize is null)
+			return;
+
+		ResizeNodeCommand command = new(resize.Node.Id, resize.OriginalSize, Document.Layout.GetSize(resize.Node.Id));
+
+		if (!command.IsEmpty)
+			Document.Execute(command);
+	}
+
+	public void CancelNodeResize()
+	{
+		ResizeSession? resize = _resize;
+		_resize = null;
+
+		if (resize is not null)
+			Document.Layout.SetSize(resize.Node.Id, resize.OriginalSize);
+	}
 
 	// ---- Connecting --------------------------------------------------------------------------------------------
 

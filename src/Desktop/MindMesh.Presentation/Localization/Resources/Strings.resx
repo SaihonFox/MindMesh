@@ -123,6 +123,12 @@
   <data name="Sidebar_Toggle" xml:space="preserve">
     <value>Collapse or expand the sidebar</value>
   </data>
+  <data name="Sidebar_Collapse" xml:space="preserve">
+    <value>Collapse</value>
+  </data>
+  <data name="Sidebar_Expand" xml:space="preserve">
+    <value>Expand</value>
+  </data>
   <data name="Panel_NodeLibrary" xml:space="preserve">
     <value>Node library</value>
   </data>
@@ -698,6 +704,9 @@
   </data>
   <data name="Canvas_ZoomOut" xml:space="preserve">
     <value>Zoom out</value>
+  </data>
+  <data name="Canvas_ZoomMenu" xml:space="preserve">
+    <value>Choose zoom</value>
   </data>
   <data name="Canvas_ResetZoom" xml:space="preserve">
     <value>Reset zoom to 100%</value>

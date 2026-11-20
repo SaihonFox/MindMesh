@@ -9,6 +9,7 @@
 		<DataTemplate x:Key="NavItemTemplate" x:DataType="shell:NavigationItemViewModel">
 			<Button Classes="nav"
 					Classes.selected="{Binding IsSelected}"
+					Classes.compact="{Binding IsCompact}"
 					Command="{Binding ActivateCommand}"
 					ToolTip.Tip="{Binding Title}">
 				<StackPanel Orientation="Horizontal" Spacing="12">
@@ -21,21 +22,27 @@
 		</DataTemplate>
 	</UserControl.Resources>
 
-	<Border Classes="sidebar" Width="{Binding Width}">
-		<Border.Transitions>
+	<ctl:RoundedFrame Classes="sidebar" Width="{Binding Width}">
+		<ctl:RoundedFrame.Transitions>
 			<Transitions>
 				<DoubleTransition Property="Width" Duration="0:0:0.16" Easing="CubicEaseOut" />
 			</Transitions>
-		</Border.Transitions>
+		</ctl:RoundedFrame.Transitions>
 
 		<DockPanel LastChildFill="True">
 			<StackPanel DockPanel.Dock="Bottom" Margin="0,0,0,8">
 				<ItemsControl ItemsSource="{Binding FooterItems}"
 							  ItemTemplate="{StaticResource NavItemTemplate}" />
 				<Button Classes="nav"
+						Classes.compact="{Binding IsCompact}"
 						Command="{Binding ToggleCompactCommand}"
 						ToolTip.Tip="{Binding Loc[Sidebar_Toggle]}">
-					<ctl:Icon Key="panel-left" Width="18" Height="18" />
+					<StackPanel Orientation="Horizontal" Spacing="12">
+						<ctl:Icon Key="panel-left" Width="18" Height="18" />
+						<TextBlock Text="{Binding ToggleTitle}"
+								   IsVisible="{Binding !IsCompact}"
+								   VerticalAlignment="Center" />
+					</StackPanel>
 				</Button>
 			</StackPanel>
 
@@ -43,6 +50,6 @@
 						  ItemsSource="{Binding Items}"
 						  ItemTemplate="{StaticResource NavItemTemplate}" />
 		</DockPanel>
-	</Border>
+	</ctl:RoundedFrame>
 
 </UserControl>
