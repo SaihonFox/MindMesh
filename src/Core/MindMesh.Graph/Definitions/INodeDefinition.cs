@@ -29,6 +29,9 @@ public interface INodeDefinition
 
 	IReadOnlyList<PortDefinition> Outputs { get; }
 
+	/// <summary>Groups of output ports whose number is chosen by a setting. Their ports come before <see cref="Outputs"/>.</summary>
+	IReadOnlyList<DynamicPortGroup> DynamicOutputs { get; }
+
 	/// <summary>The configuration schema: the inspector is built from it.</summary>
 	IReadOnlyList<ParameterDefinition> Parameters { get; }
 

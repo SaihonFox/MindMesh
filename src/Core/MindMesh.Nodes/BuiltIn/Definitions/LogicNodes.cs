@@ -5,6 +5,15 @@ namespace MindMesh.Nodes.BuiltIn.Definitions;
 
 internal static class LogicNodes
 {
+	/// <summary>How many cases a switch can have.</summary>
+	private const int MaximumSwitchCases = 20;
+
+	/// <summary>One "Case n equals" setting per possible case; case n is shown while the node has at least n cases.</summary>
+	private static IEnumerable<ParameterDefinition> CaseMatchParameters() =>
+		Enumerable.Range(1, MaximumSwitchCases).Select(number =>
+			Param.Text($"match{number}", $"Case {number} equals")
+				.When("caseCount", [.. Enumerable.Range(number, MaximumSwitchCases - number + 1).Select(count => count.ToString(System.Globalization.CultureInfo.InvariantCulture))]));
+
 	public static IEnumerable<INodeDefinition> Create()
 	{
 		yield return NodeDefinition.Create("logic.if", "If", BuiltInCategories.Logic, BuiltInCategories.Conditions)
@@ -24,14 +33,11 @@ internal static class LogicNodes
 			.Keywords("case", "route", "match")
 			.In("in", "In", PortType.Execution)
 			.In("value", "Value", PortType.Any)
-			.Out("case1", "Case 1", PortType.Execution)
-			.Out("case2", "Case 2", PortType.Execution)
-			.Out("case3", "Case 3", PortType.Execution)
+			.DynamicOutputs(new DynamicPortGroup("caseCount", "case{0}", "Case {0}", PortType.Execution, 2, 1, MaximumSwitchCases))
 			.Out("default", "Default", PortType.Execution)
 			.Param(Param.Expression("expression", "Value to match", "value", required: true))
-			.Param(Param.Text("match1", "Case 1 equals"))
-			.Param(Param.Text("match2", "Case 2 equals"))
-			.Param(Param.Text("match3", "Case 3 equals"))
+			.Param(Param.Number("caseCount", "Number of cases", 2, required: true, minimum: 1, maximum: MaximumSwitchCases))
+			.Params(CaseMatchParameters())
 			.Build();
 
 		yield return NodeDefinition.Create("logic.loop", "Loop", BuiltInCategories.Logic, BuiltInCategories.Loops)

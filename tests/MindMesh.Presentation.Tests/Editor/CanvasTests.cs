@@ -599,14 +599,18 @@ public class CanvasTests
 			seen.Add(viewport.ZoomText);
 		}
 
-		Assert.Equal(["150%", "200%", "300%", "400%"], seen);
+		Assert.Equal(["110%", "125%", "150%", "200%"], seen);
 
-		viewport.SetZoom(0.17);
-		viewport.ZoomIn();
+		// the lowest zoom is 25%
+		viewport.SetZoom(0.1);
 		Assert.Equal("25%", viewport.ZoomText);
 
+		viewport.ZoomIn();
+		Assert.Equal("35%", viewport.ZoomText);
+
 		viewport.ZoomOut();
-		Assert.Equal("10%", viewport.ZoomText);
+		viewport.ZoomOut();
+		Assert.Equal("25%", viewport.ZoomText);
 	}
 
 	[Fact]

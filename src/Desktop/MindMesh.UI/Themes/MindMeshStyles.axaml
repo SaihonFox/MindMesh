@@ -213,26 +213,18 @@
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
 	</Style>
 
-	<!-- Sidebar navigation button -->
+	<!-- Sidebar navigation button: a 40 px icon square at a fixed place; the same gap (8) on every side of it. -->
 	<Style Selector="Button.nav">
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.TextSecondary}" />
 		<Setter Property="Margin" Value="8,2" />
-		<Setter Property="Padding" Value="11,0" />
+		<Setter Property="Padding" Value="0" />
 		<Setter Property="Height" Value="40" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
-		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 		<Setter Property="VerticalContentAlignment" Value="Center" />
 		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
-	</Style>
-	<!-- Compact sidebar: every button is the same square with its icon exactly in the middle. -->
-	<Style Selector="Button.nav.compact">
-		<Setter Property="Width" Value="40" />
-		<Setter Property="Margin" Value="0,2" />
-		<Setter Property="Padding" Value="0" />
-		<Setter Property="HorizontalAlignment" Value="Center" />
-		<Setter Property="HorizontalContentAlignment" Value="Center" />
 	</Style>
 	<Style Selector="Button.nav:pointerover /template/ ContentPresenter#PART_ContentPresenter">
 		<Setter Property="Background" Value="{DynamicResource MM.Brush.Hover}" />
@@ -277,7 +269,7 @@
 		<Setter Property="Background" Value="Transparent" />
 		<Setter Property="BorderThickness" Value="0" />
 		<Setter Property="HorizontalAlignment" Value="Stretch" />
-		<Setter Property="HorizontalContentAlignment" Value="Left" />
+		<Setter Property="HorizontalContentAlignment" Value="Stretch" />
 		<Setter Property="Padding" Value="12,6" />
 		<Setter Property="MinWidth" Value="96" />
 		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
@@ -377,7 +369,8 @@
 	<Style Selector="Border.project-card Button.project-open:pointerover /template/ ContentPresenter#PART_ContentPresenter">
 		<Setter Property="Background" Value="Transparent" />
 	</Style>
-	<Style Selector="Border.project-card StackPanel.info">
+	<!-- Only a card with a description hides it below the edge and lifts it on hover. -->
+	<Style Selector="Border.project-card StackPanel.info.has-description">
 		<Setter Property="RenderTransform" Value="translateY(58px)" />
 		<Setter Property="Transitions">
 			<Transitions>
@@ -385,7 +378,7 @@
 			</Transitions>
 		</Setter>
 	</Style>
-	<Style Selector="Border.project-card:pointerover StackPanel.info">
+	<Style Selector="Border.project-card:pointerover StackPanel.info.has-description">
 		<Setter Property="RenderTransform" Value="translateY(0px)" />
 	</Style>
 	<Style Selector="Border.project-card TextBlock.card-title">
@@ -393,6 +386,14 @@
 		<Setter Property="FontWeight" Value="SemiBold" />
 		<Setter Property="Foreground" Value="White" />
 		<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+	</Style>
+	<Style Selector="Border.project-card TextBlock.card-title">
+		<Setter Property="MaxLines" Value="1" />
+	</Style>
+	<!-- A long title that was cut off is shown in full on hover; the text grows upwards from the bottom. -->
+	<Style Selector="Border.project-card:pointerover TextBlock.card-title">
+		<Setter Property="TextWrapping" Value="Wrap" />
+		<Setter Property="MaxLines" Value="4" />
 	</Style>
 	<Style Selector="Border.project-card TextBlock.card-description">
 		<Setter Property="Margin" Value="0,4,0,0" />

@@ -22,12 +22,14 @@ public static class NodeMetrics
 	public const double PortRadius = 6;
 
 	/// <summary>Full height of a card.</summary>
-	public static double GetHeight(INodeDefinition definition, bool collapsed)
+	public static double GetHeight(INodeDefinition definition, bool collapsed) =>
+		GetHeight(Math.Max(definition.Inputs.Count, definition.Outputs.Count), collapsed);
+
+	/// <summary>Full height of a card with the given number of port rows.</summary>
+	public static double GetHeight(int rows, bool collapsed)
 	{
 		if (collapsed)
 			return HeaderHeight;
-
-		var rows = Math.Max(definition.Inputs.Count, definition.Outputs.Count);
 
 		return rows == 0
 			? HeaderHeight

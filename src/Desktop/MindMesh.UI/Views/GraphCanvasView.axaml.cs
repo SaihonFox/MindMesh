@@ -60,7 +60,6 @@ public partial class GraphCanvasView : UserControl
 		QuickAddSubList.DoubleTapped += OnQuickAddItemActivated;
 		QuickAddSubList.Tapped += OnQuickAddItemActivated;
 		QuickAddMenu.SizeChanged += (_, _) => PlaceQuickAdd();
-		QuickAddSubmenu.SizeChanged += (_, _) => PlaceQuickAdd();
 		FindBox.KeyDown += OnFindKeyDown;
 	}
 
@@ -569,7 +568,6 @@ public partial class GraphCanvasView : UserControl
 		const double edge = 8;
 
 		QuickAddMenu.MaxHeight = Math.Max(160, Math.Min(Bounds.Height - (2 * edge), 460));
-		QuickAddSubmenu.MaxHeight = QuickAddMenu.MaxHeight;
 
 		double menuWidth = QuickAddMenu.Width;
 		double subWidth = _editor.QuickAdd.HasActiveCategory ? QuickAddSubmenu.Width + gap : 0;
@@ -593,8 +591,11 @@ public partial class GraphCanvasView : UserControl
 		Grid.SetColumn(QuickAddSubmenu, subOnLeft ? 0 : 1);
 		QuickAddSubmenu.Margin = subOnLeft ? new Thickness(0, 0, gap, 0) : new Thickness(gap, 0, 0, 0);
 
-		double height = Math.Max(QuickAddMenu.Bounds.Height, QuickAddSubmenu.Bounds.Height);
-		double y = Math.Clamp(_quickAddAnchor.Y, edge, Math.Max(edge, Bounds.Height - height - edge));
+		// The position depends only on the main menu, so hovering categories never moves anything.
+		// The side menu takes the room that is left below the menu's top.
+		double y = Math.Clamp(_quickAddAnchor.Y, edge, Math.Max(edge, Bounds.Height - QuickAddMenu.Bounds.Height - edge));
+
+		QuickAddSubmenu.MaxHeight = Math.Max(160, Math.Min(460, Bounds.Height - y - edge));
 
 		QuickAddHost.Margin = new Thickness(Math.Max(edge, x), y, 0, 0);
 	}

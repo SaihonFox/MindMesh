@@ -3,14 +3,29 @@ using System.IO.Compression;
 namespace MindMesh.Presentation.Projects.Covers;
 
 /// <summary>
-/// Draws a random colorful abstract picture (soft color blobs on a gradient) and encodes it as PNG.
+/// Draws a random colorful abstract picture in a pixel-art style (large square pixels, a small palette, ordered
+/// dithering) and encodes it as PNG.
 /// The same seed always gives the same picture. No UI types are needed, so it works in tests too.
 /// </summary>
 public static class CoverGenerator
 {
 	public const int Width = 480;
 
-	public const int Height = 270;
+	public const int Height = 288;
+
+	/// <summary>The side of one big pixel of the picture.</summary>
+	public const int CellSize = 16;
+
+	/// <summary>How many shades each color channel can have; few shades give the flat, pixel-art look.</summary>
+	private const int Levels = 6;
+
+	private static readonly int[,] _bayer =
+	{
+		{ 0, 8, 2, 10 },
+		{ 12, 4, 14, 6 },
+		{ 3, 11, 1, 9 },
+		{ 15, 7, 13, 5 },
+	};
 
 	private static readonly uint[] _crcTable = BuildCrcTable();
 
@@ -47,13 +62,19 @@ public static class CoverGenerator
 		{
 			for (int x = 0; x < width; x++)
 			{
-				double t = ((double)y / height * 0.7) + ((double)x / width * 0.3);
+				// every pixel of a cell takes the color of the cell's center
+				int cellX = x / CellSize;
+				int cellY = y / CellSize;
+				double sampleX = (cellX * CellSize) + (CellSize / 2.0);
+				double sampleY = (cellY * CellSize) + (CellSize / 2.0);
+
+				double t = (sampleY / height * 0.7) + (sampleX / width * 0.3);
 				(double red, double green, double blue) = FromHsv(topHue + ((bottomHue - topHue) * t), 0.55, 0.42 + (0.18 * (1 - t)));
 
 				foreach ((double blobX, double blobY, double radius, double hue) in blobs)
 				{
-					double dx = x - blobX;
-					double dy = y - blobY;
+					double dx = sampleX - blobX;
+					double dy = sampleY - blobY;
 					double distance = ((dx * dx) + (dy * dy)) / (radius * radius);
 
 					if (distance >= 1)
@@ -69,13 +90,22 @@ public static class CoverGenerator
 
 				int index = ((y * width) + x) * 3;
 
-				pixels[index] = ToByte(red);
-				pixels[index + 1] = ToByte(green);
-				pixels[index + 2] = ToByte(blue);
+				double dither = ((_bayer[cellY % 4, cellX % 4] / 16.0) - 0.47) / Levels;
+
+				pixels[index] = Quantize(red + dither);
+				pixels[index + 1] = Quantize(green + dither);
+				pixels[index + 2] = Quantize(blue + dither);
 			}
 		}
 
 		return pixels;
+	}
+
+	private static byte Quantize(double value)
+	{
+		int level = (int)Math.Round(Math.Clamp(value, 0, 1) * (Levels - 1));
+
+		return (byte)Math.Round(level * 255.0 / (Levels - 1));
 	}
 
 	private static byte ToByte(double value) => (byte)Math.Clamp((int)Math.Round(value * 255), 0, 255);

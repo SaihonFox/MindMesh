@@ -1,5 +1,6 @@
 using MindMesh.Graph.Definitions;
 using MindMesh.Graph.Identifiers;
+using MindMesh.Graph.Ports;
 
 namespace MindMesh.Graph.Model;
 
@@ -47,6 +48,27 @@ public sealed class NodeInstance
 	public bool IsDisabled { get; internal set; }
 
 	public IReadOnlyDictionary<string, ParameterValue> Parameters => _parameters;
+
+	/// <summary>The input ports of the node.</summary>
+	public IReadOnlyList<PortDefinition> Inputs => Definition.Inputs;
+
+	/// <summary>The output ports: the ones of the dynamic groups for the current settings, then the fixed ones.</summary>
+	public IReadOnlyList<PortDefinition> Outputs => Definition.DynamicOutputs.Count == 0
+		? Definition.Outputs
+		:
+		[
+			.. Definition.DynamicOutputs.SelectMany(group => group.Create(group.CountOf(_parameters))),
+			.. Definition.Outputs,
+		];
+
+	/// <summary>Finds a port of the node by key, taking the current number of dynamic ports into account.</summary>
+	public PortDefinition? FindPort(string key, PortDirection direction)
+	{
+		if (direction == PortDirection.Input)
+			return Definition.FindPort(key, direction);
+
+		return Outputs.FirstOrDefault(port => port.Key == key);
+	}
 
 	public string DisplayTitle => string.IsNullOrWhiteSpace(Title) ? Definition.Name : Title;
 

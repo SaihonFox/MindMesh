@@ -6,7 +6,7 @@ namespace MindMesh.Presentation.Geometry;
 /// </summary>
 public sealed class ViewportState
 {
-	public const double MinimumZoom = 0.05;
+	public const double MinimumZoom = 0.25;
 	public const double MaximumZoom = 4.0;
 
 	public double Zoom { get; private set; } = 1;

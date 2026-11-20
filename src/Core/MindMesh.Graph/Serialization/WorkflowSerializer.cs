@@ -366,8 +366,8 @@ public sealed class WorkflowSerializer
 		}
 
 		// The file stores the output as "from" and the input as "to"; anything else is a damaged file.
-		var sourceIsOutput = graph.FindNode(source.Node)?.Definition.FindPort(source.PortKey, PortDirection.Output) is not null;
-		var targetIsInput = graph.FindNode(target.Node)?.Definition.FindPort(target.PortKey, PortDirection.Input) is not null;
+		var sourceIsOutput = graph.FindNode(source.Node)?.FindPort(source.PortKey, PortDirection.Output) is not null;
+		var targetIsInput = graph.FindNode(target.Node)?.FindPort(target.PortKey, PortDirection.Input) is not null;
 
 		if (!sourceIsOutput || !targetIsInput)
 		{

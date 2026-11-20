@@ -24,7 +24,7 @@ public sealed class ConnectCommand(PortReference first, PortReference second) : 
 		if (!check.IsAllowed)
 			throw new InvalidOperationException($"The connection is not allowed: {check.Rejection}.");
 
-		var source = document.Graph.FindNode(first.Node)?.Definition.FindPort(first.PortKey, PortDirection.Output) is not null
+		var source = document.Graph.FindNode(first.Node)?.FindPort(first.PortKey, PortDirection.Output) is not null
 			? first
 			: second;
 		var target = source == first ? second : first;

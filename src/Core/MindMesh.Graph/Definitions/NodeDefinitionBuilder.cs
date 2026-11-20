@@ -14,6 +14,7 @@ public sealed class NodeDefinitionBuilder
 	private readonly List<PortDefinition> _inputs = [];
 	private readonly List<PortDefinition> _outputs = [];
 	private readonly List<ParameterDefinition> _parameters = [];
+	private readonly List<DynamicPortGroup> _dynamicOutputs = [];
 	private string _description = string.Empty;
 	private string _iconKey = "node";
 	private string[] _keywords = [];
@@ -101,6 +102,19 @@ public sealed class NodeDefinitionBuilder
 		return this;
 	}
 
+	/// <summary>Adds output ports whose number the user sets (the cases of a switch). The setting itself is added with <see cref="Param"/>.</summary>
+	public NodeDefinitionBuilder DynamicOutputs(DynamicPortGroup group)
+	{
+		_dynamicOutputs.Add(group);
+		return this;
+	}
+
+	public NodeDefinitionBuilder Params(IEnumerable<ParameterDefinition> parameters)
+	{
+		_parameters.AddRange(parameters);
+		return this;
+	}
+
 	public NodeDefinitionBuilder Param(ParameterDefinition parameter)
 	{
 		_parameters.Add(parameter);
@@ -129,6 +143,7 @@ public sealed class NodeDefinitionBuilder
 			_inputs,
 			_outputs,
 			_parameters,
-			_keywords);
+			_keywords,
+			_dynamicOutputs);
 	}
 }

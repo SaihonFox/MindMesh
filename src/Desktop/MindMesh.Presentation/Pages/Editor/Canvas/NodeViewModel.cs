@@ -78,8 +78,8 @@ public sealed partial class NodeViewModel : ViewModelBase
 		_text = text;
 		_isDisabled = node.IsDisabled;
 
-		Inputs = [.. node.Definition.Inputs.Select((port, index) => new PortViewModel(this, port, index))];
-		Outputs = [.. node.Definition.Outputs.Select((port, index) => new PortViewModel(this, port, index))];
+		Inputs = [.. node.Inputs.Select((port, index) => new PortViewModel(this, port, index))];
+		Outputs = [.. node.Outputs.Select((port, index) => new PortViewModel(this, port, index))];
 		Ports = [.. Inputs, .. Outputs];
 	}
 
@@ -103,7 +103,7 @@ public sealed partial class NodeViewModel : ViewModelBase
 	public double Width => Math.Clamp(CustomSize?.Width ?? NodeMetrics.Width, NodeMetrics.MinimumWidth, NodeMetrics.MaximumWidth);
 
 	/// <summary>The height a card needs for its header and ports; it cannot be made smaller than this.</summary>
-	public double MinimumHeight => NodeMetrics.GetHeight(Definition, IsCollapsed);
+	public double MinimumHeight => NodeMetrics.GetHeight(Math.Max(Inputs.Count, Outputs.Count), IsCollapsed);
 
 	public double Height => Math.Clamp(CustomSize?.Height ?? 0, MinimumHeight, Math.Max(MinimumHeight, NodeMetrics.MaximumHeight));
 

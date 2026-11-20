@@ -23,7 +23,8 @@ public sealed class NodeDefinition : INodeDefinition
 		IReadOnlyList<PortDefinition> inputs,
 		IReadOnlyList<PortDefinition> outputs,
 		IReadOnlyList<ParameterDefinition> parameters,
-		IReadOnlyList<string> keywords)
+		IReadOnlyList<string> keywords,
+		IReadOnlyList<DynamicPortGroup> dynamicOutputs)
 	{
 		Id = id;
 		Name = name;
@@ -35,6 +36,7 @@ public sealed class NodeDefinition : INodeDefinition
 		Outputs = outputs;
 		Parameters = parameters;
 		Keywords = keywords;
+		DynamicOutputs = dynamicOutputs;
 
 		_inputsByKey = inputs.ToDictionary(port => port.Key, StringComparer.Ordinal);
 		_outputsByKey = outputs.ToDictionary(port => port.Key, StringComparer.Ordinal);
@@ -60,15 +62,28 @@ public sealed class NodeDefinition : INodeDefinition
 
 	public IReadOnlyList<string> Keywords { get; }
 
+	public IReadOnlyList<DynamicPortGroup> DynamicOutputs { get; }
+
 	/// <summary>Starts the description of a node type.</summary>
 	public static NodeDefinitionBuilder Create(string id, string name, NodeCategoryId category, params NodeCategoryId[] alsoIn) =>
 		new(id, name, [category, .. alsoIn]);
 
 	public PortDefinition? FindPort(string key, PortDirection direction)
 	{
-		var map = direction == PortDirection.Input ? _inputsByKey : _outputsByKey;
+		if (direction == PortDirection.Input)
+			return _inputsByKey.GetValueOrDefault(key);
 
-		return map.GetValueOrDefault(key);
+		if (_outputsByKey.TryGetValue(key, out PortDefinition? port))
+			return port;
+
+		// A port of a dynamic group: any number up to the maximum may exist on some node of this type.
+		foreach (DynamicPortGroup group in DynamicOutputs)
+		{
+			if (group.NumberOf(key) is { } number)
+				return group.Create(number)[number - 1];
+		}
+
+		return null;
 	}
 
 	public IReadOnlyList<ValidationIssue> Validate(NodeInstance node)

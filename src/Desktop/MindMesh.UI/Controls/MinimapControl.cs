@@ -71,7 +71,8 @@ public sealed class MinimapControl : Control
 			}
 		}
 
-		var view = map.ViewportRect;
+		// Computed from the live viewport, so the frame follows the pointer at every step of a drag.
+		var view = map.WorldToMinimap(editor.Viewport.VisibleWorld);
 		var accent = Find("MM.Brush.Accent");
 		var fill = Find("MM.Brush.Selection");
 
@@ -98,6 +99,7 @@ public sealed class MinimapControl : Control
 		if (_isDragging)
 		{
 			_attached?.Minimap.DragTo(ToMapPoint(e));
+			InvalidateVisual();
 			e.Handled = true;
 		}
 	}
@@ -141,6 +143,7 @@ public sealed class MinimapControl : Control
 		if (oldEditor is not null)
 		{
 			oldEditor.Minimap.Changed -= OnMapChanged;
+			oldEditor.Viewport.Changed -= OnMapChanged;
 			oldEditor.Nodes.CollectionChanged -= OnNodesChanged;
 
 			foreach (var node in _watched)
@@ -154,6 +157,7 @@ public sealed class MinimapControl : Control
 		if (newEditor is not null)
 		{
 			newEditor.Minimap.Changed += OnMapChanged;
+			newEditor.Viewport.Changed += OnMapChanged;
 			newEditor.Nodes.CollectionChanged += OnNodesChanged;
 
 			foreach (var node in newEditor.Nodes)

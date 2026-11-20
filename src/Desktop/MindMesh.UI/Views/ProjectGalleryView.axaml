@@ -51,11 +51,12 @@
 			</ItemsControl.ItemsPanel>
 			<ItemsControl.ItemTemplate>
 				<DataTemplate x:DataType="projects:ProjectItemViewModel">
-					<Border Classes="project-card" Width="248" Height="156" Margin="0,0,14,14">
+					<Border Classes="project-card" Width="240" Height="144" Margin="0,0,14,14">
 						<Grid>
 							<Border Classes="cover-fallback" />
 
 							<Image Classes="cover"
+								   RenderOptions.BitmapInterpolationMode="None"
 								   Stretch="UniformToFill"
 								   Source="{Binding CoverPath, Converter={x:Static conv:CoverImageConverter.Instance}}" />
 
@@ -69,6 +70,7 @@
 
 							<!-- title slides up on hover and reveals the description -->
 							<StackPanel Classes="info"
+										Classes.has-description="{Binding HasDescription}"
 										VerticalAlignment="Bottom"
 										Margin="14,0,14,12"
 										IsHitTestVisible="False">
@@ -77,6 +79,7 @@
 										   IsVisible="{Binding !IsRenaming}" />
 								<TextBlock Classes="card-description"
 										   Height="54"
+										   IsVisible="{Binding HasDescription}"
 										   TextWrapping="Wrap"
 										   TextTrimming="CharacterEllipsis"
 										   Text="{Binding Description}" />

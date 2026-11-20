@@ -212,7 +212,7 @@ public sealed class NodeGraph
 	}
 
 	private static PortDefinition? FindAnyPort(NodeInstance node, string key) =>
-		node.Definition.FindPort(key, PortDirection.Input) ?? node.Definition.FindPort(key, PortDirection.Output);
+		node.FindPort(key, PortDirection.Input) ?? node.FindPort(key, PortDirection.Output);
 
 	private void AddToPort(PortReference port, Connection connection)
 	{

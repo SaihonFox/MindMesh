@@ -215,6 +215,9 @@ public sealed partial class GraphEditorViewModel
 
 	private void RaiseSelectionChanged()
 	{
+		if (_isRebuildingNode)
+			return;
+
 		OnPropertyChanged(nameof(SelectedNodes));
 		OnPropertyChanged(nameof(HasSelection));
 		SelectionChanged?.Invoke(this, EventArgs.Empty);

@@ -31,6 +31,7 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	private readonly NodeText _text;
 	private readonly EditorWorkspace _workspace;
 	private readonly GraphClipboard _clipboard;
+	private bool _isRebuildingNode;
 	private readonly Dictionary<NodeId, NodeViewModel> _nodesById = [];
 	private readonly Dictionary<ConnectionId, ConnectionViewModel> _connectionsById = [];
 	private readonly Dictionary<NodeId, List<ConnectionViewModel>> _connectionsByNode = [];
@@ -238,6 +239,10 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 				break;
 
 			case ParameterChanged parameterChanged:
+				if (FindNode(parameterChanged.Node) is { } changedNode
+					&& changedNode.Definition.DynamicOutputs.Any(group => group.CountParameter == parameterChanged.Key))
+					RebuildNodeViewModel(changedNode);
+
 				ValidateNode(parameterChanged.Node);
 				break;
 
@@ -295,6 +300,46 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 		node.SetIssues(NodeValidator.Validate(instance, Document.Graph));
 		UpdateCulling(node);
 		OnPropertyChanged(nameof(HasNodes));
+	}
+
+	/// <summary>
+	/// Builds the card of a node again after its number of ports changed (the cases of a switch). The selection
+	/// stays as it was and its change is not announced, so the inspector the user is typing in is left alone.
+	/// </summary>
+	private void RebuildNodeViewModel(NodeViewModel old)
+	{
+		NodeInstance instance = old.Node;
+		bool wasSelected = old.IsSelected;
+		int zIndex = old.ZIndex;
+		List<Connection> attached = [.. Document.Graph.GetConnections(instance.Id)];
+
+		_isRebuildingNode = true;
+
+		try
+		{
+			foreach (Connection connection in attached)
+				RemoveConnectionViewModel(connection);
+
+			RemoveNodeViewModel(instance.Id);
+			AddNodeViewModel(instance);
+
+			NodeViewModel fresh = _nodesById[instance.Id];
+
+			fresh.ZIndex = zIndex;
+
+			if (wasSelected)
+			{
+				fresh.IsSelected = true;
+				_selected.Add(fresh);
+			}
+
+			foreach (Connection connection in attached)
+				AddConnectionViewModel(connection);
+		}
+		finally
+		{
+			_isRebuildingNode = false;
+		}
 	}
 
 	private void RemoveNodeViewModel(NodeId id)

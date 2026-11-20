@@ -323,30 +323,27 @@
 							</ItemsControl>
 						</ScrollViewer>
 
-						<ScrollViewer VerticalScrollBarVisibility="Auto"
-									  IsVisible="{Binding QuickAdd.IsSearching}">
-							<StackPanel>
-								<ListBox x:Name="QuickAddList"
-										 Margin="6,0,6,6"
-										 Background="Transparent"
-										 BorderThickness="0"
-										 ItemsSource="{Binding QuickAdd.Results}"
-										 SelectedItem="{Binding QuickAdd.SelectedItem}"
-										 ItemTemplate="{StaticResource QuickAddNodeTemplate}"
-										 IsVisible="{Binding QuickAdd.HasResults}">
-									<ListBox.ItemContainerTheme>
-										<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-											<Setter Property="Padding" Value="8,6" />
-											<Setter Property="CornerRadius" Value="8" />
-										</ControlTheme>
-									</ListBox.ItemContainerTheme>
-								</ListBox>
-								<TextBlock Classes="secondary"
-										   Margin="14,2,14,12"
-										   IsVisible="{Binding !QuickAdd.HasResults}"
-										   Text="{Binding Loc[QuickAdd_NoResults]}" />
-							</StackPanel>
-						</ScrollViewer>
+						<Panel IsVisible="{Binding QuickAdd.IsSearching}">
+							<ListBox x:Name="QuickAddList"
+									 Margin="6,0,6,6"
+									 Background="Transparent"
+									 BorderThickness="0"
+									 ItemsSource="{Binding QuickAdd.Results}"
+									 SelectedItem="{Binding QuickAdd.SelectedItem}"
+									 ItemTemplate="{StaticResource QuickAddNodeTemplate}"
+									 IsVisible="{Binding QuickAdd.HasResults}">
+								<ListBox.ItemContainerTheme>
+									<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+										<Setter Property="Padding" Value="8,6" />
+										<Setter Property="CornerRadius" Value="8" />
+									</ControlTheme>
+								</ListBox.ItemContainerTheme>
+							</ListBox>
+							<TextBlock Classes="secondary"
+									   Margin="14,2,14,12"
+									   IsVisible="{Binding !QuickAdd.HasResults}"
+									   Text="{Binding Loc[QuickAdd_NoResults]}" />
+						</Panel>
 					</DockPanel>
 				</ctl:RoundedFrame>
 
@@ -363,21 +360,19 @@
 								   Classes="caption muted"
 								   Margin="16,12,16,6"
 								   Text="{Binding QuickAdd.ActiveCategory.Title}" />
-						<ScrollViewer VerticalScrollBarVisibility="Auto">
-							<ListBox x:Name="QuickAddSubList"
-									 Margin="6,0,6,6"
-									 Background="Transparent"
-									 BorderThickness="0"
-									 ItemsSource="{Binding QuickAdd.ActiveCategory.Items}"
-									 ItemTemplate="{StaticResource QuickAddNodeTemplate}">
-								<ListBox.ItemContainerTheme>
-									<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
-										<Setter Property="Padding" Value="8,6" />
-										<Setter Property="CornerRadius" Value="8" />
-									</ControlTheme>
-								</ListBox.ItemContainerTheme>
-							</ListBox>
-						</ScrollViewer>
+						<ListBox x:Name="QuickAddSubList"
+								 Margin="6,0,6,6"
+								 Background="Transparent"
+								 BorderThickness="0"
+								 ItemsSource="{Binding QuickAdd.ActiveCategory.Items}"
+								 ItemTemplate="{StaticResource QuickAddNodeTemplate}">
+							<ListBox.ItemContainerTheme>
+								<ControlTheme TargetType="ListBoxItem" BasedOn="{StaticResource {x:Type ListBoxItem}}">
+									<Setter Property="Padding" Value="8,6" />
+									<Setter Property="CornerRadius" Value="8" />
+								</ControlTheme>
+							</ListBox.ItemContainerTheme>
+						</ListBox>
 					</DockPanel>
 				</ctl:RoundedFrame>
 			</Grid>
