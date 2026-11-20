@@ -14,6 +14,7 @@ using MindMesh.Presentation.Pages.Settings;
 using MindMesh.Presentation.Pages.Welcome;
 using MindMesh.Presentation.Platform;
 using MindMesh.Presentation.Projects;
+using MindMesh.Presentation.Projects.Covers;
 using MindMesh.Presentation.Shell;
 
 namespace MindMesh.Presentation.DependencyInjection;
@@ -38,6 +39,7 @@ public static class PresentationServiceCollectionExtensions
 		services.AddSingleton<HotkeyService>();
 		services.AddSingleton<EditorWorkspace>();
 		services.AddSingleton<ProjectService>();
+		services.AddSingleton<ProjectCovers>();
 		services.AddSingleton<NewProjectDialogViewModel>();
 		services.AddSingleton<NodeText>();
 		services.AddSingleton<GraphClipboard>();

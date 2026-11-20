@@ -6,7 +6,7 @@
 			 x:DataType="welcome:WelcomePageViewModel">
 
 	<ScrollViewer>
-		<StackPanel MaxWidth="780"
+		<StackPanel MaxWidth="820"
 					Margin="40,64"
 					Spacing="32"
 					HorizontalAlignment="Center">
@@ -75,6 +75,9 @@
 					</StackPanel>
 				</Button>
 			</StackPanel>
+
+			<!-- Projects: at the bottom of the screen, with search -->
+			<views:ProjectGalleryView DataContext="{Binding Projects}" />
 		</StackPanel>
 	</ScrollViewer>
 

@@ -333,6 +333,88 @@
 		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Accent}" />
 	</Style>
 
+	<!-- Project card: cover picture, title and description that slide up on hover -->
+	<Style Selector="Border.project-card">
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Large}" />
+		<Setter Property="ClipToBounds" Value="True" />
+		<Setter Property="BorderThickness" Value="1" />
+		<Setter Property="BorderBrush" Value="{DynamicResource MM.Brush.Border}" />
+	</Style>
+	<Style Selector="Border.project-card Border.cover-fallback">
+		<Setter Property="Background" Value="#14161C" />
+	</Style>
+	<Style Selector="Border.project-card Image.cover">
+		<Setter Property="Opacity" Value="1" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<DoubleTransition Property="Opacity" Duration="0:0:0.22" />
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="Border.project-card:pointerover Image.cover">
+		<Setter Property="Opacity" Value="0.22" />
+	</Style>
+	<Style Selector="Border.project-card Border.scrim">
+		<Setter Property="VerticalAlignment" Value="Bottom" />
+		<Setter Property="Height" Value="96" />
+		<Setter Property="Background">
+			<LinearGradientBrush StartPoint="0%,0%" EndPoint="0%,100%">
+				<GradientStop Offset="0" Color="#00000000" />
+				<GradientStop Offset="1" Color="#B0000000" />
+			</LinearGradientBrush>
+		</Setter>
+	</Style>
+	<Style Selector="Border.project-card:pointerover Border.scrim">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="Border.project-card Button.project-open">
+		<Setter Property="Background" Value="Transparent" />
+		<Setter Property="BorderThickness" Value="0" />
+		<Setter Property="HorizontalAlignment" Value="Stretch" />
+		<Setter Property="VerticalAlignment" Value="Stretch" />
+		<Setter Property="CornerRadius" Value="0" />
+	</Style>
+	<Style Selector="Border.project-card Button.project-open:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="Transparent" />
+	</Style>
+	<Style Selector="Border.project-card StackPanel.info">
+		<Setter Property="RenderTransform" Value="translateY(58px)" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<TransformOperationsTransition Property="RenderTransform" Duration="0:0:0.22" />
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="Border.project-card:pointerover StackPanel.info">
+		<Setter Property="RenderTransform" Value="translateY(0px)" />
+	</Style>
+	<Style Selector="Border.project-card TextBlock.card-title">
+		<Setter Property="FontSize" Value="16" />
+		<Setter Property="FontWeight" Value="SemiBold" />
+		<Setter Property="Foreground" Value="White" />
+		<Setter Property="TextTrimming" Value="CharacterEllipsis" />
+	</Style>
+	<Style Selector="Border.project-card TextBlock.card-description">
+		<Setter Property="Margin" Value="0,4,0,0" />
+		<Setter Property="Foreground" Value="#D5DAE4" />
+	</Style>
+	<Style Selector="Border.project-card StackPanel.actions">
+		<Setter Property="Opacity" Value="0" />
+		<Setter Property="Transitions">
+			<Transitions>
+				<DoubleTransition Property="Opacity" Duration="0:0:0.18" />
+			</Transitions>
+		</Setter>
+	</Style>
+	<Style Selector="Border.project-card:pointerover StackPanel.actions">
+		<Setter Property="Opacity" Value="1" />
+	</Style>
+	<Style Selector="Button.cover-action">
+		<Setter Property="Padding" Value="6" />
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.Panel}" />
+		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
+	</Style>
+
 	<!-- Menu -->
 	<Style Selector="Menu.user">
 		<Setter Property="Background" Value="Transparent" />

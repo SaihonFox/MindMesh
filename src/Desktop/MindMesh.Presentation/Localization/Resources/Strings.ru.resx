@@ -966,6 +966,24 @@
   <data name="Project_Cancel" xml:space="preserve">
     <value>Отмена</value>
   </data>
+  <data name="Project_Search" xml:space="preserve">
+    <value>Поиск проектов</value>
+  </data>
+  <data name="Project_NoMatches" xml:space="preserve">
+    <value>Нет проектов, подходящих под запрос.</value>
+  </data>
+  <data name="Project_ChooseCover" xml:space="preserve">
+    <value>Выберите изображение обложки</value>
+  </data>
+  <data name="Project_RandomCover" xml:space="preserve">
+    <value>Случайная обложка</value>
+  </data>
+  <data name="Project_ChangeCover" xml:space="preserve">
+    <value>Своё изображение…</value>
+  </data>
+  <data name="Project_YourProjects" xml:space="preserve">
+    <value>Ваши проекты</value>
+  </data>
   <data name="Project_Open" xml:space="preserve">
     <value>Открыть</value>
   </data>

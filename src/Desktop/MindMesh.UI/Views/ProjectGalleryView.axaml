@@ -1,0 +1,125 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:projects="using:MindMesh.Presentation.Projects"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 xmlns:conv="using:MindMesh.UI.Converters"
+			 x:Class="MindMesh.UI.Views.ProjectGalleryView"
+			 x:DataType="projects:ProjectsPageViewModel">
+
+	<StackPanel Spacing="16">
+
+		<Grid ColumnDefinitions="*,280">
+			<TextBlock Classes="h2"
+					   VerticalAlignment="Center"
+					   Text="{Binding Loc[Project_YourProjects]}" />
+			<TextBox Grid.Column="1"
+					 MaxLength="120"
+					 PlaceholderText="{Binding Loc[Project_Search]}"
+					 Text="{Binding Search, Mode=TwoWay}" />
+		</Grid>
+
+		<TextBlock Foreground="{DynamicResource MM.Brush.Error}"
+				   TextWrapping="Wrap"
+				   IsVisible="{Binding Message, Converter={x:Static ObjectConverters.IsNotNull}}"
+				   Text="{Binding Message}" />
+
+		<StackPanel Spacing="4"
+					HorizontalAlignment="Center"
+					Margin="0,32"
+					IsVisible="{Binding IsEmpty}">
+			<TextBlock Classes="h3"
+					   HorizontalAlignment="Center"
+					   Text="{Binding Loc[Project_ListEmpty]}" />
+			<TextBlock Classes="secondary"
+					   HorizontalAlignment="Center"
+					   TextAlignment="Center"
+					   TextWrapping="Wrap"
+					   Text="{Binding Loc[Project_ListEmptyHint]}" />
+		</StackPanel>
+
+		<TextBlock Classes="secondary"
+				   HorizontalAlignment="Center"
+				   Margin="0,24"
+				   IsVisible="{Binding HasNoMatches}"
+				   Text="{Binding Loc[Project_NoMatches]}" />
+
+		<ItemsControl ItemsSource="{Binding Items}">
+			<ItemsControl.ItemsPanel>
+				<ItemsPanelTemplate>
+					<WrapPanel />
+				</ItemsPanelTemplate>
+			</ItemsControl.ItemsPanel>
+			<ItemsControl.ItemTemplate>
+				<DataTemplate x:DataType="projects:ProjectItemViewModel">
+					<Border Classes="project-card" Width="248" Height="156" Margin="0,0,14,14">
+						<Grid>
+							<Border Classes="cover-fallback" />
+
+							<Image Classes="cover"
+								   Stretch="UniformToFill"
+								   Source="{Binding CoverPath, Converter={x:Static conv:CoverImageConverter.Instance}}" />
+
+							<!-- keeps white text readable on any picture -->
+							<Border Classes="scrim" IsHitTestVisible="False" />
+
+							<!-- the whole card opens the project -->
+							<Button Classes="project-open"
+									Command="{Binding OpenCommand}"
+									IsEnabled="{Binding IsReadable}" />
+
+							<!-- title slides up on hover and reveals the description -->
+							<StackPanel Classes="info"
+										VerticalAlignment="Bottom"
+										Margin="14,0,14,12"
+										IsHitTestVisible="False">
+								<TextBlock Classes="card-title"
+										   Text="{Binding Name}"
+										   IsVisible="{Binding !IsRenaming}" />
+								<TextBlock Classes="card-description"
+										   Height="54"
+										   TextWrapping="Wrap"
+										   TextTrimming="CharacterEllipsis"
+										   Text="{Binding Description}" />
+							</StackPanel>
+
+							<TextBox VerticalAlignment="Bottom"
+									 Margin="10,0,10,12"
+									 MaxLength="120"
+									 IsVisible="{Binding IsRenaming}"
+									 Text="{Binding RenameText, Mode=TwoWay}"
+									 LostFocus="OnRenameLostFocus"
+									 AttachedToVisualTree="OnRenameAttached">
+								<TextBox.KeyBindings>
+									<KeyBinding Gesture="Enter" Command="{Binding CommitRenameCommand}" />
+									<KeyBinding Gesture="Escape" Command="{Binding CancelRenameCommand}" />
+								</TextBox.KeyBindings>
+							</TextBox>
+
+							<!-- cover and rename actions appear on hover -->
+							<StackPanel Classes="actions"
+										Orientation="Horizontal"
+										Spacing="4"
+										HorizontalAlignment="Right"
+										VerticalAlignment="Top"
+										Margin="8">
+								<Button Classes="cover-action" Command="{Binding RerollCoverCommand}"
+										ToolTip.Tip="{Binding RerollLabel}">
+									<ctl:Icon Key="shuffle" Width="14" Height="14" />
+								</Button>
+								<Button Classes="cover-action" Command="{Binding ChooseCoverCommand}"
+										ToolTip.Tip="{Binding CoverLabel}">
+									<ctl:Icon Key="image" Width="14" Height="14" />
+								</Button>
+								<Button Classes="cover-action" Command="{Binding BeginRenameCommand}"
+										ToolTip.Tip="{Binding RenameLabel}">
+									<ctl:Icon Key="edit" Width="14" Height="14" />
+								</Button>
+							</StackPanel>
+						</Grid>
+					</Border>
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+	</StackPanel>
+
+</UserControl>

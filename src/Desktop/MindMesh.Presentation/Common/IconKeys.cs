@@ -44,6 +44,12 @@ public static class IconKeys
 	public const string Map = "map";
 	public const string Node = "node";
 
+	public const string Edit = "edit";
+
+	public const string Image = "image";
+
+	public const string Shuffle = "shuffle";
+
 	/// <summary>All keys, for tests and tooling.</summary>
 	public static IReadOnlyList<string> All { get; } =
 	[

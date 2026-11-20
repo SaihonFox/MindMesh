@@ -18,17 +18,24 @@ public sealed partial class WelcomePageViewModel : PageViewModel
 		ILocalizer localizer,
 		INavigationService navigation,
 		NewProjectDialogViewModel newProjectDialog,
+		ProjectsPageViewModel projects,
 		IAppInfo appInfo)
 		: base(PageKey.Welcome, localizer)
 	{
 		_navigation = navigation;
 		_newProjectDialog = newProjectDialog;
 
+		Projects = projects;
 		AppName = appInfo.Name;
 		Version = appInfo.Version;
 	}
 
+	/// <summary>The project gallery at the bottom of the screen, with its search.</summary>
+	public ProjectsPageViewModel Projects { get; }
+
 	public string AppName { get; }
+
+	public override void OnNavigatedTo() => Projects.OnNavigatedTo();
 
 	public string Version { get; }
 

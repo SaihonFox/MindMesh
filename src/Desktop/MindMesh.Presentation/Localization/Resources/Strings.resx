@@ -966,6 +966,24 @@
   <data name="Project_Cancel" xml:space="preserve">
     <value>Cancel</value>
   </data>
+  <data name="Project_Search" xml:space="preserve">
+    <value>Search projects</value>
+  </data>
+  <data name="Project_NoMatches" xml:space="preserve">
+    <value>No project matches your search.</value>
+  </data>
+  <data name="Project_ChooseCover" xml:space="preserve">
+    <value>Choose a cover image</value>
+  </data>
+  <data name="Project_RandomCover" xml:space="preserve">
+    <value>Random cover</value>
+  </data>
+  <data name="Project_ChangeCover" xml:space="preserve">
+    <value>Own image…</value>
+  </data>
+  <data name="Project_YourProjects" xml:space="preserve">
+    <value>Your projects</value>
+  </data>
   <data name="Project_Open" xml:space="preserve">
     <value>Open</value>
   </data>
