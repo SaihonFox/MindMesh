@@ -1,5 +1,6 @@
 <ResourceDictionary xmlns="https://github.com/avaloniaui"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:themes="using:MindMesh.UI.Themes">
 
 	<!--
 		Central palette of MindMesh. Every color of the application comes from here.
@@ -293,7 +294,7 @@
 
 		</ResourceDictionary>
 		<!-- Midnight: based on the dark theme -->
-		<ResourceDictionary x:Key="Midnight">
+		<ResourceDictionary x:Key="{x:Static themes:AppThemeVariants.Midnight}">
 
 			<!-- surfaces -->
 			<Color x:Key="MM.Color.Background">#0A0E1A</Color>
@@ -437,7 +438,7 @@
 
 		</ResourceDictionary>
 		<!-- Forest: based on the dark theme -->
-		<ResourceDictionary x:Key="Forest">
+		<ResourceDictionary x:Key="{x:Static themes:AppThemeVariants.Forest}">
 
 			<!-- surfaces -->
 			<Color x:Key="MM.Color.Background">#0F1511</Color>
@@ -581,7 +582,7 @@
 
 		</ResourceDictionary>
 		<!-- Ocean: based on the light theme -->
-		<ResourceDictionary x:Key="Ocean">
+		<ResourceDictionary x:Key="{x:Static themes:AppThemeVariants.Ocean}">
 
 			<!-- surfaces -->
 			<Color x:Key="MM.Color.Background">#EAF2F7</Color>
@@ -725,7 +726,7 @@
 
 		</ResourceDictionary>
 		<!-- Rose: based on the light theme -->
-		<ResourceDictionary x:Key="Rose">
+		<ResourceDictionary x:Key="{x:Static themes:AppThemeVariants.Rose}">
 
 			<!-- surfaces -->
 			<Color x:Key="MM.Color.Background">#F8F1EF</Color>

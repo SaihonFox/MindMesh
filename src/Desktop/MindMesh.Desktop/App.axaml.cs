@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using MindMesh.Application.Settings;
 using MindMesh.Presentation.Shell;
+using MindMesh.UI.Themes;
 using MindMesh.UI.Views;
 
 namespace MindMesh.Desktop;
@@ -82,10 +83,10 @@ public partial class App : Avalonia.Application
 	private static ThemeVariant ToVariant(ThemeMode mode) => mode switch
 	{
 		ThemeMode.Dark => ThemeVariant.Dark,
-		ThemeMode.Midnight => new ThemeVariant("Midnight", ThemeVariant.Dark),
-		ThemeMode.Forest => new ThemeVariant("Forest", ThemeVariant.Dark),
-		ThemeMode.Ocean => new ThemeVariant("Ocean", ThemeVariant.Light),
-		ThemeMode.Rose => new ThemeVariant("Rose", ThemeVariant.Light),
+		ThemeMode.Midnight => AppThemeVariants.Midnight,
+		ThemeMode.Forest => AppThemeVariants.Forest,
+		ThemeMode.Ocean => AppThemeVariants.Ocean,
+		ThemeMode.Rose => AppThemeVariants.Rose,
 		ThemeMode.System => ThemeVariant.Default,
 		_ => ThemeVariant.Light,
 	};
