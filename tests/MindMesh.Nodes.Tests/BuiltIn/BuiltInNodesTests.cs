@@ -97,7 +97,7 @@ public class BuiltInNodesTests
 				var driver = node.Parameters.SingleOrDefault(other => other.Key == condition.Key);
 
 				Assert.True(driver is not null, $"{node.Id}.{parameter.Key} depends on missing setting '{condition.Key}'.");
-				Assert.True(driver!.Type is ParameterType.Select or ParameterType.Boolean, $"{node.Id}.{parameter.Key} depends on a setting that has no fixed values.");
+				Assert.True(driver!.Type is ParameterType.Select or ParameterType.Boolean or ParameterType.Number, $"{node.Id}.{parameter.Key} depends on a setting that has no fixed values.");
 
 				if (driver.Type == ParameterType.Select)
 				{
