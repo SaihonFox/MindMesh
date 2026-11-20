@@ -82,6 +82,10 @@ public partial class App : Avalonia.Application
 	private static ThemeVariant ToVariant(ThemeMode mode) => mode switch
 	{
 		ThemeMode.Dark => ThemeVariant.Dark,
+		ThemeMode.Midnight => new ThemeVariant("Midnight", ThemeVariant.Dark),
+		ThemeMode.Forest => new ThemeVariant("Forest", ThemeVariant.Dark),
+		ThemeMode.Ocean => new ThemeVariant("Ocean", ThemeVariant.Light),
+		ThemeMode.Rose => new ThemeVariant("Rose", ThemeVariant.Light),
 		ThemeMode.System => ThemeVariant.Default,
 		_ => ThemeVariant.Light,
 	};

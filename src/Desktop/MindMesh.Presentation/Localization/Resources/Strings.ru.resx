@@ -735,6 +735,99 @@
   <data name="Theme_Dark" xml:space="preserve">
     <value>Тёмная</value>
   </data>
+  <data name="Theme_Midnight" xml:space="preserve">
+    <value>Полночь</value>
+  </data>
+  <data name="Theme_Forest" xml:space="preserve">
+    <value>Лес</value>
+  </data>
+  <data name="Theme_Ocean" xml:space="preserve">
+    <value>Океан</value>
+  </data>
+  <data name="Theme_Rose" xml:space="preserve">
+    <value>Роза</value>
+  </data>
+  <data name="Settings_Appearance" xml:space="preserve">
+    <value>Внешний вид</value>
+  </data>
+  <data name="Settings_Hotkeys" xml:space="preserve">
+    <value>Горячие клавиши</value>
+  </data>
+  <data name="Settings_GeneralSection" xml:space="preserve">
+    <value>Основные</value>
+  </data>
+  <data name="Settings_HotkeysHint" xml:space="preserve">
+    <value>Нажмите на сочетание, затем новые клавиши. Esc — отмена.</value>
+  </data>
+  <data name="Settings_PressKeys" xml:space="preserve">
+    <value>Нажмите клавиши…</value>
+  </data>
+  <data name="Settings_HotkeyReset" xml:space="preserve">
+    <value>Сбросить</value>
+  </data>
+  <data name="Settings_HotkeysResetAll" xml:space="preserve">
+    <value>Сбросить все</value>
+  </data>
+  <data name="Settings_HotkeyConflict" xml:space="preserve">
+    <value>Уже занято: «{0}»</value>
+  </data>
+  <data name="Settings_ProjectsDirectory" xml:space="preserve">
+    <value>Папка проектов</value>
+  </data>
+  <data name="Settings_ProjectsDirectoryHint" xml:space="preserve">
+    <value>Сюда сохраняются новые проекты, отсюда строится список проектов.</value>
+  </data>
+  <data name="Settings_ChangeFolder" xml:space="preserve">
+    <value>Изменить…</value>
+  </data>
+  <data name="Settings_OpenFolder" xml:space="preserve">
+    <value>Открыть в проводнике</value>
+  </data>
+  <data name="Settings_UseDefaultFolder" xml:space="preserve">
+    <value>По умолчанию</value>
+  </data>
+  <data name="Settings_ChooseProjectsFolder" xml:space="preserve">
+    <value>Выберите папку проектов</value>
+  </data>
+  <data name="Hotkey_SaveProject" xml:space="preserve">
+    <value>Сохранить проект</value>
+  </data>
+  <data name="Hotkey_NewProject" xml:space="preserve">
+    <value>Новый проект</value>
+  </data>
+  <data name="Hotkey_Undo" xml:space="preserve">
+    <value>Отменить</value>
+  </data>
+  <data name="Hotkey_Redo" xml:space="preserve">
+    <value>Повторить</value>
+  </data>
+  <data name="Hotkey_Copy" xml:space="preserve">
+    <value>Копировать</value>
+  </data>
+  <data name="Hotkey_Paste" xml:space="preserve">
+    <value>Вставить</value>
+  </data>
+  <data name="Hotkey_Duplicate" xml:space="preserve">
+    <value>Дублировать</value>
+  </data>
+  <data name="Hotkey_SelectAll" xml:space="preserve">
+    <value>Выделить всё</value>
+  </data>
+  <data name="Hotkey_DeleteSelection" xml:space="preserve">
+    <value>Удалить выделенное</value>
+  </data>
+  <data name="Hotkey_ToggleDisabled" xml:space="preserve">
+    <value>Включить / выключить узлы</value>
+  </data>
+  <data name="Hotkey_Find" xml:space="preserve">
+    <value>Поиск на холсте</value>
+  </data>
+  <data name="Hotkey_FitToView" xml:space="preserve">
+    <value>Показать всё</value>
+  </data>
+  <data name="Hotkey_ResetZoom" xml:space="preserve">
+    <value>Сбросить масштаб</value>
+  </data>
   <data name="Theme_System" xml:space="preserve">
     <value>Системная</value>
   </data>

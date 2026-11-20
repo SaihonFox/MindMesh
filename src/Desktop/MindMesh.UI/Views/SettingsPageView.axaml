@@ -4,105 +4,230 @@
 			 x:Class="MindMesh.UI.Views.SettingsPageView"
 			 x:DataType="settingsPage:SettingsPageViewModel">
 
-	<ScrollViewer>
-		<StackPanel MaxWidth="680"
-					Margin="40,40"
-					Spacing="20"
-					HorizontalAlignment="Center">
+	<Grid ColumnDefinitions="220,*" Margin="24">
 
-			<TextBlock Classes="h2" Text="{Binding Loc[Settings_Title]}" />
-
-			<!-- General -->
-			<Border Classes="card">
-				<StackPanel Spacing="18">
-					<TextBlock Classes="h3" Text="{Binding Loc[Settings_General]}" />
-
-					<Grid ColumnDefinitions="*,Auto">
-						<StackPanel Spacing="2" VerticalAlignment="Center">
-							<TextBlock Text="{Binding Loc[Settings_Language]}" />
-							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_LanguageHint]}" />
-						</StackPanel>
-						<ComboBox Grid.Column="1"
-								  Margin="24,0,0,0"
-								  MinWidth="200"
-								  ItemsSource="{Binding Languages}"
-								  SelectedItem="{Binding SelectedLanguage}">
-							<ComboBox.ItemTemplate>
-								<DataTemplate x:DataType="settingsPage:LanguageOptionViewModel">
-									<TextBlock Text="{Binding DisplayName}" />
-								</DataTemplate>
-							</ComboBox.ItemTemplate>
-						</ComboBox>
-					</Grid>
-
-					<Grid ColumnDefinitions="*,Auto">
-						<StackPanel Spacing="2" VerticalAlignment="Center">
-							<TextBlock Text="{Binding Loc[Settings_Theme]}" />
-							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_ThemeHint]}" />
-						</StackPanel>
-						<ComboBox Grid.Column="1"
-								  Margin="24,0,0,0"
-								  MinWidth="200"
-								  ItemsSource="{Binding Themes}"
-								  SelectedItem="{Binding SelectedTheme}">
-							<ComboBox.ItemTemplate>
-								<DataTemplate x:DataType="settingsPage:ThemeOptionViewModel">
-									<TextBlock Text="{Binding Title}" />
-								</DataTemplate>
-							</ComboBox.ItemTemplate>
-						</ComboBox>
-					</Grid>
-				</StackPanel>
-			</Border>
-
-			<!-- Layout -->
-			<Border Classes="card">
-				<StackPanel Spacing="18">
-					<TextBlock Classes="h3" Text="{Binding Loc[Settings_Layout]}" />
-
-					<Grid ColumnDefinitions="*,Auto">
-						<TextBlock VerticalAlignment="Center"
-								   Text="{Binding Loc[Settings_CompactSidebar]}" />
-						<ToggleSwitch Grid.Column="1"
-									  OnContent=""
-									  OffContent=""
-									  IsChecked="{Binding Sidebar.IsCompact}" />
-					</Grid>
-
-					<Grid ColumnDefinitions="*,Auto">
-						<StackPanel Spacing="2" VerticalAlignment="Center">
-							<TextBlock Text="{Binding Loc[Settings_ResetLayout]}" />
-							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_ResetLayoutHint]}" />
-						</StackPanel>
-						<Button Grid.Column="1"
-								Content="{Binding Loc[Settings_ResetLayout]}"
-								Command="{Binding ResetLayoutCommand}" />
-					</Grid>
-				</StackPanel>
-			</Border>
-
-			<!-- Storage -->
-			<Border Classes="card">
-				<StackPanel Spacing="14">
-					<TextBlock Classes="h3" Text="{Binding Loc[Settings_Storage]}" />
-
-					<StackPanel Spacing="2">
-						<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_DataDirectory]}" />
-						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding DataDirectory}" />
-					</StackPanel>
-
-					<StackPanel Spacing="2">
-						<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_LogsDirectory]}" />
-						<SelectableTextBlock TextWrapping="Wrap" Text="{Binding LogsDirectory}" />
-					</StackPanel>
-				</StackPanel>
-			</Border>
-
-			<Button Classes="small"
+		<!-- Sections -->
+		<DockPanel Margin="0,0,24,0">
+			<Button DockPanel.Dock="Bottom"
+					Classes="small"
 					HorizontalAlignment="Left"
 					Command="{Binding GoBackCommand}"
 					Content="{Binding Loc[Common_Back]}" />
-		</StackPanel>
-	</ScrollViewer>
+
+			<StackPanel Spacing="4">
+				<TextBlock Classes="h2" Margin="12,0,0,12" Text="{Binding Loc[Settings_Title]}" />
+
+				<Button Classes="section"
+						Classes.selected="{Binding IsAppearance}"
+						Command="{Binding ShowSectionCommand}"
+						CommandParameter="{x:Static settingsPage:SettingsSection.Appearance}"
+						Content="{Binding Loc[Settings_Appearance]}" />
+				<Button Classes="section"
+						Classes.selected="{Binding IsHotkeys}"
+						Command="{Binding ShowSectionCommand}"
+						CommandParameter="{x:Static settingsPage:SettingsSection.Hotkeys}"
+						Content="{Binding Loc[Settings_Hotkeys]}" />
+				<Button Classes="section"
+						Classes.selected="{Binding IsGeneral}"
+						Command="{Binding ShowSectionCommand}"
+						CommandParameter="{x:Static settingsPage:SettingsSection.General}"
+						Content="{Binding Loc[Settings_GeneralSection]}" />
+			</StackPanel>
+		</DockPanel>
+
+		<ScrollViewer Grid.Column="1">
+			<Panel MaxWidth="720" HorizontalAlignment="Left" Margin="0,0,0,24">
+
+				<!-- Appearance -->
+				<StackPanel Spacing="20" IsVisible="{Binding IsAppearance}">
+					<Border Classes="card">
+						<StackPanel Spacing="16">
+							<StackPanel Spacing="2">
+								<TextBlock Classes="h3" Text="{Binding Loc[Settings_Theme]}" />
+								<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_ThemeHint]}" />
+							</StackPanel>
+
+							<ItemsControl ItemsSource="{Binding Themes}">
+								<ItemsControl.ItemsPanel>
+									<ItemsPanelTemplate>
+										<WrapPanel />
+									</ItemsPanelTemplate>
+								</ItemsControl.ItemsPanel>
+								<ItemsControl.ItemTemplate>
+									<DataTemplate x:DataType="settingsPage:ThemeOptionViewModel">
+										<Button Classes="theme-card"
+												Classes.selected="{Binding IsSelected}"
+												Command="{Binding $parent[ItemsControl].((settingsPage:SettingsPageViewModel)DataContext).SelectThemeCommand}"
+												CommandParameter="{Binding}">
+											<StackPanel Spacing="8">
+												<!-- mini preview of the editor -->
+												<Border Height="82"
+														CornerRadius="8"
+														ClipToBounds="True"
+														Background="{Binding Background}">
+													<Grid ColumnDefinitions="26,*" Margin="6" ColumnSpacing="5">
+														<Border CornerRadius="5" Background="{Binding Panel}" />
+														<Border Grid.Column="1" CornerRadius="5" Background="{Binding Panel}">
+															<Canvas>
+																<Border Canvas.Left="10" Canvas.Top="10" Width="44" Height="22"
+																		CornerRadius="4" Background="{Binding Node}">
+																	<Border Height="5" VerticalAlignment="Top" CornerRadius="4,4,0,0" Background="{Binding Accent}" />
+																</Border>
+																<Border Canvas.Left="70" Canvas.Top="34" Width="44" Height="22"
+																		CornerRadius="4" Background="{Binding Node}">
+																	<Border Height="5" VerticalAlignment="Top" CornerRadius="4,4,0,0" Background="{Binding Accent}" />
+																</Border>
+																<Border Canvas.Left="54" Canvas.Top="20" Width="16" Height="2" Background="{Binding Accent}" />
+															</Canvas>
+														</Border>
+													</Grid>
+												</Border>
+												<TextBlock Text="{Binding Title}" HorizontalAlignment="Center" />
+											</StackPanel>
+										</Button>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</StackPanel>
+					</Border>
+
+					<Border Classes="card">
+						<StackPanel Spacing="18">
+							<TextBlock Classes="h3" Text="{Binding Loc[Settings_Layout]}" />
+
+							<Grid ColumnDefinitions="*,Auto">
+								<TextBlock VerticalAlignment="Center"
+										   Text="{Binding Loc[Settings_CompactSidebar]}" />
+								<ToggleSwitch Grid.Column="1"
+											  OnContent=""
+											  OffContent=""
+											  IsChecked="{Binding Sidebar.IsCompact}" />
+							</Grid>
+
+							<Grid ColumnDefinitions="*,Auto">
+								<StackPanel Spacing="2" VerticalAlignment="Center">
+									<TextBlock Text="{Binding Loc[Settings_ResetLayout]}" />
+									<TextBlock Classes="caption muted" TextWrapping="Wrap" Text="{Binding Loc[Settings_ResetLayoutHint]}" />
+								</StackPanel>
+								<Button Grid.Column="1"
+										Margin="24,0,0,0"
+										Content="{Binding Loc[Settings_ResetLayout]}"
+										Command="{Binding ResetLayoutCommand}" />
+							</Grid>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+
+				<!-- Hotkeys -->
+				<Border Classes="card" IsVisible="{Binding IsHotkeys}">
+					<StackPanel Spacing="14">
+						<Grid ColumnDefinitions="*,Auto">
+							<StackPanel Spacing="2" VerticalAlignment="Center">
+								<TextBlock Classes="h3" Text="{Binding Loc[Settings_Hotkeys]}" />
+								<TextBlock Classes="caption muted" TextWrapping="Wrap" Text="{Binding Loc[Settings_HotkeysHint]}" />
+							</StackPanel>
+							<Button Grid.Column="1"
+									Classes="small"
+									Content="{Binding Loc[Settings_HotkeysResetAll]}"
+									Command="{Binding ResetAllHotkeysCommand}" />
+						</Grid>
+
+						<ItemsControl ItemsSource="{Binding Hotkeys}">
+							<ItemsControl.ItemTemplate>
+								<DataTemplate x:DataType="settingsPage:HotkeyRowViewModel">
+									<Grid ColumnDefinitions="*,Auto,Auto" Margin="0,3">
+										<StackPanel VerticalAlignment="Center">
+											<TextBlock Text="{Binding Title}" />
+											<TextBlock Classes="caption"
+													   Foreground="{DynamicResource MM.Brush.Error}"
+													   IsVisible="{Binding Conflict, Converter={x:Static StringConverters.IsNotNullOrEmpty}}"
+													   Text="{Binding Conflict}" />
+										</StackPanel>
+										<Button Grid.Column="1"
+												Classes="small"
+												Classes.selected="{Binding IsCapturing}"
+												MinWidth="150"
+												Command="{Binding $parent[ItemsControl].((settingsPage:SettingsPageViewModel)DataContext).BeginCaptureCommand}"
+												CommandParameter="{Binding}"
+												Content="{Binding Shortcut}" />
+										<Button Grid.Column="2"
+												Classes="small"
+												Margin="6,0,0,0"
+												Content="{Binding ResetText}"
+												IsVisible="{Binding IsCustom}"
+												Command="{Binding $parent[ItemsControl].((settingsPage:SettingsPageViewModel)DataContext).ResetHotkeyCommand}"
+												CommandParameter="{Binding}" />
+									</Grid>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</ItemsControl>
+					</StackPanel>
+				</Border>
+
+				<!-- General -->
+				<StackPanel Spacing="20" IsVisible="{Binding IsGeneral}">
+					<Border Classes="card">
+						<Grid ColumnDefinitions="*,Auto">
+							<StackPanel Spacing="2" VerticalAlignment="Center">
+								<TextBlock Classes="h3" Text="{Binding Loc[Settings_Language]}" />
+								<TextBlock Classes="caption muted" TextWrapping="Wrap" Text="{Binding Loc[Settings_LanguageHint]}" />
+							</StackPanel>
+							<ComboBox Grid.Column="1"
+									  Margin="24,0,0,0"
+									  MinWidth="200"
+									  ItemsSource="{Binding Languages}"
+									  SelectedItem="{Binding SelectedLanguage}">
+								<ComboBox.ItemTemplate>
+									<DataTemplate x:DataType="settingsPage:LanguageOptionViewModel">
+										<TextBlock Text="{Binding DisplayName}" />
+									</DataTemplate>
+								</ComboBox.ItemTemplate>
+							</ComboBox>
+						</Grid>
+					</Border>
+
+					<Border Classes="card">
+						<StackPanel Spacing="16">
+							<TextBlock Classes="h3" Text="{Binding Loc[Settings_Storage]}" />
+
+							<StackPanel Spacing="6">
+								<TextBlock Text="{Binding Loc[Settings_ProjectsDirectory]}" />
+								<TextBlock Classes="caption muted" TextWrapping="Wrap" Text="{Binding Loc[Settings_ProjectsDirectoryHint]}" />
+								<SelectableTextBlock TextWrapping="Wrap" Text="{Binding ProjectsDirectory}" />
+								<WrapPanel>
+									<Button Classes="small" Margin="0,0,8,0"
+											Content="{Binding Loc[Settings_ChangeFolder]}"
+											Command="{Binding ChangeProjectsDirectoryCommand}" />
+									<Button Classes="small" Margin="0,0,8,0"
+											Content="{Binding Loc[Settings_OpenFolder]}"
+											Command="{Binding OpenProjectsDirectoryCommand}" />
+									<Button Classes="small"
+											Content="{Binding Loc[Settings_UseDefaultFolder]}"
+											IsEnabled="{Binding !IsDefaultProjectsDirectory}"
+											Command="{Binding UseDefaultProjectsDirectoryCommand}" />
+								</WrapPanel>
+							</StackPanel>
+
+							<StackPanel Spacing="2">
+								<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_DataDirectory]}" />
+								<SelectableTextBlock TextWrapping="Wrap" Text="{Binding DataDirectory}" />
+							</StackPanel>
+
+							<StackPanel Spacing="6">
+								<StackPanel Spacing="2">
+									<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_LogsDirectory]}" />
+									<SelectableTextBlock TextWrapping="Wrap" Text="{Binding LogsDirectory}" />
+								</StackPanel>
+								<Button Classes="small"
+										HorizontalAlignment="Left"
+										Content="{Binding Loc[Settings_OpenFolder]}"
+										Command="{Binding OpenLogsDirectoryCommand}" />
+							</StackPanel>
+						</StackPanel>
+					</Border>
+				</StackPanel>
+			</Panel>
+		</ScrollViewer>
+	</Grid>
 
 </UserControl>

@@ -735,6 +735,99 @@
   <data name="Theme_Dark" xml:space="preserve">
     <value>Dark</value>
   </data>
+  <data name="Theme_Midnight" xml:space="preserve">
+    <value>Midnight</value>
+  </data>
+  <data name="Theme_Forest" xml:space="preserve">
+    <value>Forest</value>
+  </data>
+  <data name="Theme_Ocean" xml:space="preserve">
+    <value>Ocean</value>
+  </data>
+  <data name="Theme_Rose" xml:space="preserve">
+    <value>Rose</value>
+  </data>
+  <data name="Settings_Appearance" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="Settings_Hotkeys" xml:space="preserve">
+    <value>Hotkeys</value>
+  </data>
+  <data name="Settings_GeneralSection" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="Settings_HotkeysHint" xml:space="preserve">
+    <value>Click a shortcut, then press the new keys. Esc cancels.</value>
+  </data>
+  <data name="Settings_PressKeys" xml:space="preserve">
+    <value>Press keys…</value>
+  </data>
+  <data name="Settings_HotkeyReset" xml:space="preserve">
+    <value>Reset</value>
+  </data>
+  <data name="Settings_HotkeysResetAll" xml:space="preserve">
+    <value>Reset all</value>
+  </data>
+  <data name="Settings_HotkeyConflict" xml:space="preserve">
+    <value>Already used by “{0}”</value>
+  </data>
+  <data name="Settings_ProjectsDirectory" xml:space="preserve">
+    <value>Projects folder</value>
+  </data>
+  <data name="Settings_ProjectsDirectoryHint" xml:space="preserve">
+    <value>New projects are saved here and shown in the project list.</value>
+  </data>
+  <data name="Settings_ChangeFolder" xml:space="preserve">
+    <value>Change…</value>
+  </data>
+  <data name="Settings_OpenFolder" xml:space="preserve">
+    <value>Open in file manager</value>
+  </data>
+  <data name="Settings_UseDefaultFolder" xml:space="preserve">
+    <value>Use default</value>
+  </data>
+  <data name="Settings_ChooseProjectsFolder" xml:space="preserve">
+    <value>Choose the projects folder</value>
+  </data>
+  <data name="Hotkey_SaveProject" xml:space="preserve">
+    <value>Save project</value>
+  </data>
+  <data name="Hotkey_NewProject" xml:space="preserve">
+    <value>New project</value>
+  </data>
+  <data name="Hotkey_Undo" xml:space="preserve">
+    <value>Undo</value>
+  </data>
+  <data name="Hotkey_Redo" xml:space="preserve">
+    <value>Redo</value>
+  </data>
+  <data name="Hotkey_Copy" xml:space="preserve">
+    <value>Copy</value>
+  </data>
+  <data name="Hotkey_Paste" xml:space="preserve">
+    <value>Paste</value>
+  </data>
+  <data name="Hotkey_Duplicate" xml:space="preserve">
+    <value>Duplicate</value>
+  </data>
+  <data name="Hotkey_SelectAll" xml:space="preserve">
+    <value>Select all</value>
+  </data>
+  <data name="Hotkey_DeleteSelection" xml:space="preserve">
+    <value>Delete selection</value>
+  </data>
+  <data name="Hotkey_ToggleDisabled" xml:space="preserve">
+    <value>Enable / disable nodes</value>
+  </data>
+  <data name="Hotkey_Find" xml:space="preserve">
+    <value>Find on canvas</value>
+  </data>
+  <data name="Hotkey_FitToView" xml:space="preserve">
+    <value>Fit to view</value>
+  </data>
+  <data name="Hotkey_ResetZoom" xml:space="preserve">
+    <value>Reset zoom</value>
+  </data>
   <data name="Theme_System" xml:space="preserve">
     <value>System</value>
   </data>

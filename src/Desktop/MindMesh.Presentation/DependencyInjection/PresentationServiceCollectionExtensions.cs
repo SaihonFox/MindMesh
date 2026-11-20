@@ -1,5 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
+using MindMesh.Presentation.Hotkeys;
 using MindMesh.Presentation.Localization;
 using MindMesh.Presentation.Navigation;
 using MindMesh.Presentation.Pages.About;
@@ -34,6 +35,7 @@ public static class PresentationServiceCollectionExtensions
 		services.AddSingleton<MainWindowViewModel>();
 
 		// Editor parts live as long as the application, so panel state survives navigation.
+		services.AddSingleton<HotkeyService>();
 		services.AddSingleton<EditorWorkspace>();
 		services.AddSingleton<ProjectService>();
 		services.AddSingleton<NewProjectDialogViewModel>();
@@ -41,6 +43,7 @@ public static class PresentationServiceCollectionExtensions
 		services.AddSingleton<GraphClipboard>();
 		services.AddSingleton<GraphEditorViewModel>();
 		services.TryAddSingleton<IFilePickerService, NullFilePickerService>();
+		services.TryAddSingleton<IShellService, NullShellService>();
 		services.AddSingleton<EditorLayoutViewModel>();
 		services.AddSingleton<EditorToolbarViewModel>();
 		services.AddSingleton<NodeLibraryViewModel>();

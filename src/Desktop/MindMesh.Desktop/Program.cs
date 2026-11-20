@@ -71,6 +71,7 @@ internal static class Program
 
 		// The platform file dialog is registered first, so the presentation layer keeps it instead of its no-op fallback.
 		builder.Services.AddSingleton<IFilePickerService, AvaloniaFilePickerService>();
+		builder.Services.AddSingleton<IShellService, ProcessShellService>();
 		builder.Services.AddMindMeshPresentation();
 
 		return builder.Build();

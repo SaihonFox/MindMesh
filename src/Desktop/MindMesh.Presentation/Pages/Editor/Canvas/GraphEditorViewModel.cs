@@ -11,6 +11,7 @@ using MindMesh.Graph.Model;
 using MindMesh.Graph.Validation;
 using MindMesh.Presentation.Common;
 using MindMesh.Presentation.Geometry;
+using MindMesh.Presentation.Hotkeys;
 using MindMesh.Presentation.Localization;
 using MindMesh.Presentation.Pages.Editor.Nodes;
 
@@ -46,9 +47,11 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 		IExtensionCatalog catalog,
 		NodeText text,
 		EditorWorkspace workspace,
-		GraphClipboard clipboard)
+		GraphClipboard clipboard,
+		HotkeyService hotkeys)
 		: base(localizer)
 	{
+		Hotkeys = hotkeys;
 		_text = text;
 		_workspace = workspace;
 		_clipboard = clipboard;
@@ -76,6 +79,8 @@ public sealed partial class GraphEditorViewModel : ViewModelBase
 	public ObservableCollection<NodeViewModel> Nodes { get; } = [];
 
 	public ObservableCollection<ConnectionViewModel> Connections { get; } = [];
+
+	public HotkeyService Hotkeys { get; }
 
 	public ViewportViewModel Viewport { get; }
 

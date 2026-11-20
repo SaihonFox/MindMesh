@@ -18,10 +18,6 @@
 		MinHeight="600"
 		WindowStartupLocation="CenterScreen">
 
-	<Window.KeyBindings>
-		<KeyBinding Gesture="Ctrl+S" Command="{Binding TopBar.SaveCommand}" />
-		<KeyBinding Gesture="Ctrl+N" Command="{Binding NewProjectDialog.OpenCommand}" />
-	</Window.KeyBindings>
 
 	<Window.DataTemplates>
 		<DataTemplate DataType="projects:ProjectsPageViewModel">

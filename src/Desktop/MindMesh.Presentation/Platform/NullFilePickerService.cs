@@ -7,4 +7,10 @@ public sealed class NullFilePickerService : IFilePickerService
 {
 	public Task<string?> PickFileAsync(string title, CancellationToken cancellationToken = default) =>
 		Task.FromResult<string?>(null);
+
+	public Task<string?> PickFolderAsync(string title, CancellationToken cancellationToken = default) =>
+		Task.FromResult<string?>(null);
+
+	public Task<string?> PickImageAsync(string title, CancellationToken cancellationToken = default) =>
+		Task.FromResult<string?>(null);
 }

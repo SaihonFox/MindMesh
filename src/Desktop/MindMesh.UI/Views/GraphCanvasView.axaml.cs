@@ -7,7 +7,9 @@ using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
 using MindMesh.Presentation.Geometry;
+using MindMesh.Presentation.Hotkeys;
 using MindMesh.Presentation.Pages.Editor.Canvas;
+using MindMesh.UI.Input;
 using MindMesh.Presentation.Pages.Editor.Library;
 using MindMesh.UI.Controls;
 
@@ -423,6 +425,49 @@ public partial class GraphCanvasView : UserControl
 
 	// ---- Keyboard ----------------------------------------------------------------------------------------------
 
+	/// <summary>Runs an action that has a shortcut. Window-wide actions (save, new) are left to the window.</summary>
+	private bool RunHotkey(GraphEditorViewModel editor, HotkeyAction action)
+	{
+		switch (action)
+		{
+			case HotkeyAction.DeleteSelection:
+				editor.DeleteSelection();
+				return true;
+			case HotkeyAction.Copy:
+				editor.Copy();
+				return true;
+			case HotkeyAction.Paste:
+				editor.PasteAt(_lastWorld);
+				return true;
+			case HotkeyAction.Duplicate:
+				editor.Duplicate();
+				return true;
+			case HotkeyAction.SelectAll:
+				editor.SelectAll();
+				return true;
+			case HotkeyAction.Undo:
+				editor.UndoCommand.Execute(null);
+				return true;
+			case HotkeyAction.Redo:
+				editor.RedoCommand.Execute(null);
+				return true;
+			case HotkeyAction.ToggleDisabled:
+				editor.ToggleDisabled();
+				return true;
+			case HotkeyAction.Find:
+				editor.Find.Open();
+				return true;
+			case HotkeyAction.FitToView:
+				editor.FitToViewCommand.Execute(null);
+				return true;
+			case HotkeyAction.ResetZoom:
+				editor.ResetZoomCommand.Execute(null);
+				return true;
+			default:
+				return false;
+		}
+	}
+
 	protected override void OnKeyDown(KeyEventArgs e)
 	{
 		base.OnKeyDown(e);
@@ -430,91 +475,41 @@ public partial class GraphCanvasView : UserControl
 		if (_editor is not { } editor || e.Handled || e.Source is TextBox)
 			return;
 
-		var control = e.KeyModifiers.HasFlag(KeyModifiers.Control);
-		var shift = e.KeyModifiers.HasFlag(KeyModifiers.Shift);
 		bool handled = true;
 
-		switch (e.Key)
+		if (HotkeyInput.ToGesture(e) is { } gesture && editor.Hotkeys.Match(gesture) is { } action)
 		{
-			case Key.Delete or Key.Back:
-				editor.DeleteSelection();
-				break;
+			handled = RunHotkey(editor, action);
+		}
+		else
+		{
+			switch (e.Key)
+			{
+				case Key.Escape:
+					if (editor.Pending.IsActive)
+						editor.CancelConnection();
+					else if (editor.QuickAdd.IsOpen)
+						editor.QuickAdd.Close();
+					else if (editor.Find.IsOpen)
+						editor.Find.Close();
+					else
+						editor.ClearSelection();
 
-			case Key.Escape:
-				if (editor.Pending.IsActive)
-				{
-					editor.CancelConnection();
-				}
-				else if (editor.QuickAdd.IsOpen)
-				{
-					editor.QuickAdd.Close();
-				}
-				else if (editor.Find.IsOpen)
-				{
-					editor.Find.Close();
-				}
-				else
-				{
-					editor.ClearSelection();
-				}
+					break;
 
-				break;
+				case Key.Space when !e.KeyModifiers.HasFlag(KeyModifiers.Control):
+					if (!_isSpaceDown)
+					{
+						_isSpaceDown = true;
+						_spaceUsedForPan = false;
+					}
 
-			case Key.Space when !control:
-				if (!_isSpaceDown)
-				{
-					_isSpaceDown = true;
-					_spaceUsedForPan = false;
-				}
+					break;
 
-				break;
-
-			case Key.C when control:
-				editor.Copy();
-				break;
-
-			case Key.V when control:
-				editor.PasteAt(_lastWorld);
-				break;
-
-			case Key.D when control:
-				editor.Duplicate();
-				break;
-
-			case Key.A when control:
-				editor.SelectAll();
-				break;
-
-			case Key.Z when control && shift:
-			case Key.Y when control:
-				editor.Document.Redo();
-				break;
-
-			case Key.Z when control:
-				editor.Document.Undo();
-				break;
-
-			case Key.E when control:
-				editor.ToggleDisabled();
-				break;
-
-			case Key.F when control:
-				editor.Find.Open();
-				break;
-
-			case Key.D0 when control:
-			case Key.NumPad0 when control:
-				editor.FitToViewCommand.Execute(null);
-				break;
-
-			case Key.D1 when control:
-			case Key.NumPad1 when control:
-				editor.ResetZoomCommand.Execute(null);
-				break;
-
-			default:
-				handled = false;
-				break;
+				default:
+					handled = false;
+					break;
+			}
 		}
 
 		e.Handled = handled;

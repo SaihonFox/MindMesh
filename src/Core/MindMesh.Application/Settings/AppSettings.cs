@@ -27,6 +27,12 @@ public sealed record AppSettings
 
 	public LayoutSettings Layout { get; init; } = new();
 
+	/// <summary>Where new projects are saved; empty means the default folder.</summary>
+	public string? ProjectsDirectory { get; init; }
+
+	/// <summary>Shortcuts the user changed: action name to gesture text. Actions that are missing keep their defaults.</summary>
+	public Dictionary<string, string> Hotkeys { get; init; } = [];
+
 	/// <summary>
 	/// Returns a copy in which every value is valid. Used after loading and after every update.
 	/// </summary>
@@ -36,5 +42,7 @@ public sealed record AppSettings
 		Language = AppLanguages.IsValidSetting(Language) ? Language : AppLanguages.Auto,
 		Theme = Enum.IsDefined(Theme) ? Theme : ThemeMode.Light,
 		Layout = (Layout ?? new LayoutSettings()).Normalize(),
+		ProjectsDirectory = string.IsNullOrWhiteSpace(ProjectsDirectory) ? null : ProjectsDirectory.Trim(),
+		Hotkeys = Hotkeys ?? [],
 	};
 }

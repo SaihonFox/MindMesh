@@ -1,4 +1,5 @@
 using MindMesh.Application.Paths;
+using MindMesh.Application.Settings;
 using MindMesh.Application.Workflows;
 using MindMesh.Graph.Editing;
 using MindMesh.Graph.Layout;
@@ -20,6 +21,7 @@ public sealed class ProjectService
 
 	private readonly IWorkflowStore _store;
 	private readonly IAppPaths _paths;
+	private readonly ISettingsService _settings;
 	private readonly GraphEditorViewModel _editor;
 	private readonly EditorWorkspace _workspace;
 	private readonly ILocalizer _localizer;
@@ -29,16 +31,21 @@ public sealed class ProjectService
 	public ProjectService(
 		IWorkflowStore store,
 		IAppPaths paths,
+		ISettingsService settings,
 		GraphEditorViewModel editor,
 		EditorWorkspace workspace,
 		ILocalizer localizer)
 	{
 		_store = store;
 		_paths = paths;
+		_settings = settings;
 		_editor = editor;
 		_workspace = workspace;
 		_localizer = localizer;
 	}
+
+	/// <summary>The folder new projects are saved to: the one chosen in the settings, or the default.</summary>
+	public string ProjectsDirectory => _settings.Current.ProjectsDirectory ?? _paths.ProjectsDirectory;
 
 	/// <summary>The file of the open project; <c>null</c> for a draft that was never saved.</summary>
 	public string? CurrentPath { get; private set; }
@@ -191,7 +198,7 @@ public sealed class ProjectService
 	/// <summary>The projects in the projects folder, the most recently changed first.</summary>
 	public async Task<IReadOnlyList<ProjectInfo>> ListAsync(CancellationToken cancellationToken = default)
 	{
-		var directory = _paths.ProjectsDirectory;
+		string directory = ProjectsDirectory;
 
 		if (!Directory.Exists(directory))
 			return [];
@@ -247,12 +254,12 @@ public sealed class ProjectService
 		if (safe.Length == 0)
 			safe = "project";
 
-		Directory.CreateDirectory(_paths.ProjectsDirectory);
+		Directory.CreateDirectory(ProjectsDirectory);
 
-		var path = Path.Combine(_paths.ProjectsDirectory, safe + FileExtension);
+		var path = Path.Combine(ProjectsDirectory, safe + FileExtension);
 
 		for (int number = 2; File.Exists(path); number++)
-			path = Path.Combine(_paths.ProjectsDirectory, $"{safe} ({number}){FileExtension}");
+			path = Path.Combine(ProjectsDirectory, $"{safe} ({number}){FileExtension}");
 
 		return path;
 	}
