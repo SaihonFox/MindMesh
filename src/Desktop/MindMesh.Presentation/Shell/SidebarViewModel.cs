@@ -111,7 +111,7 @@ public sealed partial class SidebarViewModel : ViewModelBase
 
 	private void UpdateSelection()
 	{
-		PageKey current = _navigation.CurrentPageKey;
+		PageKey? current = _navigation.CurrentPageKey;
 
 		bool isEditor = current == PageKey.Editor;
 
