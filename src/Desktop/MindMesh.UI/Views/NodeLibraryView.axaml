@@ -2,10 +2,34 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:library="using:MindMesh.Presentation.Pages.Editor.Library"
 			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 xmlns:views="using:MindMesh.UI.Views"
 			 x:Class="MindMesh.UI.Views.NodeLibraryView"
 			 x:DataType="library:NodeLibraryViewModel">
 
 	<DockPanel>
+		<!-- Two tabs: the node types to add, and the nodes already on the canvas -->
+		<Grid DockPanel.Dock="Top" ColumnDefinitions="*,*" Margin="10,10,10,0">
+			<Button Classes="small"
+					Margin="0,0,3,0"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					Classes.selected="{Binding ShowLibrary}"
+					Command="{Binding ShowLibraryTabCommand}"
+					Content="{Binding Loc[Tab_Library]}" />
+			<Button Grid.Column="1"
+					Classes="small"
+					Margin="3,0,0,0"
+					HorizontalAlignment="Stretch"
+					HorizontalContentAlignment="Center"
+					Classes.selected="{Binding ShowCanvasNodes}"
+					Command="{Binding ShowCanvasTabCommand}"
+					Content="{Binding Loc[Tab_CanvasNodes]}" />
+		</Grid>
+
+		<views:CanvasNodesView DataContext="{Binding CanvasNodes}"
+							   IsVisible="{Binding $parent[UserControl].((library:NodeLibraryViewModel)DataContext).ShowCanvasNodes}" />
+
+		<DockPanel IsVisible="{Binding ShowLibrary}">
 		<TextBox DockPanel.Dock="Top"
 				 Margin="10"
 				 PlaceholderText="{Binding Loc[Library_Search]}"
@@ -110,6 +134,7 @@
 						   Text="{Binding Loc[Library_NoResults]}" />
 			</StackPanel>
 		</ScrollViewer>
+		</DockPanel>
 	</DockPanel>
 
 </UserControl>

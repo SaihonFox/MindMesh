@@ -251,6 +251,14 @@
 		<Setter Property="CornerRadius" Value="{DynamicResource MM.CornerRadius.Small}" />
 	</Style>
 
+	<Style Selector="Button.small.selected">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
+		<Setter Property="Foreground" Value="{DynamicResource MM.Brush.Accent}" />
+	</Style>
+	<Style Selector="Button.small.selected:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+		<Setter Property="Background" Value="{DynamicResource MM.Brush.AccentSubtle}" />
+	</Style>
+
 	<!-- Right-click menus: rounded, with rounded rows that sit inside the corners instead of past them. -->
 	<Style Selector="ContextMenu">
 		<Setter Property="Padding" Value="5" />

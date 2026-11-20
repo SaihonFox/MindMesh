@@ -2,6 +2,7 @@ using System.ComponentModel;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
+using Avalonia.Input.GestureRecognizers;
 using Avalonia.Interactivity;
 using Avalonia.Media;
 using Avalonia.Threading;
@@ -35,6 +36,7 @@ public partial class GraphCanvasView : UserControl
 	private bool _isSpaceDown;
 	private bool _spaceUsedForPan;
 	private Point _quickAddAnchor;
+	private double _lastPinchScale = 1;
 
 	public GraphCanvasView()
 	{
@@ -45,6 +47,9 @@ public partial class GraphCanvasView : UserControl
 		HitLayer.PointerReleased += OnPointerReleased;
 		HitLayer.PointerCaptureLost += OnPointerCaptureLost;
 		HitLayer.PointerWheelChanged += OnPointerWheelChanged;
+		HitLayer.GestureRecognizers.Add(new PinchGestureRecognizer());
+		HitLayer.AddHandler(Gestures.PinchEvent, OnPinch);
+		HitLayer.AddHandler(Gestures.PinchEndedEvent, (_, _) => _lastPinchScale = 1);
 		HitLayer.SizeChanged += (_, e) => _editor?.Viewport.SetViewSize(e.NewSize.Width, e.NewSize.Height);
 
 		QuickAddBox.KeyDown += OnQuickAddKeyDown;
@@ -306,27 +311,52 @@ public partial class GraphCanvasView : UserControl
 		}
 	}
 
+	/// <summary>
+	/// The wheel of a mouse zooms (one notch, one round step). A touchpad sends small fractional deltas in both
+	/// directions: two fingers pan the canvas any way they move, and a pinch arrives as Ctrl plus the wheel.
+	/// </summary>
 	private void OnPointerWheelChanged(object? sender, PointerWheelEventArgs e)
 	{
 		if (_editor is not { } editor)
 			return;
 
 		var viewport = editor.Viewport;
+		Vector delta = e.Delta;
+		bool isMouseWheel = delta.X == 0 && Math.Abs(delta.Y) >= 1 && Math.Abs(delta.Y - Math.Round(delta.Y)) < 0.0001;
+		Point position = e.GetPosition(HitLayer);
+		var anchor = new Point2D(position.X, position.Y);
 
-		if (e.KeyModifiers.HasFlag(KeyModifiers.Shift))
+		if (e.KeyModifiers.HasFlag(KeyModifiers.Shift) && isMouseWheel)
 		{
-			viewport.PanBy(e.Delta.Y * 60, 0);
+			viewport.PanBy(delta.Y * 60, 0);
 		}
-		else if (e.Delta.X != 0 && e.Delta.Y == 0)
+		else if (isMouseWheel)
 		{
-			viewport.PanBy(e.Delta.X * 60, 0);
+			for (int notch = 0; notch < Math.Abs(Math.Round(delta.Y)); notch++)
+				viewport.StepAt(anchor, zoomIn: delta.Y > 0);
+		}
+		else if (e.KeyModifiers.HasFlag(KeyModifiers.Control))
+		{
+			viewport.ZoomAt(anchor, Math.Pow(1.1, delta.Y * 3));
 		}
 		else
 		{
-			var position = e.GetPosition(HitLayer);
-			viewport.ZoomAt(new Point2D(position.X, position.Y), Math.Pow(1.1, e.Delta.Y));
+			viewport.PanBy(delta.X * 50, delta.Y * 50);
 		}
 
+		e.Handled = true;
+	}
+
+	/// <summary>Pinch on a touch screen or a Mac trackpad.</summary>
+	private void OnPinch(object? sender, PinchEventArgs e)
+	{
+		if (_editor is not { } editor || e.Scale <= 0)
+			return;
+
+		Point origin = e.ScaleOrigin;
+
+		editor.Viewport.ZoomAt(new Point2D(origin.X, origin.Y), e.Scale / _lastPinchScale);
+		_lastPinchScale = e.Scale;
 		e.Handled = true;
 	}
 

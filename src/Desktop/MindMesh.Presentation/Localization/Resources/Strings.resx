@@ -333,6 +333,18 @@
   <data name="ProjectKind_Soon" xml:space="preserve">
     <value>Coming soon</value>
   </data>
+  <data name="Tab_Library" xml:space="preserve">
+    <value>Library</value>
+  </data>
+  <data name="Tab_CanvasNodes" xml:space="preserve">
+    <value>On canvas</value>
+  </data>
+  <data name="CanvasNodes_Search" xml:space="preserve">
+    <value>Find a node on the canvas</value>
+  </data>
+  <data name="CanvasNodes_Empty" xml:space="preserve">
+    <value>There are no nodes on the canvas yet.</value>
+  </data>
   <data name="Welcome_OpenEditor" xml:space="preserve">
     <value>Open the editor</value>
   </data>

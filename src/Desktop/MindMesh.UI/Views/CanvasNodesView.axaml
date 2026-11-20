@@ -1,0 +1,88 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+			 xmlns:canvas="using:MindMesh.Presentation.Pages.Editor.Canvas"
+			 xmlns:library="using:MindMesh.Presentation.Pages.Editor.Library"
+			 xmlns:ctl="using:MindMesh.UI.Controls"
+			 x:Class="MindMesh.UI.Views.CanvasNodesView"
+			 x:DataType="library:CanvasNodesViewModel">
+
+	<DockPanel>
+		<TextBox DockPanel.Dock="Top"
+				 Margin="10,10,10,6"
+				 PlaceholderText="{Binding Loc[CanvasNodes_Search]}"
+				 Text="{Binding SearchText}" />
+
+		<TextBlock DockPanel.Dock="Top"
+				   Classes="secondary"
+				   Margin="14,8"
+				   TextWrapping="Wrap"
+				   IsVisible="{Binding IsEmpty}"
+				   Text="{Binding Loc[CanvasNodes_Empty]}" />
+
+		<ScrollViewer>
+			<ItemsControl Margin="6,0,6,12" ItemsSource="{Binding Items}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate x:DataType="canvas:NodeViewModel">
+						<Border Classes="tile" Margin="2,1">
+							<Grid ColumnDefinitions="Auto,*,Auto">
+								<ctl:TonePill Width="26"
+											  Height="26"
+											  CornerRadius="8"
+											  VerticalAlignment="Center"
+											  Tone="{Binding Tone}">
+									<ctl:Icon Key="{Binding IconKey}"
+											  Width="16"
+											  Height="16"
+											  HorizontalAlignment="Center"
+											  VerticalAlignment="Center" />
+								</ctl:TonePill>
+
+								<Button Grid.Column="1"
+										Classes="menu-item"
+										Classes.selected="{Binding IsSelected}"
+										Margin="6,0"
+										Padding="8,4"
+										Command="{Binding $parent[ItemsControl].((library:CanvasNodesViewModel)DataContext).ShowCommand}"
+										CommandParameter="{Binding}">
+									<StackPanel>
+										<TextBlock FontSize="{DynamicResource MM.FontSize.Small}"
+												   FontWeight="SemiBold"
+												   TextTrimming="CharacterEllipsis"
+												   Text="{Binding Title}" />
+										<TextBlock Classes="caption muted"
+												   TextTrimming="CharacterEllipsis"
+												   Text="{Binding CategoryTitle}" />
+									</StackPanel>
+								</Button>
+
+								<StackPanel Grid.Column="2"
+											Orientation="Horizontal"
+											VerticalAlignment="Center">
+									<Button Classes="icon"
+											Command="{Binding $parent[ItemsControl].((library:CanvasNodesViewModel)DataContext).ToggleDisabledCommand}"
+											CommandParameter="{Binding}"
+											ToolTip.Tip="{Binding Loc[Menu_Disable]}">
+										<ctl:Icon Key="eye-off" Width="14" Height="14" />
+									</Button>
+									<Button Classes="icon"
+											Command="{Binding $parent[ItemsControl].((library:CanvasNodesViewModel)DataContext).ToggleCollapsedCommand}"
+											CommandParameter="{Binding}"
+											ToolTip.Tip="{Binding Loc[Menu_Collapse]}">
+										<ctl:Icon Key="minus" Width="14" Height="14" />
+									</Button>
+									<Button Classes="icon"
+											Command="{Binding $parent[ItemsControl].((library:CanvasNodesViewModel)DataContext).DeleteCommand}"
+											CommandParameter="{Binding}"
+											ToolTip.Tip="{Binding Loc[Menu_Delete]}">
+										<ctl:Icon Key="trash" Width="14" Height="14" />
+									</Button>
+								</StackPanel>
+							</Grid>
+						</Border>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</ScrollViewer>
+	</DockPanel>
+
+</UserControl>

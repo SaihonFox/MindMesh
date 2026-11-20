@@ -23,6 +23,7 @@
 							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_LanguageHint]}" />
 						</StackPanel>
 						<ComboBox Grid.Column="1"
+								  Margin="24,0,0,0"
 								  MinWidth="200"
 								  ItemsSource="{Binding Languages}"
 								  SelectedItem="{Binding SelectedLanguage}">
@@ -40,6 +41,7 @@
 							<TextBlock Classes="caption muted" Text="{Binding Loc[Settings_ThemeHint]}" />
 						</StackPanel>
 						<ComboBox Grid.Column="1"
+								  Margin="24,0,0,0"
 								  MinWidth="200"
 								  ItemsSource="{Binding Themes}"
 								  SelectedItem="{Binding SelectedTheme}">

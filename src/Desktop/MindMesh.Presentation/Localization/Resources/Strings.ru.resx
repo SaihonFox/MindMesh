@@ -333,6 +333,18 @@
   <data name="ProjectKind_Soon" xml:space="preserve">
     <value>Скоро</value>
   </data>
+  <data name="Tab_Library" xml:space="preserve">
+    <value>Библиотека</value>
+  </data>
+  <data name="Tab_CanvasNodes" xml:space="preserve">
+    <value>На холсте</value>
+  </data>
+  <data name="CanvasNodes_Search" xml:space="preserve">
+    <value>Найти узел на холсте</value>
+  </data>
+  <data name="CanvasNodes_Empty" xml:space="preserve">
+    <value>На холсте пока нет узлов.</value>
+  </data>
   <data name="Welcome_OpenEditor" xml:space="preserve">
     <value>Открыть редактор</value>
   </data>

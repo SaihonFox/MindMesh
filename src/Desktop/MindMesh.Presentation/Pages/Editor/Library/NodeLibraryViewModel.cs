@@ -25,6 +25,11 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 	[ObservableProperty]
 	private string _searchText = string.Empty;
 
+	/// <summary>False shows the library of node types; true shows the nodes that are on the canvas.</summary>
+	[ObservableProperty]
+	[NotifyPropertyChangedFor(nameof(ShowLibrary))]
+	private bool _showCanvasNodes;
+
 	public NodeLibraryViewModel(
 		ILocalizer localizer,
 		EditorWorkspace workspace,
@@ -38,6 +43,8 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 		_text = text;
 		_editor = editor;
 
+		CanvasNodes = new CanvasNodesViewModel(localizer, editor);
+
 		workspace.PropertyChanged += (_, e) =>
 		{
 			if (e.PropertyName == nameof(EditorWorkspace.Mode))
@@ -46,6 +53,16 @@ public sealed partial class NodeLibraryViewModel : ViewModelBase
 
 		Refresh();
 	}
+
+	public CanvasNodesViewModel CanvasNodes { get; }
+
+	public bool ShowLibrary => !ShowCanvasNodes;
+
+	[RelayCommand]
+	private void ShowLibraryTab() => ShowCanvasNodes = false;
+
+	[RelayCommand]
+	private void ShowCanvasTab() => ShowCanvasNodes = true;
 
 	public ObservableCollection<LibrarySectionViewModel> Sections { get; } = [];
 
